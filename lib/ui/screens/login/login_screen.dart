@@ -9,6 +9,7 @@ import 'package:tire_management/ui/shared/components/defualt_button.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 import 'package:tire_management/ui/shared/utils/messages.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = 'LoginScreen';
@@ -17,6 +18,7 @@ class LoginScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print(100.w);
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
@@ -45,18 +47,18 @@ class LoginScreen extends StatelessWidget {
             body: Center(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(100.w <= 500 ? 16.0 : 25.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Image(
-                        image: AssetImage(
+                      Image(
+                        image: const AssetImage(
                           'assets/images/cemex.jpg',
                         ),
-                        width: 200,
+                        width: 40.w,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 50),
+                        padding: EdgeInsets.symmetric(vertical: 5.h),
                         child: Form(
                           key: formKey,
                           child: Column(
@@ -65,8 +67,8 @@ class LoginScreen extends StatelessWidget {
                                 controller: cubit.userNameController,
                                 hint: 'UserName',
                               ),
-                              const SizedBox(
-                                height: 30,
+                              SizedBox(
+                                height: 4.h,
                               ),
                               DefualtTextField(
                                 controller: cubit.passwordController,
