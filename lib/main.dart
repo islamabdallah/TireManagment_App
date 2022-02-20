@@ -1,8 +1,7 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_management/core/utils/services/bloc_observer.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/core/utils/services/remote/dio_helper.dart';
@@ -11,18 +10,18 @@ import 'package:tire_management/ui/screens/login/login_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
-  // BlocOverrides.runZoned(
-  //   () {
-  //     runApp(MyApp());
-  //   },
-  //   blocObserver: MyBlocObserver(),
+  BlocOverrides.runZoned(
+    () {
+      runApp(MyApp());
+    },
+    blocObserver: MyBlocObserver(),
   // );
 
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => MyApp(), // Wrap your app
+  //   ),
     // MyApp(),
   );
 
@@ -35,12 +34,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Sizer(builder: (context, orientation, deviceType) {
+    return ScreenUtilInit(
+        designSize: const Size(412, 870),
+        minTextAdapt: true,
+        builder: () {
       return MaterialApp(
-        useInheritedMediaQuery: true,
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
+        // useInheritedMediaQuery: true,
+        // locale: DevicePreview.locale(context),
+        // builder: DevicePreview.appBuilder,
+        builder: (context,widget){
+          ScreenUtil.setContext(context);
+          return MediaQuery(
+            //Setting font does not change with system font size
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: widget!,
+          );
+        },
         debugShowCheckedModeBanner: false,
+        // home: const Car(),
         home: LoginScreen(),
         // home: ManageTireScreen(),
         // home: CacheHelper.getData(key: 'userName') == null

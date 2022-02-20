@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_management/ui/screens/login/cubit/cubit.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
@@ -33,12 +33,12 @@ class DefualtTextField extends StatelessWidget {
                     ? Icon(
                         Icons.visibility_off_outlined,
                         color: Colors.grey,
-                        size: isTaplet ? 60 : 25,
+                        size: 40.h,
                       )
                     : Icon(
                         Icons.remove_red_eye_outlined,
                         color: Colors.grey,
-                        size: isTaplet ? 60 : 25,
+                        size: 40.h,
                       ),
               )
             : null,
@@ -63,10 +63,10 @@ class DefualtTextField extends StatelessWidget {
           width: isTaplet ? 3 : 1.5,
         )),
         errorStyle: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 21.sp,
         ),
         hintStyle: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 21.sp,
         ),
       ),
       obscureText:
@@ -77,7 +77,7 @@ class DefualtTextField extends StatelessWidget {
         return null;
       },
       style: TextStyle(
-        fontSize: 16.sp,
+        fontSize: 21.sp,
       ),
     );
   }

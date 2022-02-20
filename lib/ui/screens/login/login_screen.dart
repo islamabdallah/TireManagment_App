@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_management/ui/screens/login/components/defualt_text_field.dart';
 import 'package:tire_management/ui/screens/login/cubit/cubit.dart';
 import 'package:tire_management/ui/screens/login/cubit/states.dart';
 import 'package:tire_management/ui/screens/trucks/car_selection.dart';
-import 'package:tire_management/ui/screens/trucks/select_truck_screen.dart';
 import 'package:tire_management/ui/shared/components/defualt_button.dart';
-import 'package:tire_management/ui/shared/constants.dart';
 import 'package:tire_management/ui/shared/utils/messages.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
-import 'package:sizer/sizer.dart';
+
+
+import '../../shared/utils/loading_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = 'LoginScreen';
@@ -18,18 +19,25 @@ class LoginScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print(100.w);
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
+
+          if(state is LoginLoadingState){
+            loadingAlertDialog(context);
+          }
+
           if (state is LoginErrorState) {
+            Navigator.pop(context);
             showAlert(message: state.message, context: context);
           }
           if (state is LoginInputDataErrorState) {
+            Navigator.pop(context);
             showAlert(message: state.message, context: context);
           }
           if (state is LoginSuccessState) {
+            Navigator.pop(context);
             navigateWithTransitionAndFinish(
               context: context,
               nextScreen: CarSelectionScreen(),
@@ -47,7 +55,7 @@ class LoginScreen extends StatelessWidget {
             body: Center(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.all(100.w <= 500 ? 16.0 : 25.w),
+                  padding: EdgeInsets.all(50.r),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -55,10 +63,11 @@ class LoginScreen extends StatelessWidget {
                         image: const AssetImage(
                           'assets/images/cemex.jpg',
                         ),
-                        width: 40.w,
+                        width: 304.w,
+                        height: 83.h,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.h),
+                        padding: EdgeInsets.symmetric(vertical: 50.h),
                         child: Form(
                           key: formKey,
                           child: Column(
@@ -79,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (state is! LoginLoadingState)
+                        SizedBox(height: 40.h,),
                         DefualtButton(
                           title: 'Login',
                           onPress: () {
@@ -87,12 +96,6 @@ class LoginScreen extends StatelessWidget {
                               cubit.login();
                             }
                           },
-                        ),
-                      if (state is LoginLoadingState)
-                        const Center(
-                          child: CircularProgressIndicator(
-                            color: mainColor,
-                          ),
                         ),
                     ],
                   ),
