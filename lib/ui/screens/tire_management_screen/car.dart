@@ -28,7 +28,7 @@ class _CarState extends State<Car> {
   void initState() {
     super.initState();
 
-    for (var tier in truck14Tires) {
+    for (var tier in truck22Tires) {
       tireModel.add(TireModel.fromJson(tier));
     }
 
@@ -144,22 +144,10 @@ class _CarState extends State<Car> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Tier(
-                                data: getTire('F1'),
+                                data: getTire('F3'),
                               ),
                               Tier(
-                                data:getTire('F2')
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            // mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Tier(
-                                data: getTire('F5')
-                              ),
-                              Tier(
-                                data: getTire('F6')
+                                  data:getTire('F1')
                               ),
                             ],
                           ),
@@ -168,10 +156,22 @@ class _CarState extends State<Car> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Tier(
-                              data: getTire('F9')
+                                  data: getTire('F7')
                               ),
                               Tier(
-                                  data: getTire('F10')
+                                  data: getTire('F5')
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Tier(
+                                  data: getTire('F11')
+                              ),
+                              Tier(
+                                  data: getTire('F9')
                               ),
                             ],
                           ),
@@ -185,22 +185,10 @@ class _CarState extends State<Car> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Tier(
-                                data: getTire('R1')
+                                  data: getTire('R3')
                               ),
                               Tier(
-                                data:  getTire('R2')
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            // mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Tier(
-                                data:  getTire('R5')
-                              ),
-                              Tier(
-                                data:  getTire('R6')
+                                  data:  getTire('R1')
                               ),
                             ],
                           ),
@@ -209,11 +197,23 @@ class _CarState extends State<Car> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Tier(
-                                  data:  getTire('R9')
+                                  data:  getTire('R7')
+                              ),
+                              Tier(
+                                  data:  getTire('R5')
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Tier(
+                                  data:  getTire('R11')
 
                               ),
                               Tier(
-                                  data:  getTire('R10')
+                                  data:  getTire('R9')
 
                               ),
                             ],
@@ -256,7 +256,7 @@ class _CarState extends State<Car> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Tier(
-                                  data:  getTire('F3')
+                                  data:  getTire('F2')
 
                               ),
                               Tier(
@@ -269,7 +269,7 @@ class _CarState extends State<Car> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Tier(
-                                  data:  getTire('F7')
+                                  data:  getTire('F6')
 
                               ),
                               Tier(
@@ -282,7 +282,7 @@ class _CarState extends State<Car> {
                             // mainAxisSize: MainAxisSize.min,
                             children: [
                               Tier(
-                                  data:  getTire('F11')
+                                  data:  getTire('F10')
 
                               ),
                               Tier(
@@ -299,7 +299,7 @@ class _CarState extends State<Car> {
                           Row(
                             children: [
                               Tier(
-                                  data:  getTire('R3')
+                                  data:  getTire('R2')
 
                               ),
                               Tier(
@@ -310,7 +310,7 @@ class _CarState extends State<Car> {
                           Row(
                             children: [
                               Tier(
-                                  data:  getTire('R7')
+                                  data:  getTire('R6')
                               ),
                               Tier(
                                   data:  getTire('R8')
@@ -320,7 +320,7 @@ class _CarState extends State<Car> {
                           Row(
                             children: [
                               Tier(
-                                  data:  getTire('R11')
+                                  data:  getTire('R10')
                               ),
                               Tier(
                                   data:  getTire('R12')

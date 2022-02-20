@@ -9,7 +9,7 @@ import 'package:tire_management/ui/screens/trucks/cubit/states.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
 import '../../shared/utils/navigations.dart';
-import '../new_manage_tires/car.dart';
+import '../tire_management_screen/car.dart';
 
 class CarSelectionScreen extends StatefulWidget {
   const CarSelectionScreen({Key? key}) : super(key: key);
