@@ -57,7 +57,8 @@ class TruckCubit extends Cubit<TrucksStates> {
   // }
 
   void selectTruck(String? value) {
-    selectedTruck = trucksList.firstWhere((truck) => truck.truckNumber==value);
+    selectedTruck =
+        trucksList.firstWhere((truck) => truck.truckNumber == value);
     emit(SelectTruckState());
   }
 

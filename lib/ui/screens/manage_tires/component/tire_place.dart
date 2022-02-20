@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tire_management/ui/screens/manage_tires/component/default_drop_down.dart';
 import 'package:tire_management/ui/screens/manage_tires/component/tire_details_item.dart';
 import 'package:tire_management/ui/screens/manage_tires/component/tire_item.dart';
 import 'package:tire_management/ui/screens/manage_tires/cubit/cubit.dart';
 import 'package:tire_management/ui/screens/manage_tires/models/tire_model.dart';
+import 'package:tire_management/ui/shared/constants.dart';
 
 class TirePlace extends StatelessWidget {
   double fromTop;
@@ -35,19 +37,19 @@ class TirePlace extends StatelessWidget {
     required String? dropDownValue,
     required var onDropDownChange,
   }) {
-    showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      context: context,
-      builder: (context) {
+    scaffoldKey.currentState!.showBottomSheet(
+      (context) {
         return Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 TireDetailsItem(
                   tire: firstTire,
@@ -73,35 +75,6 @@ class TirePlace extends StatelessWidget {
         );
       },
     );
-    // key.currentState.showBottomSheet((context) {
-    //   return Container(
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(16.0),
-    //       child: Column(
-    //         children: [
-    //           TireDetailsItem(
-    //             tire: firstTire,
-    //             context: context,
-    //           ),
-    //           const SizedBox(
-    //             height: 16,
-    //           ),
-    //           Padding(
-    //             padding: const EdgeInsetsDirectional.only(start: 16),
-    //             child: DefaultDropdownField(
-    //               value: dropDownValue,
-    //               items: const [
-    //                 'Replace with a same Truck tire',
-    //                 'Replace with a new one',
-    //               ],
-    //               onChange: onDropDownChange,
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // });
   }
 
   @override

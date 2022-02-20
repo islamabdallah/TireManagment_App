@@ -25,13 +25,13 @@ class TireItem extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: width < 480 ? height! / 22 : height! / 18,
-            backgroundColor: cubit.selectedTiresList[tire!.id!] != null &&
-                    cubit.selectedTiresList[tire!.id!] == 'first'
-                ? Colors.red.shade800
-                : cubit.selectedTiresList[tire!.id!] != null &&
-                        cubit.selectedTiresList[tire!.id!] == 'second'
-                    ? Colors.green.shade800
-                    : mainColor,
+            backgroundColor:
+                cubit.firstTire != null && cubit.firstTire!.id == tire!.id
+                    ? Colors.red.shade800
+                    : cubit.selectedTiresList[tire!.id!] != null &&
+                            cubit.selectedTiresList[tire!.id!] == 'second'
+                        ? Colors.green.shade800
+                        : mainColor,
             child: SvgPicture.asset('assets/images/tire.svg'),
           ),
           Text(

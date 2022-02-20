@@ -31,13 +31,11 @@ class LoginCubit extends Cubit<LoginStates> {
 
   void login() async {
     emit(LoginLoadingState());
-    repo
-        .loginUser(
-      username: userNameController.text,
-      pass: passwordController.text,
-    )
-        .then((value) {
-      print(value);
+    try {
+      var value = await repo.loginUser(
+        username: userNameController.text,
+        pass: passwordController.text,
+      );
       if (value != null) {
         userModel = UserModel.fromMap(value.data);
         if (userModel!.flag!) {
@@ -50,20 +48,22 @@ class LoginCubit extends Cubit<LoginStates> {
           emit(LoginSuccessState());
         } else {
           print(userModel!.message!);
-          emit(LoginInputDataErrorState(userModel!.message!));
+          emit(LoginErrorState(userModel!.message!));
         }
       } else {
         emit(LoginErrorState('Something went wrong!'));
       }
-    }).catchError((e) {
-      //DioError error = e;
-
-      if (e is DioError && e.response != null && e.response!.data != null) {
-        print(e.response!.data);
-        emit(LoginInputDataErrorState(e.response!.data['message']));
+    } on DioError catch (error) {
+      if (error.response != null) {
+        emit(LoginErrorState(error.response!.data['message']));
       } else {
-        emit(LoginErrorState('Something went wrong!'));
+        print(error.type);
+        // print(error);
+        emit(LoginErrorState(
+            'server error, check your internet connection and try again.'));
       }
-    });
+    } catch (error) {
+      emit(LoginErrorState('Something wrong!'));
+    }
   }
 }

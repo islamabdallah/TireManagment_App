@@ -12,7 +12,6 @@ import 'package:tire_management/ui/shared/components/defualt_button.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
 class ManageTireScreen extends StatelessWidget {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey1 = GlobalKey<FormState>();
   var formKey2 = GlobalKey<FormState>();
   int truckNum;
@@ -163,7 +162,7 @@ class ManageTireScreen extends StatelessWidget {
                                                 DefaultDropdownField(
                                                   isExpand: false,
                                                   value: cubit.oldTierStatus,
-                                                  items: [
+                                                  items: const [
                                                     'demaged',
                                                     'Re-repair',
                                                   ],
@@ -489,7 +488,7 @@ class InputTierInfo extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
           ),
         ),

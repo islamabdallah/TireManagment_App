@@ -26,9 +26,7 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginErrorState) {
             showAlert(message: state.message, context: context);
           }
-          if (state is LoginInputDataErrorState) {
-            showAlert(message: state.message, context: context);
-          }
+
           if (state is LoginSuccessState) {
             navigateWithTransitionAndFinish(
               context: context,

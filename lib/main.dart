@@ -7,6 +7,7 @@ import 'package:tire_management/core/utils/services/bloc_observer.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/core/utils/services/remote/dio_helper.dart';
 import 'package:tire_management/ui/screens/login/login_screen.dart';
+import 'package:tire_management/ui/screens/manage_tires/manage_tire_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+        home: ManageTireScreen(),
         // home: ManageTireScreen(),
         // home: CacheHelper.getData(key: 'userName') == null
         //     ? LoginScreen()

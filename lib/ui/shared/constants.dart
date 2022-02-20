@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+var scaffoldKey = GlobalKey<ScaffoldState>();
+
 const Color mainColor = Colors.black87;
 const Color defaultColor = Color(0xFF212121);
 const Color greyColor = Color(0xFF707070);
