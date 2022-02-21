@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/ui/screens/trucks/cubit/cubit.dart';
 import 'package:tire_management/ui/screens/trucks/cubit/states.dart';
 import 'package:tire_management/ui/shared/constants.dart';
@@ -68,7 +69,8 @@ class _CarSelectionScreenState extends State<CarSelectionScreen> {
                   ),
                   if (state is SelectTruckState)
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30.w,vertical: 16.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 30.w, vertical: 16.h),
                       child: Column(
                         children: [
                           Row(
@@ -119,87 +121,83 @@ class _CarSelectionScreenState extends State<CarSelectionScreen> {
                             ],
                           ),
                           SizedBox(height: 20.h),
-                          IntrinsicHeight(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 370.h,
-                                  child: Column(
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundColor: defaultColor,
-                                        radius: 15.r,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 370.h,
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: defaultColor,
+                                      radius: 15.r,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        width: 2.w,
+                                        color: defaultColor,
                                       ),
-                                      Expanded(
-                                        child: Container(
-                                          width: 2.w,
-                                          color: defaultColor,
-                                        ),
-                                      ),
-                                      CircleAvatar(
-                                        backgroundColor: defaultColor,
-                                        radius: 15.r,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    CircleAvatar(
+                                      backgroundColor: defaultColor,
+                                      radius: 15.r,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: 5.w,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    buildContent(
+                                      'Company',
+                                      cubit.selectedTruck.company!,
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    buildContent(
+                                      'Status',
+                                      cubit.selectedTruck.status!,
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    buildContent('Size',
+                                        '${cubit.selectedTruck.size} ${cubit.selectedTruck.unit}'),
+                                    SizedBox(height: 5.h),
+                                    buildContent(
+                                        'Engine', cubit.selectedTruck.engine!),
+                                    SizedBox(height: 5.h),
+                                    buildContent('Chassis',
+                                        cubit.selectedTruck.chassis!),
+                                  ],
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      buildContent(
-                                        'Company',
-                                        cubit.selectedTruck.company!,
-                                      ),
-                                      SizedBox(height: 5.h),
-                                      buildContent(
-                                        'Status',
-                                        cubit.selectedTruck.status!,
-                                      ),
-                                      SizedBox(height: 5.h),
-                                      buildContent('Size',
-                                          '${cubit.selectedTruck.size} ${cubit.selectedTruck.unit}'),
-                                      SizedBox(height: 5.h),
-                                      buildContent('Engine',
-                                          cubit.selectedTruck.engine!),
-                                      SizedBox(height: 5.h),
-                                      buildContent('Chassis',
-                                          cubit.selectedTruck.chassis!),
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  // mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    buildContent(
+                                        'Year', '${cubit.selectedTruck.year}'),
+                                    SizedBox(height: 5.h),
+                                    buildContent(
+                                        'Type', cubit.selectedTruck.type!),
+                                    SizedBox(height: 5.h),
+                                    buildContent('No. of Axle',
+                                        '${cubit.selectedTruck.axleCount}'),
+                                    SizedBox(height: 5.h),
+                                    buildContent('Reg NO.',
+                                        cubit.selectedTruck.registration!),
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      buildContent('Year',
-                                          '${cubit.selectedTruck.year}'),
-                                      SizedBox(height: 5.h),
-                                      buildContent(
-                                          'Type', cubit.selectedTruck.type!),
-                                      SizedBox(height: 5.h),
-                                      buildContent('No. of Axle',
-                                          '${cubit.selectedTruck.axleCount}'),
-                                      SizedBox(height: 5.h),
-                                      buildContent('Reg NO.',
-                                          cubit.selectedTruck.registration!),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 10.h),
                           Center(
@@ -209,7 +207,13 @@ class _CarSelectionScreenState extends State<CarSelectionScreen> {
                               margin: EdgeInsets.all(5.w),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  navigateAndFinish(context:context, nextScreen: const Car());
+                                  CacheHelper.saveData(
+                                      key: 'truckNumber',
+                                      value: cubit.selectedTruck.truckNumber);
+                                  navigateAndFinish(
+                                    context: context,
+                                    nextScreen: const Car(),
+                                  );
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(),

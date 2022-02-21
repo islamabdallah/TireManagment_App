@@ -6,28 +6,29 @@ class DefualtButton extends StatelessWidget {
   String title;
   Color color;
   var onPress;
-  double height;
+
   DefualtButton({
     required this.title,
     this.color = mainColor,
     required this.onPress,
-    this.height = 40,
   });
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0),
-      ),
-      minWidth: 336.w,
-      height: 66.h,
-      color: color,
-      onPressed: onPress,
-      child: Text(
-        title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 21.sp,
+    return Container(
+      // width: 300.w,
+      height: 50.h,
+      margin: EdgeInsets.all(5.w),
+      child: ElevatedButton(
+        onPressed: onPress,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          primary: color,
+        ),
+        child: Text(
+          title,
+          style: TextStyle(fontSize: 26.sp),
         ),
       ),
     );

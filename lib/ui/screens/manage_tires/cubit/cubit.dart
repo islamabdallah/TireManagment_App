@@ -29,32 +29,32 @@ class ManageTiresCubit extends Cubit<ManageTiresStates> {
   }
 
   void selectFirstTire(Tire tire) {
-    print('firstTire id ${firstTire!.id}');
-    print('firstTire id ${firstTire!.id}');
-    if (firstTire != null && firstTire!.id == tire.id) {
-      firstTire == null;
-    } else {
-      firstTire = tire;
-    }
-
-    // if (firstTire == null) {
-    //   firstTire = tire;
-    //   selectedTiresList.addAll({tire.id!: 'first'});
-    //   print('selectedList = $selectedTiresList');
+    // print('firstTire id ${firstTire!.id}');
+    // print('firstTire id ${firstTire!.id}');
+    // if (firstTire != null && firstTire!.id == tire.id) {
+    //   firstTire == null;
     // } else {
-    //   if (selectedTiresList[tire.id] != null) {
-    //     if (selectedTiresList[tire.id] == 'first') firstTire = null;
-    //     if (selectedTiresList[tire.id] == 'second') secondTire = null;
-    //     selectedTiresList.remove(tire.id!);
-    //   } else {
-    //     if (selectedAction == 'Replace with a same Truck tire' &&
-    //         secondTire == null) {
-    //       secondTire = tire;
-    //       selectedTiresList.addAll({tire.id!: 'second'});
-    //       print('selectedList = $selectedTiresList');
-    //     }
-    //   }
+    //   firstTire = tire;
     // }
+
+    if (firstTire == null) {
+      firstTire = tire;
+      selectedTiresList.addAll({tire.id!: 'first'});
+      print('selectedList = $selectedTiresList');
+    } else {
+      if (selectedTiresList[tire.id] != null) {
+        if (selectedTiresList[tire.id] == 'first') firstTire = null;
+        if (selectedTiresList[tire.id] == 'second') secondTire = null;
+        selectedTiresList.remove(tire.id!);
+      } else {
+        if (selectedAction == 'Replace with a same Truck tire' &&
+            secondTire == null) {
+          secondTire = tire;
+          selectedTiresList.addAll({tire.id!: 'second'});
+          print('selectedList = $selectedTiresList');
+        }
+      }
+    }
 
     emit(FirstSelectedTireState());
   }

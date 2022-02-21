@@ -1,5 +1,3 @@
-class TireModel {}
-
 class Tire {
   String? tirePlace;
   int? serialNumber;
