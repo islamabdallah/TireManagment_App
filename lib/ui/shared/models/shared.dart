@@ -2,10 +2,11 @@ import 'package:tire_management/ui/screens/tire_management/models/tire_model.dar
 
 class SharedModel {
   late String userName;
+  late String truckNumber;
   late TireModel tire1;
   late TireModel tire2;
   late String action;
-  late String truckNumber;
+
   SharedModel({
     required this.userName,
     required this.action,

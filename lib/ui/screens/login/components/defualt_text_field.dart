@@ -33,12 +33,12 @@ class DefualtTextField extends StatelessWidget {
                     ? Icon(
                         Icons.visibility_off_outlined,
                         color: Colors.grey,
-                        size: 40.h,
+                        size: 30.h,
                       )
                     : Icon(
                         Icons.remove_red_eye_outlined,
                         color: Colors.grey,
-                        size: 40.h,
+                        size: 30.h,
                       ),
               )
             : null,

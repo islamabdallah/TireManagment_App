@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 
@@ -13,16 +12,10 @@ class TiresManageCubit extends Cubit<TiresManageStates> {
   TireModel? firstTire;
   TireModel? secondTire;
   SharedModel? shared;
-  String? oldTierStatus;
   String? selectedAction;
   bool isBottomSheetOpened = false;
-  Map<int, String> selectedTiresList = {};
 
   void changeAction(value) {
-    if (value == 'Replace with a new one') {
-      secondTire = null;
-      selectedTiresList.removeWhere((key, value) => value == 'second');
-    }
     selectedAction = value;
     emit(ChangeSelectedActionState());
   }
@@ -36,13 +29,13 @@ class TiresManageCubit extends Cubit<TiresManageStates> {
     } else {
       if (firstTire!.name == tire.name && selectedAction == null) {
         firstTire = null;
-        closeBottomSheet();
+        isBottomSheetOpened = false;
       } else if (firstTire!.name != tire.name && selectedAction == null) {
         firstTire = tire;
         isBottomSheetOpened = true;
         print('firstTire id ${firstTire!.name}');
         print('Tire id ${tire.name}');
-      } else if (selectedAction == 'Rotate' && secondTire == null) {
+      } else if (selectedAction != null && tire.name != firstTire!.name) {
         secondTire = tire;
         isBottomSheetOpened = true;
         print('firstTire id ${secondTire!.name}');

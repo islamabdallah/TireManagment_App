@@ -53,6 +53,7 @@ class LoginScreen extends StatelessWidget {
                   padding: EdgeInsets.all(50.r),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Image(
                         image: const AssetImage(
