@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:tire_management/ui/screens/login/components/defualt_text_field.dart';
-import 'package:tire_management/ui/screens/manage_tires/models/tire_model.dart';
+
 import 'package:tire_management/ui/screens/trucks/car_selection.dart';
 import 'package:tire_management/ui/shared/components/search_drop_down.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
