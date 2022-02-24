@@ -1,12 +1,12 @@
 class TireModel {
-  late String name;
+  late String position;
   String? serial;
   String? type;
   String? make;
   String? manufactor;
 
   TireModel({
-    required this.name,
+    required this.position,
     this.serial,
     this.type,
     this.make,
@@ -14,7 +14,7 @@ class TireModel {
   });
 
   TireModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+    position = json['name'];
     serial = json['serial'];
     type = json['type'];
     make = json['Make'];
@@ -23,7 +23,7 @@ class TireModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
+    data['name'] = this.position;
     data['serial'] = this.serial;
     data['type'] = this.type;
     data['Make'] = this.make;

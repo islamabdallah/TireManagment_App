@@ -17,4 +17,6 @@ class SaveProcessState extends TiresManageStates {
   SaveProcessState(this.shared);
 }
 
+class SelectNewTierState extends TiresManageStates {}
+
 class CloseBottomSheetState extends TiresManageStates {}

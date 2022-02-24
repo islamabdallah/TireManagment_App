@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NoteText extends StatelessWidget {
   String text;
@@ -10,7 +11,7 @@ class NoteText extends StatelessWidget {
       text,
       style: TextStyle(
         color: color,
-        fontSize: 20,
+        fontSize: 22.sp,
         fontWeight: FontWeight.w500,
         fontFamily: 'NotoSerif',
       ),

@@ -7,6 +7,8 @@ import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/core/utils/services/remote/dio_helper.dart';
 import 'package:tire_management/ui/screens/login/login_screen.dart';
 import 'package:tire_management/ui/screens/manage_tires/manage_tire_screen.dart';
+import 'package:tire_management/ui/screens/tire_management/cubit/cubit.dart';
+import 'package:tire_management/ui/screens/tire_management/tire_management_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,27 +41,34 @@ class MyApp extends StatelessWidget {
         designSize: const Size(412, 870),
         minTextAdapt: true,
         builder: () {
-          return MaterialApp(
-            // useInheritedMediaQuery: true,
-            // locale: DevicePreview.locale(context),
-            // builder: DevicePreview.appBuilder,
-            builder: (context, widget) {
-              ScreenUtil.setContext(context);
-              return MediaQuery(
-                //Setting font does not change with system font size
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: widget!,
-              );
-            },
-            debugShowCheckedModeBanner: false,
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => TiersManageCubit(),
+              ),
+            ],
+            child: MaterialApp(
+              // useInheritedMediaQuery: true,
+              // locale: DevicePreview.locale(context),
+              // builder: DevicePreview.appBuilder,
+              builder: (context, widget) {
+                ScreenUtil.setContext(context);
+                return MediaQuery(
+                  //Setting font does not change with system font size
+                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                  child: widget!,
+                );
+              },
+              debugShowCheckedModeBanner: false,
 
-            // home: const Car(),
-            home: LoginScreen(),
+              // home: const Car(),
+              home: LoginScreen(),
 
-            // home: ManageTireScreen(),
-            // home: CacheHelper.getData(key: 'userName') == null
-            //     ? LoginScreen()
-            //     : SelectTruckScreen(),
+              // home: TiersManagementScreen(),
+              // home: CacheHelper.getData(key: 'userName') == null
+              //     ? LoginScreen()
+              //     : SelectTruckScreen(),
+            ),
           );
         });
   }

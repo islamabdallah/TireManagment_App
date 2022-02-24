@@ -5,11 +5,13 @@ class DefaultDropdownField extends StatelessWidget {
   String? selectedValue;
   List<String> itemsList;
   var onChange;
+  bool isExpanded;
   DefaultDropdownField({
     required this.hintText,
     required this.itemsList,
     required this.selectedValue,
     required this.onChange,
+    this.isExpanded = true,
   });
 
   @override
@@ -26,20 +28,20 @@ class DefaultDropdownField extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
+          child: DropdownButtonFormField<String>(
             value: selectedValue,
             hint: Text(
               hintText,
             ),
             onChanged: onChange,
-            isExpanded: true,
-            isDense: true,
+            isExpanded: isExpanded,
             items: itemsList.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
               );
             }).toList(),
+            validator: (value) => value == null ? 'field required' : null,
           ),
         ),
       ),

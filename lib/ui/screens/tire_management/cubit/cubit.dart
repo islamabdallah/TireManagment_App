@@ -5,14 +5,15 @@ import 'package:tire_management/ui/screens/tire_management/cubit/states.dart';
 import 'package:tire_management/ui/screens/tire_management/models/tire_model.dart';
 import 'package:tire_management/ui/shared/models/shared.dart';
 
-class TiresManageCubit extends Cubit<TiresManageStates> {
-  TiresManageCubit() : super(InitialTiresManageState());
+class TiersManageCubit extends Cubit<TiresManageStates> {
+  TiersManageCubit() : super(InitialTiresManageState());
 
-  static TiresManageCubit get(context) => BlocProvider.of(context);
+  static TiersManageCubit get(context) => BlocProvider.of(context);
   TireModel? firstTire;
   TireModel? secondTire;
   SharedModel? shared;
   String? selectedAction;
+  String? oldTierStatus;
   bool isBottomSheetOpened = false;
 
   void changeAction(value) {
@@ -20,26 +21,33 @@ class TiresManageCubit extends Cubit<TiresManageStates> {
     emit(ChangeSelectedActionState());
   }
 
+  void selectOldTiersStatus(value) {
+    oldTierStatus = value;
+    emit(ChangeSelectedActionState());
+  }
+
   void selectTire(TireModel tire) {
     if (firstTire == null) {
       firstTire = tire;
       isBottomSheetOpened = true;
-      print('firstTire id ${firstTire!.name}');
-      print('Tire id ${tire.name}');
+      print('firstTire id ${firstTire!.position}');
+      print('Tire id ${tire.position}');
     } else {
-      if (firstTire!.name == tire.name && selectedAction == null) {
+      if (firstTire!.position == tire.position && selectedAction == null) {
         firstTire = null;
         isBottomSheetOpened = false;
-      } else if (firstTire!.name != tire.name && selectedAction == null) {
+      } else if (firstTire!.position != tire.position &&
+          selectedAction == null) {
         firstTire = tire;
         isBottomSheetOpened = true;
-        print('firstTire id ${firstTire!.name}');
-        print('Tire id ${tire.name}');
-      } else if (selectedAction != null && tire.name != firstTire!.name) {
+        print('firstTire id ${firstTire!.position}');
+        print('Tire id ${tire.position}');
+      } else if (selectedAction != null &&
+          tire.position != firstTire!.position) {
         secondTire = tire;
         isBottomSheetOpened = true;
-        print('firstTire id ${secondTire!.name}');
-        print('Tire id ${tire.name}');
+        print('firstTire id ${secondTire!.position}');
+        print('Tire id ${tire.position}');
       }
     }
 
@@ -50,6 +58,7 @@ class TiresManageCubit extends Cubit<TiresManageStates> {
     firstTire = null;
     secondTire = null;
     selectedAction = null;
+    oldTierStatus = null;
     isBottomSheetOpened = false;
     emit(CancelProcessState());
   }
@@ -57,6 +66,11 @@ class TiresManageCubit extends Cubit<TiresManageStates> {
   void closeBottomSheet() {
     isBottomSheetOpened = false;
     emit(CloseBottomSheetState());
+  }
+
+  void replaceTierWithNew(value) {
+    secondTire = TireModel(position: 'new', serial: '567');
+    emit(SelectNewTierState());
   }
 
   void saveProcess() {

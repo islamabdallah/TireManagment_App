@@ -52,14 +52,14 @@ var truck22Tires = [
     "Manufactor": "Switching/Setter"
   },
   {
-    "name": "F5",
+    "name": "F3",
     "serial": "t12554",
     "type": "type one",
     "Make": "Ford",
     "Manufactor": "Switching/Setter"
   },
   {
-    "name": "F6",
+    "name": "F4",
     "serial": "t22554",
     "type": "type one",
     "Make": "Ford",
@@ -187,6 +187,13 @@ var truck22Tires = [
   {
     "name": "R12",
     "serial": "t22554",
+    "type": "type one",
+    "Make": "Ford",
+    "Manufactor": "Switching/Setter"
+  },
+  {
+    "name": "S",
+    "serial": "t27554",
     "type": "type one",
     "Make": "Ford",
     "Manufactor": "Switching/Setter"

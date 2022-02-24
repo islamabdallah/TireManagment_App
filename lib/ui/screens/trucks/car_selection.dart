@@ -212,7 +212,7 @@ class _CarSelectionScreenState extends State<CarSelectionScreen> {
                                       value: cubit.selectedTruck.truckNumber);
                                   navigateWithTransition(
                                     context: context,
-                                    nextScreen: const Car(),
+                                    nextScreen: const TiersManagementScreen(),
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
