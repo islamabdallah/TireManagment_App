@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tire_management/core/utils/services/bloc_observer.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/core/utils/services/remote/dio_helper.dart';
@@ -12,6 +13,31 @@ import 'package:tire_management/ui/screens/tire_management/tire_management_scree
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Future.wait([
+    precachePicture(
+      ExactAssetPicture(
+        SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
+        'assets/images/truck3.svg',
+      ),
+      null,
+    ),
+    precachePicture(
+      ExactAssetPicture(
+        SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
+        'assets/icons/trailer2.svg',
+      ),
+      null,
+    ),
+    precachePicture(
+      ExactAssetPicture(
+        SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
+        'assets/icons/FL_Tyre.svg',
+      ),
+      null,
+    ),
+  ]);
+
   await CacheHelper.init();
   BlocOverrides.runZoned(
     () {
@@ -43,7 +69,7 @@ class MyApp extends StatelessWidget {
         builder: () {
           return MultiBlocProvider(
             providers: [
-              BlocProvider(
+              BlocProvider<TiersManageCubit>(
                 create: (context) => TiersManageCubit(),
               ),
             ],

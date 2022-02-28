@@ -18,6 +18,8 @@ class LoginScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    precacheImage(const AssetImage("assets/images/cemex.jpg"), context);
+
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
