@@ -5,11 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tire_management/core/utils/services/bloc_observer.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
-import 'package:tire_management/core/utils/services/remote/dio_helper.dart';
 import 'package:tire_management/ui/screens/login/login_screen.dart';
 
 import 'package:tire_management/ui/screens/tire_management/cubit/cubit.dart';
-import 'package:tire_management/ui/screens/tire_management/tire_management_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +52,6 @@ void main() async {
     // MyApp(),
   );
 
-  DioHelper.init();
 }
 
 class MyApp extends StatelessWidget {

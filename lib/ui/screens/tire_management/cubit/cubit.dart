@@ -9,8 +9,8 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   TiersManageCubit() : super(InitialTiresManageState());
 
   static TiersManageCubit get(context) => BlocProvider.of(context);
-  TireModel? firstTire;
-  TireModel? secondTire;
+  Tire? firstTire;
+  Tire? secondTire;
   SharedModel? shared;
   String? selectedAction;
   String? oldTierStatus;
@@ -26,7 +26,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     emit(ChangeSelectedActionState());
   }
 
-  void selectTire(TireModel tire) {
+  void selectTire(Tire tire) {
     if (firstTire == null) {
       firstTire = tire;
       isBottomSheetOpened = true;
@@ -69,7 +69,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   }
 
   void replaceTierWithNew(value) {
-    secondTire = TireModel(position: 'new', serial: '567');
+    secondTire = Tire(position: 'new', serial: '567');
     emit(SelectNewTierState());
   }
 

@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:tire_management/ui/screens/login/components/defualt_text_field.dart';
 
-import 'package:tire_management/ui/screens/trucks/car_selection.dart';
+import 'package:tire_management/ui/screens/truck_selection/truck_selection_screen.dart';
 import 'package:tire_management/ui/shared/components/search_drop_down.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
 import '../../shared/components/note_text.dart';
@@ -30,20 +30,20 @@ class TiersManagementScreen extends StatefulWidget {
 }
 
 class _TiersManagementScreenState extends State<TiersManagementScreen> {
-  List<TireModel> tireModel = [];
+  List<Tire> tireModel = [];
   var changeFormK = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
 
     for (var tier in truck22Tires) {
-      tireModel.add(TireModel.fromJson(tier));
+      tireModel.add(Tire.fromJson(tier));
     }
 
     print(tireModel);
   }
 
-  TireModel? getTire(name) {
+  Tire? getTire(name) {
     var x = tireModel.indexWhere((tire) => tire.position == name);
     if (x != -1) {
       return tireModel[x];
@@ -102,26 +102,26 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(
+                                      TierWidget(
                                         data: getTire('F5'),
                                       ),
-                                      Tier(data: getTire('F1')),
+                                      TierWidget(data: getTire('F1')),
                                     ],
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('F7')),
-                                      Tier(data: getTire('F3')),
+                                      TierWidget(data: getTire('F7')),
+                                      TierWidget(data: getTire('F3')),
                                     ],
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('F11')),
-                                      Tier(data: getTire('F9')),
+                                      TierWidget(data: getTire('F11')),
+                                      TierWidget(data: getTire('F9')),
                                     ],
                                   ),
                                 ],
@@ -133,24 +133,24 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('R5')),
-                                      Tier(data: getTire('R1')),
+                                      TierWidget(data: getTire('R5')),
+                                      TierWidget(data: getTire('R1')),
                                     ],
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('R7')),
-                                      Tier(data: getTire('R3')),
+                                      TierWidget(data: getTire('R7')),
+                                      TierWidget(data: getTire('R3')),
                                     ],
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('R11')),
-                                      Tier(data: getTire('R9')),
+                                      TierWidget(data: getTire('R11')),
+                                      TierWidget(data: getTire('R9')),
                                     ],
                                   ),
                                 ],
@@ -181,7 +181,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             ),
                             RotatedBox(
                               quarterTurns: 1,
-                              child: Tier(
+                              child: TierWidget(
                                 data: getTire('S'),
                                 isSpare: true,
                               ),
@@ -202,22 +202,22 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                   Row(
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('F2')),
-                                      Tier(data: getTire('F6')),
+                                      TierWidget(data: getTire('F2')),
+                                      TierWidget(data: getTire('F6')),
                                     ],
                                   ),
                                   Row(
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('F4')),
-                                      Tier(data: getTire('F8')),
+                                      TierWidget(data: getTire('F4')),
+                                      TierWidget(data: getTire('F8')),
                                     ],
                                   ),
                                   Row(
                                     // mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Tier(data: getTire('F10')),
-                                      Tier(data: getTire('F12')),
+                                      TierWidget(data: getTire('F10')),
+                                      TierWidget(data: getTire('F12')),
                                     ],
                                   ),
                                 ],
@@ -227,20 +227,20 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      Tier(data: getTire('R2')),
-                                      Tier(data: getTire('R6')),
+                                      TierWidget(data: getTire('R2')),
+                                      TierWidget(data: getTire('R6')),
                                     ],
                                   ),
                                   Row(
                                     children: [
-                                      Tier(data: getTire('R4')),
-                                      Tier(data: getTire('R8')),
+                                      TierWidget(data: getTire('R4')),
+                                      TierWidget(data: getTire('R8')),
                                     ],
                                   ),
                                   Row(
                                     children: [
-                                      Tier(data: getTire('R10')),
-                                      Tier(data: getTire('R12')),
+                                      TierWidget(data: getTire('R10')),
+                                      TierWidget(data: getTire('R12')),
                                     ],
                                   ),
                                 ],
@@ -258,7 +258,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                 ? BottomSheet(
                     backgroundColor: Colors.black,
                     builder: (BuildContext context) {
-                      TireModel? tire = cubit.secondTire ?? cubit.firstTire;
+                      Tire? tire = cubit.secondTire ?? cubit.firstTire;
                       return Container(
                         decoration: const BoxDecoration(
                           color: Colors.white,

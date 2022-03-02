@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tire_management/ui/screens/trucks/cubit/states.dart';
-import 'package:tire_management/ui/screens/trucks/models/truck_model.dart';
-import 'package:tire_management/ui/screens/trucks/repositores/trucks_repository.dart';
+
+import '../../truck_selection/cubit/states.dart';
+import '../../truck_selection/repositores/trucks_repository.dart';
+import '../../truck_selection/models/truck_model.dart';
 
 class TruckCubit extends Cubit<TrucksStates> {
   TruckCubit() : super(InitialTruckState());

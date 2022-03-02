@@ -5,21 +5,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
-import 'package:tire_management/ui/screens/trucks/cubit/cubit.dart';
-import 'package:tire_management/ui/screens/trucks/cubit/states.dart';
+
 import 'package:tire_management/ui/shared/constants.dart';
 
 import '../../shared/utils/navigations.dart';
 import '../tire_management/tire_management_screen.dart';
+import '../truck_selection/cubit/cubit.dart';
+import '../truck_selection/cubit/states.dart';
 
-class CarSelectionScreen extends StatefulWidget {
-  const CarSelectionScreen({Key? key}) : super(key: key);
+class TruckSelectionScreen extends StatefulWidget {
+  const TruckSelectionScreen({Key? key}) : super(key: key);
 
   @override
-  _CarSelectionScreenState createState() => _CarSelectionScreenState();
+  _TruckSelectionScreenState createState() => _TruckSelectionScreenState();
 }
 
-class _CarSelectionScreenState extends State<CarSelectionScreen> {
+class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

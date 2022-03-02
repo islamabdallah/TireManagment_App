@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_management/ui/screens/login/components/defualt_text_field.dart';
 import 'package:tire_management/ui/screens/login/cubit/cubit.dart';
 import 'package:tire_management/ui/screens/login/cubit/states.dart';
-import 'package:tire_management/ui/screens/trucks/car_selection.dart';
 import 'package:tire_management/ui/shared/components/defualt_button.dart';
 import 'package:tire_management/ui/shared/utils/messages.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
 
 import '../../shared/utils/loading_dialog.dart';
+import '../truck_selection/truck_selection_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = 'LoginScreen';
@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
             Navigator.pop(context);
             navigateWithTransitionAndFinish(
               context: context,
-              nextScreen: CarSelectionScreen(),
+              nextScreen: TruckSelectionScreen(),
             );
           }
         },

@@ -4,6 +4,10 @@ abstract class TiresManageStates {}
 
 class InitialTiresManageState extends TiresManageStates {}
 
+class GetTiresLoadingState extends TiresManageStates {}
+
+class GetTiresSuccessState extends TiresManageStates {}
+
 class SelectTireState extends TiresManageStates {}
 
 class ChangeSelectedActionState extends TiresManageStates {}

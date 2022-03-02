@@ -1,19 +1,28 @@
 import 'package:dio/dio.dart';
-import 'package:tire_management/core/constants/end_points.dart';
 import 'package:tire_management/core/utils/services/remote/dio_helper.dart';
-import 'package:tire_management/ui/screens/trucks/models/truck_model.dart';
+import '../../../../core/constants/api_path.dart';
+import '../../truck_selection/models/truck_model.dart';
 
 abstract class TrucksRepository {
-  getTrucks();
+  List<Truck> getTrucks();
 }
 
 class TrucksRepositoryImplementation extends TrucksRepository {
   @override
   getTrucks() async {
-    Response truckResponse = await DioHelper.postData(
-      url: TRUCKS,
+    List<Truck> trucks = [];
+
+    Response truckResponse = await DioService.request(
+      method: HttpMethod.GET,
+      url: trucksUrl,
     );
-    return truckResponse;
+    var json = truckResponse.data;
+    if(json['flag']==true){
+      for(var truck in json['data']){
+        trucks.add(Truck.fromJson(truck));
+      }
+    }
+    return trucks;
   }
 }
 

@@ -8,21 +8,21 @@ import 'package:tire_management/ui/shared/constants.dart';
 
 import '../models/tire_model.dart';
 
-class Tier extends StatefulWidget {
-  final TireModel? data;
-  bool isSpare;
+class TierWidget extends StatefulWidget {
+  final Tire? data;
+  final bool isSpare;
 
-  Tier({
+  const TierWidget({
     Key? key,
     this.data,
     this.isSpare = false,
   }) : super(key: key);
 
   @override
-  _TierState createState() => _TierState();
+  _TierWidgetState createState() => _TierWidgetState();
 }
 
-class _TierState extends State<Tier> {
+class _TierWidgetState extends State<TierWidget> {
   bool isPressed = false;
   bool showTooltip = false;
 
