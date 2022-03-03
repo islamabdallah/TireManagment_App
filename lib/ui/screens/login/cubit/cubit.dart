@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/ui/screens/login/cubit/states.dart';
-import 'package:tire_management/ui/screens/login/models/user_model.dart';
 import 'package:tire_management/ui/screens/login/repositories/login_repository.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -19,7 +18,6 @@ class LoginCubit extends Cubit<LoginStates> {
     text: CacheHelper.getData(key: 'password') ?? '',
   );
 
-  UserModel? userModel;
   bool isTextVisible = false;
   int notificationsCount = 0;
 
@@ -32,29 +30,30 @@ class LoginCubit extends Cubit<LoginStates> {
   void login() async {
     emit(LoginLoadingState());
     try {
-      var value = await repo.loginUser(
+      var result = await repo.loginUser(
         username: userNameController.text,
         pass: passwordController.text,
       );
-      if (value != null) {
-        userModel = UserModel.fromMap(value.data);
-        if (userModel!.flag!) {
+      if (result != null) {
+        print(result);
+        if (result.data['flag']) {
+          print(result.data['flag']);
           CacheHelper.saveData(
-              key: 'userName', value: userModel!.data!.userName);
-          CacheHelper.saveData(
-              key: 'userCheckPoint', value: userModel!.data!.checkpoint);
-          CacheHelper.saveData(key: 'name', value: userModel!.data!.name);
-          CacheHelper.saveData(key: 'password', value: userModel!.data!.pass);
-          emit(LoginSuccessState());
+              key: 'userName', value: userNameController.text);
+          // CacheHelper.saveData(
+          //     key: 'userCheckPoint', value: userModel!.data!.checkpoint);
+          // CacheHelper.saveData(key: 'name', value: userModel!.data!.name);
+          CacheHelper.saveData(key: 'password', value: passwordController.text);
+          emit(LoginSuccessState(result.data['trucks']));
         } else {
-          print(userModel!.message!);
-          emit(LoginErrorState(userModel!.message!));
+          emit(LoginErrorState('Something went wrong!'));
         }
       } else {
         emit(LoginErrorState('Something went wrong!'));
       }
     } on DioError catch (error) {
       if (error.response != null) {
+        print(error.response!.data['message']);
         emit(LoginErrorState(error.response!.data['message']));
       } else {
         print(error.type);
@@ -63,6 +62,7 @@ class LoginCubit extends Cubit<LoginStates> {
             'server error, check your internet connection and try again.'));
       }
     } catch (error) {
+      print(error);
       emit(LoginErrorState('Something wrong!'));
     }
   }

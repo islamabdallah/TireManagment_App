@@ -8,6 +8,7 @@ import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/ui/screens/login/login_screen.dart';
 
 import 'package:tire_management/ui/screens/tire_management/cubit/cubit.dart';
+import 'package:tire_management/ui/screens/truck_selection/cubit/cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +28,13 @@ void main() async {
       ),
       null,
     ),
-    precachePicture(
-      ExactAssetPicture(
-        SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
-        'assets/icons/FL_Tyre.svg',
-      ),
-      null,
-    ),
+    // precachePicture(
+    //   ExactAssetPicture(
+    //     SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
+    //     'assets/icons/FL_Tyre.svg',
+    //   ),
+    //   null,
+    // ),
   ]);
 
   await CacheHelper.init();
@@ -68,6 +69,9 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider<TiersManageCubit>(
                 create: (context) => TiersManageCubit(),
+              ),
+              BlocProvider<TruckCubit>(
+                create: (context) => TruckCubit(),
               ),
             ],
             child: MaterialApp(

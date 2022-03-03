@@ -1,15 +1,3 @@
-class UserModel {
-  bool? flag;
-  String? message;
-  User? data;
-
-  UserModel.fromMap(Map<String, dynamic> json) {
-    flag = json['flag'];
-    message = json['message'];
-    data = json['flag'] ? User.fromMap(json['data'][0]) : User.fromMap({});
-  }
-}
-
 class User {
   int? id;
   String? userName;

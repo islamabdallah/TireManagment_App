@@ -20,8 +20,8 @@ class LoginRepositoryImplementation extends LoginRepository {
       method: HttpMethod.POST,
       url: loginUrl,
       data: {
-        'username': username,
-        'pass': pass,
+        'email': username,
+        'password': pass,
       },
     );
 

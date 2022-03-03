@@ -5,10 +5,12 @@ import 'package:tire_management/ui/screens/login/components/defualt_text_field.d
 import 'package:tire_management/ui/screens/login/cubit/cubit.dart';
 import 'package:tire_management/ui/screens/login/cubit/states.dart';
 import 'package:tire_management/ui/shared/components/defualt_button.dart';
+import 'package:tire_management/ui/shared/utils/message_dialog.dart';
 import 'package:tire_management/ui/shared/utils/messages.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
 
 import '../../shared/utils/loading_dialog.dart';
+import '../truck_selection/cubit/cubit.dart';
 import '../truck_selection/truck_selection_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -16,6 +18,7 @@ class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     precacheImage(const AssetImage("assets/images/cemex.jpg"), context);
@@ -30,11 +33,17 @@ class LoginScreen extends StatelessWidget {
 
           if (state is LoginErrorState) {
             Navigator.pop(context);
-            showAlert(message: state.message, context: context);
+            showMessageDialog(
+                context: context,
+                title: 'Failed',
+                message: state.message,
+                type: false);
           }
 
           if (state is LoginSuccessState) {
             Navigator.pop(context);
+            print(state.trucks);
+            TruckCubit.get(context).setTrucks(state.trucks);
             navigateWithTransitionAndFinish(
               context: context,
               nextScreen: TruckSelectionScreen(),

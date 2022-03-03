@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../truck_selection/cubit/states.dart';
@@ -70,5 +68,22 @@ class TruckCubit extends Cubit<TrucksStates> {
       trucksDropdownList.add(truck.truckNumber!);
     }
     emit(GetTrucksSuccessState());
+  }
+
+  void setTrucks(trucks) {
+    emit(GetTrucksLoadingState());
+    print(trucks);
+    for (var truck in trucks) {
+      print(truck);
+      trucksList.add(Truck.fromJson(truck));
+    }
+    for (var truck in trucksList) {
+      trucksDropdownList.add(truck.truckNumber!);
+    }
+
+    emit(GetTrucksSuccessState());
+    for (var truck in trucksList) {
+      print('truck:${truck.truckName} ${truck.truckNumber}');
+    }
   }
 }
