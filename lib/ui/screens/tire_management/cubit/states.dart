@@ -8,6 +8,11 @@ class GetTiresLoadingState extends TiresManageStates {}
 
 class GetTiresSuccessState extends TiresManageStates {}
 
+class GetTiresErrorState extends TiresManageStates {
+  String error;
+  GetTiresErrorState(this.error);
+}
+
 class SelectTireState extends TiresManageStates {}
 
 class ChangeSelectedActionState extends TiresManageStates {}

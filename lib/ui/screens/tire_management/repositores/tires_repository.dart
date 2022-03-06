@@ -6,12 +6,12 @@ import '../fake_data.dart';
 import '../models/tire_model.dart';
 
 abstract class TiresRepository {
-  List<Tire> getTrucks();
+  List<Tire> getTires();
 }
 
 class TiresRepositoryImplementation extends TiresRepository {
   @override
-  getTrucks() async {
+  getTires() async {
     List<Tire> tires = [];
 
     Response truckResponse = await DioService.request(
@@ -30,9 +30,9 @@ class TiresRepositoryImplementation extends TiresRepository {
 
 class FakeTiresRepositoryImplementation extends TiresRepository {
   @override
-  getTrucks() async {
+  getTires() async {
     List<Tire> tires = [];
-    var json = truck22Tires;
+    var json = truck4Tires;
     for(var tire in json){
       tires.add(Tire.fromJson(tire));
     }

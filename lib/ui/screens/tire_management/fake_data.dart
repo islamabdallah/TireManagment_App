@@ -7,28 +7,28 @@ var shovel4Tires = {
 
 var truck4Tires = [
   {
-    "name": "F2",
+    "name": "F1",
     "serial": "t123",
     "type": "type one",
     "Make": "Ford",
     "Manufactor": "Switching/Setter"
   },
   {
-    "name": "F3",
+    "name": "F2",
     "serial": "t1234",
     "type": "type one",
     "Make": "Ford",
     "Manufactor": "Switching/Setter"
   },
   {
-    "name": "R2",
+    "name": "R1",
     "serial": "t12554",
     "type": "type one",
     "Make": "Ford",
     "Manufactor": "Switching/Setter"
   },
   {
-    "name": "R3",
+    "name": "R2",
     "serial": "t22554",
     "type": "type one",
     "Make": "Ford",
