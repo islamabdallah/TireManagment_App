@@ -33,18 +33,25 @@ class TiersManagementScreen extends StatefulWidget {
 class _TiersManagementScreenState extends State<TiersManagementScreen> {
   // List<Tire> tireModel = [];
   var changeFormK = GlobalKey<FormState>();
+  late TiersManageCubit cubit;
 
   @override
   void initState() {
     super.initState();
 
-    TiersManageCubit.get(context).getTires();
+    cubit = TiersManageCubit.get(context);
+    cubit.getTires();
     // print(tireModel);
   }
 
   @override
+  void dispose() {
+    cubit.cancelProcess();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var cubit = TiersManageCubit.get(context);
     return BlocConsumer<TiersManageCubit, TiresManageStates>(
       listener: (context, state) {
         if (state is GetTiresLoadingState) {
@@ -273,7 +280,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TierDetailItem(
-                                  title: 'Serial : ', value: tire!.serial!),
+                                  title: 'Serial : ', value: tire!.tireSerial!),
                               TierDetailItem(
                                   title: 'Position : ', value: tire.position),
                               cubit.selectedAction == null
@@ -285,7 +292,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                           child: DefualtButton(
                                             title: 'Rotate',
                                             onPress: () {
-                                              cubit.changeAction('Rotate');
+                                              cubit.changeAction('Rotation');
                                               cubit.closeBottomSheet();
                                             },
                                           ),
@@ -295,9 +302,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                         ),
                                         Expanded(
                                           child: DefualtButton(
-                                            title: 'Change',
+                                            title: 'Replace',
                                             onPress: () {
-                                              cubit.changeAction('Change');
+                                              cubit.changeAction('Replacement');
                                               cubit.closeBottomSheet();
                                               showDialog(
                                                 barrierDismissible: false,
@@ -309,130 +316,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                     listener:
                                                         (context, state) {},
                                                     builder: (context, state) {
-                                                      return AlertDialog(
-                                                        elevation: 2,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                        ),
-                                                        contentPadding:
-                                                            EdgeInsets.all(
-                                                                12.h),
-                                                        scrollable: true,
-                                                        content: Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            vertical: 16.h,
-                                                          ),
-                                                          child: Form(
-                                                            key: changeFormK,
-                                                            child: Column(
-                                                              children: [
-                                                                TierDetails(
-                                                                  title:
-                                                                      'Tire1',
-                                                                  serial: cubit
-                                                                          .firstTire!
-                                                                          .serial ??
-                                                                      '',
-                                                                  oldPosition: cubit
-                                                                          .firstTire!
-                                                                          .position ??
-                                                                      '',
-                                                                  newPosition:
-                                                                      cubit.oldTierStatus ??
-                                                                          '',
-                                                                  isOld: cubit.selectedAction ==
-                                                                          'Change'
-                                                                      ? true
-                                                                      : false,
-                                                                ),
-                                                                Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .symmetric(
-                                                                    vertical:
-                                                                        20.h,
-                                                                  ),
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .swap_vert,
-                                                                    size: 50,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                ),
-                                                                SearchDropDown(
-                                                                  onChange:
-                                                                      (value) {
-                                                                    cubit.replaceTierWithNew(
-                                                                        value);
-                                                                  },
-                                                                  hint:
-                                                                      'Select Tier',
-                                                                  items: const [
-                                                                    '1',
-                                                                    '2',
-                                                                    '3',
-                                                                    '4'
-                                                                  ],
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 8.h,
-                                                                ),
-                                                                if (cubit
-                                                                        .secondTire !=
-                                                                    null)
-                                                                  TierDetails(
-                                                                    title:
-                                                                        'Tire2',
-                                                                    serial: cubit
-                                                                            .secondTire!
-                                                                            .serial ??
-                                                                        '',
-                                                                    newPosition:
-                                                                        cubit.firstTire!.position ??
-                                                                            '',
-                                                                    oldPosition:
-                                                                        cubit.secondTire!.position ??
-                                                                            '',
-                                                                  ),
-                                                                SizedBox(
-                                                                  height: 20.h,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        actions: [
-                                                          if (cubit
-                                                                  .secondTire !=
-                                                              null)
-                                                            DefualtButton(
-                                                              title: 'Process',
-                                                              onPress: () {
-                                                                if (changeFormK
-                                                                    .currentState!
-                                                                    .validate()) {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                  cubit
-                                                                      .cancelProcess();
-
-                                                                  // navigateWithTransitionAndFinish(
-                                                                  //   context:
-                                                                  //       context,
-                                                                  //   nextScreen:
-                                                                  //       CarSelectionScreen(),
-                                                                  // );
-                                                                }
-                                                              },
-                                                            ),
-                                                        ],
-                                                      );
+                                                      return buildReplacementAlertDialog();
                                                     },
                                                     buildWhen: (prev, current) {
                                                       print(current);
@@ -482,112 +366,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                     listener:
                                                         (context, state) {},
                                                     builder: (context, state) {
-                                                      return AlertDialog(
-                                                        elevation: 2,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                        ),
-                                                        contentPadding:
-                                                            EdgeInsets.all(
-                                                                12.h),
-                                                        scrollable: true,
-                                                        content: Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            vertical: 16.h,
-                                                          ),
-                                                          child: Form(
-                                                            key: changeFormK,
-                                                            child: Column(
-                                                              children: [
-                                                                TierDetails(
-                                                                  title:
-                                                                      'Tire1',
-                                                                  serial: cubit
-                                                                          .firstTire!
-                                                                          .serial ??
-                                                                      '',
-                                                                  oldPosition: cubit
-                                                                          .firstTire!
-                                                                          .position ??
-                                                                      '',
-                                                                  newPosition: cubit
-                                                                          .secondTire!
-                                                                          .position ??
-                                                                      '',
-                                                                ),
-                                                                Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .symmetric(
-                                                                    vertical:
-                                                                        20.h,
-                                                                  ),
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .swap_vert,
-                                                                    size: 50,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 8.h,
-                                                                ),
-                                                                if (cubit
-                                                                        .secondTire !=
-                                                                    null)
-                                                                  TierDetails(
-                                                                    title:
-                                                                        'Tire2',
-                                                                    serial: cubit
-                                                                            .secondTire!
-                                                                            .serial ??
-                                                                        '',
-                                                                    newPosition:
-                                                                        cubit.firstTire!.position ??
-                                                                            '',
-                                                                    oldPosition:
-                                                                        cubit.secondTire!.position ??
-                                                                            '',
-                                                                  ),
-                                                                SizedBox(
-                                                                  height: 20.h,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        actions: [
-                                                          if (cubit
-                                                                  .secondTire !=
-                                                              null)
-                                                            DefualtButton(
-                                                              title: 'Process',
-                                                              onPress: () {
-                                                                if (changeFormK
-                                                                    .currentState!
-                                                                    .validate()) {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                  cubit
-                                                                      .cancelProcess();
-
-                                                                  // navigateWithTransitionAndFinish(
-                                                                  //   context:
-                                                                  //       context,
-                                                                  //   nextScreen:
-                                                                  //       CarSelectionScreen(),
-                                                                  // );
-                                                                }
-                                                              },
-                                                            ),
-                                                        ],
-                                                      );
+                                                      return buildRotationAlertDialog(
+                                                          context);
+                                                      return Container();
                                                     },
                                                     buildWhen: (prev, current) {
                                                       print(current);
@@ -619,6 +400,207 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
           ),
         );
       },
+    );
+  }
+
+  Widget buildRotationAlertDialog(BuildContext context) {
+    TextEditingController t1Depth1 = cubit.t1Depth1;
+    TextEditingController t1Depth2 = cubit.t1Depth2;
+    TextEditingController t1Distance = cubit.t1Distance;
+
+    TextEditingController t2Depth1 = cubit.t2Depth1;
+    TextEditingController t2Depth2 = cubit.t2Depth2;
+    TextEditingController t2Distance = cubit.t2Distance;
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: AlertDialog(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        contentPadding: EdgeInsets.all(12.h),
+        scrollable: true,
+        content: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 16.h,
+          ),
+          child: Form(
+            key: changeFormK,
+            child: Column(
+              children: [
+                TierDetails(
+                  c1: t1Depth1,
+                  c2: t1Depth2,
+                  c3: t1Distance,
+                  title: 'Tire1',
+                  serial: cubit.firstTire!.tireSerial ?? '',
+                  oldPosition: cubit.firstTire!.position ?? '',
+                  newPosition: cubit.secondTire!.position ?? '',
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.h,
+                  ),
+                  child: const Icon(
+                    Icons.swap_vert,
+                    size: 50,
+                    color: Colors.red,
+                  ),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                if (cubit.secondTire != null)
+                  TierDetails(
+                    c1: t2Depth1,
+                    c2: t2Depth2,
+                    c3: t2Distance,
+                    title: 'Tire2',
+                    serial: cubit.secondTire!.tireSerial ?? '',
+                    newPosition: cubit.firstTire!.position ?? '',
+                    oldPosition: cubit.secondTire!.position ?? '',
+                  ),
+                SizedBox(
+                  height: 20.h,
+                ),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          if (cubit.secondTire != null)
+            DefualtButton(
+              title: 'Process',
+              onPress: () {
+                if (changeFormK.currentState!.validate()) {
+                  cubit.startMovement(
+                      t1Depth1.text,
+                      t2Depth2.text,
+                      t1Distance.text,
+                      t2Depth1.text,
+                      t2Depth2.text,
+                      t2Distance.text);
+
+                  // Navigator.pop(context);
+                  // cubit.cancelProcess();
+                  // navigateWithTransitionAndFinish(
+                  //   context:
+                  //       context,
+                  //   nextScreen:
+                  //       CarSelectionScreen(),
+                  // );
+                }
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildReplacementAlertDialog() {
+    TextEditingController t1Depth1 = cubit.t1Depth1;
+    TextEditingController t1Depth2 = cubit.t1Depth2;
+    TextEditingController t1Distance = cubit.t1Distance;
+
+    TextEditingController t2Depth1 = cubit.t2Depth1;
+    TextEditingController t2Depth2 = cubit.t2Depth2;
+    TextEditingController t2Distance = cubit.t2Distance;
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: AlertDialog(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        contentPadding: EdgeInsets.all(12.h),
+        scrollable: true,
+        content: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 16.h,
+          ),
+          child: Form(
+            key: changeFormK,
+            child: Column(
+              children: [
+                TierDetails(
+                  c1: t1Depth1,
+                  c2: t1Depth2,
+                  c3: t1Distance,
+                  title: 'Tire1',
+                  serial: cubit.firstTire!.tireSerial ?? '',
+                  oldPosition: cubit.firstTire!.position ?? '',
+                  newPosition: cubit.oldTierStatus ?? '',
+                  isOld: cubit.selectedAction == 'Replacement' ? true : false,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.h,
+                  ),
+                  child: const Icon(
+                    Icons.swap_vert,
+                    size: 50,
+                    color: Colors.red,
+                  ),
+                ),
+                SearchDropDown(
+                  onChange: (value) {
+                    cubit.replaceTierWithNew(value);
+                  },
+                  hint: 'Select Tier',
+                  items: const ['1', '2', '3', '4'],
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                if (cubit.secondTire != null)
+                  TierDetails(
+                    c1: t2Depth1,
+                    c2: t2Depth2,
+                    c3: t2Distance,
+                    title: 'Tire2',
+                    serial: cubit.secondTire!.tireSerial ?? '',
+                    newPosition: cubit.firstTire!.position ?? '',
+                    oldPosition: cubit.secondTire!.position ?? '',
+                  ),
+                SizedBox(
+                  height: 20.h,
+                ),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          if (cubit.secondTire != null)
+            DefualtButton(
+              title: 'Process',
+              onPress: () {
+                print('test');
+                if (changeFormK.currentState!.validate()) {
+                  cubit.startMovement(
+                      t1Depth1.text,
+                      t2Depth2.text,
+                      t1Distance.text,
+                      t2Depth1.text,
+                      t2Depth2.text,
+                      t2Distance.text);
+
+                  // Navigator.pop(
+                  //     context);
+                  // cubit
+                  //     .cancelProcess();
+
+                  // navigateWithTransitionAndFinish(
+                  //   context:
+                  //       context,
+                  //   nextScreen:
+                  //       CarSelectionScreen(),
+                  // );
+                }
+              },
+            ),
+        ],
+      ),
     );
   }
 }

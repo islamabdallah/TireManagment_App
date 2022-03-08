@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tire_management/ui/shared/constants.dart';
 
 import '../../truck_selection/cubit/states.dart';
 import '../../truck_selection/repositores/trucks_repository.dart';
@@ -58,6 +59,8 @@ class TruckCubit extends Cubit<TrucksStates> {
   void selectTruck(String? value) {
     selectedTruck =
         trucksList.firstWhere((truck) => truck.truckNumber == value);
+
+    truckNumber=selectedTruck.truckNumber;
     emit(SelectTruckState());
   }
 

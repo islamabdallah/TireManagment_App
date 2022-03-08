@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/ui/screens/login/cubit/states.dart';
+import 'package:tire_management/ui/screens/login/models/user_model.dart';
 import 'package:tire_management/ui/screens/login/repositories/login_repository.dart';
+import 'package:tire_management/ui/shared/constants.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(InitialLoginState());
@@ -38,12 +40,14 @@ class LoginCubit extends Cubit<LoginStates> {
         print(result);
         if (result.data['flag']) {
           print(result.data['flag']);
+          print(result.data);
           CacheHelper.saveData(
               key: 'userName', value: userNameController.text);
           // CacheHelper.saveData(
           //     key: 'userCheckPoint', value: userModel!.data!.checkpoint);
           // CacheHelper.saveData(key: 'name', value: userModel!.data!.name);
           CacheHelper.saveData(key: 'password', value: passwordController.text);
+          userData = User.fromJson(result.data['data']);
           emit(LoginSuccessState(result.data['trucks']));
         } else {
           emit(LoginErrorState('Something went wrong!'));

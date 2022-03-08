@@ -5,6 +5,7 @@ import 'package:tire_management/ui/screens/tire_management/component/input_manag
 import 'package:tire_management/ui/screens/tire_management/cubit/cubit.dart';
 import 'package:tire_management/ui/screens/tire_management/cubit/states.dart';
 import 'package:tire_management/ui/screens/tire_management/models/tire_model.dart';
+import 'package:tire_management/ui/screens/tire_management/models/tire_position_model.dart';
 import 'package:tire_management/ui/shared/components/default_drop_down.dart';
 import '../../../shared/components/note_text.dart';
 import 'package:tire_management/ui/shared/constants.dart';
@@ -46,12 +47,20 @@ class TierDetails extends StatelessWidget {
   String newPosition;
   bool isOld;
   String? dropdownValue;
+  TextEditingController c1;
+  TextEditingController c2;
+  TextEditingController c3;
+
+
   var dropdownOnChange;
   TierDetails({
     required this.title,
     required this.serial,
     required this.newPosition,
     required this.oldPosition,
+    required this.c1,
+    required this.c2,
+    required this.c3,
     this.isOld = false,
     this.dropdownValue,
     this.dropdownOnChange,
@@ -85,6 +94,7 @@ class TierDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InputTierInfo(
+              controller: c1,
               title: 'Depth1    ',
               color: Colors.red,
             ),
@@ -92,6 +102,7 @@ class TierDetails extends StatelessWidget {
               width: 10.w,
             ),
             InputTierInfo(
+              controller: c2,
               title: 'Depth2  ',
               color: Colors.red,
             ),
@@ -103,6 +114,7 @@ class TierDetails extends StatelessWidget {
         Row(
           children: [
             InputTierInfo(
+              controller: c3,
               title: 'Distance ',
               color: Colors.red,
             ),
@@ -118,7 +130,7 @@ class TierDetails extends StatelessWidget {
                       TiersManageCubit.get(context).selectOldTiersStatus(value);
                     },
                     hint: 'Status',
-                    items: ['demaged', 'maintenance'],
+                    items: const ['Damaged', 'Retread'],
                     value: TiersManageCubit.get(context).oldTierStatus,
                     isExpand: true,
                   ),

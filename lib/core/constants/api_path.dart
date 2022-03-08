@@ -5,3 +5,4 @@
 const String baseUrl = 'http://20.86.97.165/Tire/api';
 const String loginUrl = baseUrl + '/AccountApi/Trucks';
 const String trucksUrl = baseUrl + '/checkpoints/User';
+const String tiresUrl = baseUrl + '/TireApi/TiresByTruck';

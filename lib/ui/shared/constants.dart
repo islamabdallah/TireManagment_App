@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screens/login/models/user_model.dart';
+
 
 var scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -15,3 +17,6 @@ const appBarsTextStyle = TextStyle(
 );
 
 bool isTaplet = 1.sw >= 500 ? true : false;
+
+String? truckNumber;
+User? userData;

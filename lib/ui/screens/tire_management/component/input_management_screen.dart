@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
 class InputTierInfo extends StatelessWidget {
-  String title;
-  Color color;
-  InputTierInfo({
+  final String title;
+  final Color color;
+  final TextEditingController controller;
+  const InputTierInfo({Key? key,
     required this.title,
     required this.color,
-  });
+    required this.controller,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,6 +25,7 @@ class InputTierInfo extends StatelessWidget {
           height: 56.w,
           width: 66.w,
           child: TextFormField(
+            controller: controller,
             cursorColor: mainColor,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(

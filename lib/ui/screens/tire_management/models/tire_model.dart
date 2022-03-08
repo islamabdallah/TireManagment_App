@@ -1,33 +1,34 @@
 class Tire {
+  late int id;
   late String position;
-  String? serial;
+  String? tireSerial;
   String? type;
   String? make;
   String? manufactor;
 
   Tire({
+    required this.id,
     required this.position,
-    this.serial,
+    this.tireSerial,
     this.type,
     this.make,
     this.manufactor,
   });
 
   Tire.fromJson(Map<String, dynamic> json) {
-    position = json['name'];
-    serial = json['serial'];
-    type = json['type'];
-    make = json['Make'];
-    manufactor = json['Manufactor'];
+    id = json['id'];
+    position = json['position'];
+    tireSerial = json['tireSerial'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = this.position;
-    data['serial'] = this.serial;
-    data['type'] = this.type;
-    data['Make'] = this.make;
-    data['Manufactor'] = this.manufactor;
+    data['id'] = id;
+    data['name'] = position;
+    data['tireSerial'] = tireSerial;
+    data['type'] = type;
+    data['Make'] = make;
+    data['Manufactor'] = manufactor;
     return data;
   }
 }
