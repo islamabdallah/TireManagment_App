@@ -17,6 +17,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
 
   static TiersManageCubit get(context) => BlocProvider.of(context);
   List<Tire> tires = [];
+  List<Tire> newTires = [];
   Tire? firstTire;
   Tire? secondTire;
   SharedModel? shared;
@@ -27,13 +28,17 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
 
   void getTires() async {
     tires.clear();
+    newTires.clear();
     emit(GetTiresLoadingState());
     try {
       var result = await repo.getTires();
       if (result.data['flag']) {
-        for (var tire in result.data['data']) {
+        for (var tire in result.data['truckTires']) {
           tires.add(Tire.fromJson(tire));
         }
+        // for (var tire in result.data['newTires']) {
+        //   newTires.add(Tire.fromJson(tire));
+        // }
         emit(GetTiresSuccessState());
       }
     } on DioError catch (error) {
@@ -116,7 +121,9 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
 
   void replaceTierWithNew(value) {
     secondTire = Tire(id: 20, position: 'new', tireSerial: '567');
+    // secondTire = newTires.firstWhere((element) => element.tireSerial==value);
     emit(SelectNewTierState());
+
   }
 
   void saveProcess() {
@@ -147,14 +154,14 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     t2Distance.clear();
   }
 
-  void startMovement(
+  Future<void> startMovement(
     String t1Depth1,
     String t1Depth2,
     String t1Distance,
     String t2Depth1,
     String t2Depth2,
     String t2Distance,
-  ) {
+  ) async {
     String truckNO = truckNumber!;
     String userId = userData!.id!;
     String movementType = selectedAction!;
@@ -183,5 +190,27 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
         movementType: movementType,
         tiresPosition: [tier2, tier1]);
     print(lastData.toJson());
+
+    emit(GetTiresLoadingState());
+
+    try {
+      var result = await repo.setTires(lastData);
+      if (result.data['flag']) {
+
+        emit(TireMovementSuccessState(result.data['message']));
+      }
+    } on DioError catch (error) {
+      if (error.response != null) {
+        print(error.response!.data['message']);
+        emit(TireMovementErrorState(error.response!.data['message']));
+      } else {
+        print(error.type);
+        emit(TireMovementErrorState(
+            'server error, check your internet connection and try again.'));
+      }
+    } catch (error) {
+      print(error);
+      emit(TireMovementErrorState('Something wrong!'));
+    }
   }
 }

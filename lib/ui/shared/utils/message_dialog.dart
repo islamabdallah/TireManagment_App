@@ -44,10 +44,11 @@ showMessageDialog({
                             RaisedButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
+                                Navigator.of(context).pop();
                               },
                               color: type ? Colors.lightGreen : Colors.red,
                               child: const Text(
-                                'Retry',
+                                'Ok',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),

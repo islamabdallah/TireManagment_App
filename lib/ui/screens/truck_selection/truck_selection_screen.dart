@@ -213,7 +213,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                 CacheHelper.saveData(
                                     key: 'truckNumber',
                                     value: cubit.selectedTruck.truckNumber);
-                                navigateWithTransition(
+                                navigateTo(
                                   context: context,
                                   nextScreen: const TiersManagementScreen(),
                                 );

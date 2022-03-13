@@ -29,3 +29,14 @@ class SaveProcessState extends TiresManageStates {
 class SelectNewTierState extends TiresManageStates {}
 
 class CloseBottomSheetState extends TiresManageStates {}
+
+class TireMovementLoadingState extends TiresManageStates {}
+class TireMovementSuccessState extends TiresManageStates {
+  String message;
+  TireMovementSuccessState(this.message);
+}
+class TireMovementErrorState extends TiresManageStates {
+  String error;
+  TireMovementErrorState(this.error);
+}
+

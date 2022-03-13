@@ -22,6 +22,7 @@ import 'package:tire_management/ui/shared/constants.dart';
 
 import '../../shared/components/default_drop_down.dart';
 import '../../shared/utils/loading_dialog.dart';
+import '../../shared/utils/message_dialog.dart';
 
 class TiersManagementScreen extends StatefulWidget {
   const TiersManagementScreen({Key? key}) : super(key: key);
@@ -40,7 +41,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
     super.initState();
 
     cubit = TiersManageCubit.get(context);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
     cubit.getTires();
+    });
     // print(tireModel);
   }
 
@@ -54,10 +57,31 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<TiersManageCubit, TiresManageStates>(
       listener: (context, state) {
+        print(state.runtimeType);
         if (state is GetTiresLoadingState) {
           loadingAlertDialog(context);
         }
-        if (state is SaveProcessState) {}
+        if (state is GetTiresSuccessState) {
+          Navigator.pop(context);
+        }
+        if (state is TireMovementSuccessState) {
+          Navigator.pop(context);
+          showMessageDialog(
+            context: context,
+            title: 'Success',
+            message: state.message,
+            type: true,
+          );
+        }
+        if (state is TireMovementErrorState) {
+          Navigator.pop(context);
+          showMessageDialog(
+            context: context,
+            title: 'Failed',
+            message: state.error,
+            type: false,
+          );
+        }
       },
       builder: (context, state) {
         return WillPopScope(
@@ -375,9 +399,10 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                       print(current
                                                           is CancelProcessState);
                                                       if (current
-                                                          is CancelProcessState)
+                                                          is CancelProcessState) {
                                                         return false;
-                                                      return true;
+                                                      }
+                                                      return false;
                                                     },
                                                   );
                                                 },
@@ -471,9 +496,11 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
           if (cubit.secondTire != null)
             DefualtButton(
               title: 'Process',
-              onPress: () {
+              onPress: () async {
                 if (changeFormK.currentState!.validate()) {
-                  cubit.startMovement(
+                  Navigator.pop(context);
+
+                  await cubit.startMovement(
                       t1Depth1.text,
                       t2Depth2.text,
                       t1Distance.text,
@@ -481,14 +508,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                       t2Depth2.text,
                       t2Distance.text);
 
-                  // Navigator.pop(context);
-                  // cubit.cancelProcess();
-                  // navigateWithTransitionAndFinish(
-                  //   context:
-                  //       context,
-                  //   nextScreen:
-                  //       CarSelectionScreen(),
-                  // );
+                  cubit.cancelProcess();
+
                 }
               },
             ),
@@ -549,6 +570,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                   },
                   hint: 'Select Tier',
                   items: const ['1', '2', '3', '4'],
+                  // items: cubit.newTires.map((e) => e.tireSerial).toList().cast(),
                 ),
                 SizedBox(
                   height: 8.h,
@@ -577,6 +599,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
               onPress: () {
                 print('test');
                 if (changeFormK.currentState!.validate()) {
+                  Navigator.pop(
+                      context);
+
                   cubit.startMovement(
                       t1Depth1.text,
                       t2Depth2.text,
@@ -585,10 +610,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                       t2Depth2.text,
                       t2Distance.text);
 
-                  // Navigator.pop(
-                  //     context);
-                  // cubit
-                  //     .cancelProcess();
+
+                  cubit
+                      .cancelProcess();
 
                   // navigateWithTransitionAndFinish(
                   //   context:
