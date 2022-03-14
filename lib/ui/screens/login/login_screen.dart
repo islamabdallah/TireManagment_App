@@ -35,9 +35,12 @@ class LoginScreen extends StatelessWidget {
             Navigator.pop(context);
             showMessageDialog(
                 context: context,
-                title: 'Failed',
                 message: state.message,
-                type: false);
+                isSucceeded: false,
+            onPressedRetry: (){
+                  print('ha');
+            }
+            );
           }
 
           if (state is LoginSuccessState) {

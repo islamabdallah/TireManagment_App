@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 showMessageDialog({
   required BuildContext context,
-  required String title,
   required String message,
-  required bool type,
+  required bool isSucceeded,
+  VoidCallback?  onPressedOk,
+  VoidCallback?  onPressedRetry,
 }) {
   showDialog(
     barrierDismissible: false,
@@ -20,53 +21,56 @@ showMessageDialog({
               SizedBox(
                 height: 200,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 60, 10, 10),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          title,
+                          isSucceeded ? 'Succeeded' : 'Failed',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: type ? Colors.lightGreen : Colors.red,
+                            color: isSucceeded ? Colors.lightGreen : Colors.red,
                           ),
                         ),
                         Text(
                           message,
-                          style: const TextStyle(fontSize: 18),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 16),
                           maxLines: 3,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            if (!isSucceeded) ...[
+                              RaisedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  onPressedRetry?.call();
+                                },
+                                color: Colors.red,
+                                child: const Text(
+                                  'Retry',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                            ],
                             RaisedButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                Navigator.of(context).pop();
+                                onPressedOk?.call();
                               },
-                              color: type ? Colors.lightGreen : Colors.red,
+                              color:
+                              isSucceeded ? Colors.lightGreen : Colors.red,
                               child: const Text(
                                 'Ok',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
-                            if (!type) ...[
-                              const SizedBox(
-                                width: 25,
-                              ),
-                              RaisedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                color: type ? Colors.lightGreen : Colors.red,
-                                child: const Text(
-                                  'Ok',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ]
                           ],
                         )
                       ]),
@@ -74,7 +78,7 @@ showMessageDialog({
               ),
               Positioned(
                   top: -50,
-                  child: type
+                  child: isSucceeded
                       ? const CircleAvatar(
                           backgroundColor: Colors.lightGreen,
                           radius: 50,

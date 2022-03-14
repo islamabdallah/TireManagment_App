@@ -68,18 +68,20 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
           Navigator.pop(context);
           showMessageDialog(
             context: context,
-            title: 'Success',
             message: state.message,
-            type: true,
+            isSucceeded: true,
           );
         }
         if (state is TireMovementErrorState) {
           Navigator.pop(context);
           showMessageDialog(
             context: context,
-            title: 'Failed',
             message: state.error,
-            type: false,
+            isSucceeded: false,
+            onPressedRetry: (){
+              print('retry');
+              cubit.startMovement();
+            }
           );
         }
       },
@@ -96,7 +98,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Colors.black,
-            //resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: false,
             body: SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),
               child: Padding(
@@ -459,8 +461,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                   c3: t1Distance,
                   title: 'Tire1',
                   serial: cubit.firstTire!.tireSerial ?? '',
-                  oldPosition: cubit.firstTire!.position ?? '',
-                  newPosition: cubit.secondTire!.position ?? '',
+                  oldPosition: cubit.firstTire!.position,
+                  newPosition: cubit.secondTire!.position,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -482,8 +484,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     c3: t2Distance,
                     title: 'Tire2',
                     serial: cubit.secondTire!.tireSerial ?? '',
-                    newPosition: cubit.firstTire!.position ?? '',
-                    oldPosition: cubit.secondTire!.position ?? '',
+                    newPosition: cubit.firstTire!.position,
+                    oldPosition: cubit.secondTire!.position,
                   ),
                 SizedBox(
                   height: 20.h,
@@ -498,17 +500,11 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
               title: 'Process',
               onPress: () async {
                 if (changeFormK.currentState!.validate()) {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
-                  await cubit.startMovement(
-                      t1Depth1.text,
-                      t2Depth2.text,
-                      t1Distance.text,
-                      t2Depth1.text,
-                      t2Depth2.text,
-                      t2Distance.text);
+                  await cubit.startMovement();
 
-                  cubit.cancelProcess();
+                  // cubit.cancelProcess();
 
                 }
               },
@@ -550,7 +546,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                   c3: t1Distance,
                   title: 'Tire1',
                   serial: cubit.firstTire!.tireSerial ?? '',
-                  oldPosition: cubit.firstTire!.position ?? '',
+                  oldPosition: cubit.firstTire!.position,
                   newPosition: cubit.oldTierStatus ?? '',
                   isOld: cubit.selectedAction == 'Replacement' ? true : false,
                 ),
@@ -582,8 +578,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     c3: t2Distance,
                     title: 'Tire2',
                     serial: cubit.secondTire!.tireSerial ?? '',
-                    newPosition: cubit.firstTire!.position ?? '',
-                    oldPosition: cubit.secondTire!.position ?? '',
+                    newPosition: cubit.firstTire!.position,
+                    oldPosition: cubit.secondTire!.position,
                   ),
                 SizedBox(
                   height: 20.h,
@@ -599,20 +595,14 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
               onPress: () {
                 print('test');
                 if (changeFormK.currentState!.validate()) {
-                  Navigator.pop(
-                      context);
+                  // Navigator.pop(
+                  //     context);
 
-                  cubit.startMovement(
-                      t1Depth1.text,
-                      t2Depth2.text,
-                      t1Distance.text,
-                      t2Depth1.text,
-                      t2Depth2.text,
-                      t2Distance.text);
+                  cubit.startMovement();
 
-
-                  cubit
-                      .cancelProcess();
+                  //
+                  // cubit
+                  //     .cancelProcess();
 
                   // navigateWithTransitionAndFinish(
                   //   context:

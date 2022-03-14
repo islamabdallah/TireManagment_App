@@ -154,14 +154,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     t2Distance.clear();
   }
 
-  Future<void> startMovement(
-    String t1Depth1,
-    String t1Depth2,
-    String t1Distance,
-    String t2Depth1,
-    String t2Depth2,
-    String t2Distance,
-  ) async {
+  Future<void> startMovement() async {
     String truckNO = truckNumber!;
     String userId = userData!.id!;
     String movementType = selectedAction!;
@@ -171,16 +164,16 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
       position: selectedAction == 'Replacement'
           ? oldTierStatus!
           : secondTire!.position,
-      currentTireDepth: int.parse(t1Depth1),
-      sTDThreadDepth: int.parse(t1Depth2),
+      currentTireDepth: int.parse(t1Depth1.text),
+      sTDThreadDepth: int.parse(t1Depth2.text),
       kMWhileChange: '$t1Distance Km',
     );
 
     TirePosition tier2 = TirePosition(
       tireId: secondTire!.id,
       position: firstTire!.position,
-      currentTireDepth: int.parse(t2Depth1),
-      sTDThreadDepth: int.parse(t2Depth2),
+      currentTireDepth: int.parse(t2Depth1.text),
+      sTDThreadDepth: int.parse(t2Depth2.text),
       kMWhileChange: '$t2Distance Km',
     );
 
