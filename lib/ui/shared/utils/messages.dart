@@ -47,9 +47,9 @@ void showAlert({
                   Container(
                     width: 60,
                     height: 36,
-                    child: DefualtButton(
+                    child: DefaultButton(
                       title: 'ok',
-                      onPress: () {
+                      onPressed: () {
                         Navigator.popUntil(
                           context,
                           (route) => route.isFirst,

@@ -3,7 +3,7 @@ import 'package:tire_management/core/utils/services/remote/dio_helper.dart';
 
 import '../../../../core/constants/api_path.dart';
 import '../../../shared/constants.dart';
-import '../fake_data.dart';
+import '../models/fake_data.dart';
 import '../models/tire_model.dart';
 
 abstract class TiresRepository {

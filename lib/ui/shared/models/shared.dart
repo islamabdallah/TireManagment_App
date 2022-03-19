@@ -1,4 +1,4 @@
-import 'package:tire_management/ui/screens/tire_management/models/tire_model.dart';
+import 'package:tire_management/ui/modules/tire_management/models/tire_model.dart';
 
 class SharedModel {
   late String userName;

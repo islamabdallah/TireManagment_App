@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tire_management/ui/screens/tire_management/component/input_management_screen.dart';
-import 'package:tire_management/ui/screens/tire_management/cubit/cubit.dart';
-import 'package:tire_management/ui/screens/tire_management/cubit/states.dart';
-import 'package:tire_management/ui/screens/tire_management/models/tire_model.dart';
-import 'package:tire_management/ui/screens/tire_management/models/tire_position_model.dart';
+import 'package:tire_management/ui/modules/tire_management/component/input_management_screen.dart';
+import 'package:tire_management/ui/modules/tire_management/cubit/cubit.dart';
+import 'package:tire_management/ui/modules/tire_management/cubit/states.dart';
+import 'package:tire_management/ui/modules/tire_management/models/tire_model.dart';
+import 'package:tire_management/ui/modules/tire_management/models/tire_position_model.dart';
 import 'package:tire_management/ui/shared/components/default_drop_down.dart';
 import '../../../shared/components/note_text.dart';
 import 'package:tire_management/ui/shared/constants.dart';
+
+import 'tire.dart';
 
 class TierDetailItem extends StatelessWidget {
   String title;
@@ -23,14 +25,20 @@ class TierDetailItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        NoteText(
-          text: title,
-          color: mainColor,
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 16.sp,
+            color: mainColor,
+            fontWeight: FontWeight.w700,
+            fontFamily: "Roboto",
+            fontStyle:  FontStyle.normal,
+          ),
         ),
         Text(
           value,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 16.sp,
             color: Colors.grey,
             decoration: isOLd ? TextDecoration.lineThrough : null,
           ),
@@ -74,6 +82,7 @@ class TierDetails extends StatelessWidget {
         SizedBox(
           height: 20.h,
         ),
+        TierWidget(data:TiersManageCubit.get(context).getTire(oldPosition)),
         TierDetailItem(
           title: 'Serial  : ',
           value: serial,

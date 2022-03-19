@@ -16,12 +16,9 @@ void navigateAndFinish({
   required context,
   required nextScreen,
 }) =>
-    Navigator.pushAndRemoveUntil(
+    Navigator.pushReplacementNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => nextScreen,
-      ),
-      (route) => false,
+      nextScreen
     );
 
 void navigateWithTransition({

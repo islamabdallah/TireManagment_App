@@ -4,27 +4,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_shadow/simple_shadow.dart';
-import 'package:tire_management/ui/screens/login/components/defualt_text_field.dart';
+import 'package:tire_management/ui/modules/login/components/defualt_text_field.dart';
 
-import 'package:tire_management/ui/screens/truck_selection/truck_selection_screen.dart';
+import 'package:tire_management/ui/modules/truck_selection/screens/truck_selection_screen.dart';
 import 'package:tire_management/ui/shared/components/search_drop_down.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
-import '../../shared/components/note_text.dart';
-import 'package:tire_management/ui/screens/tire_management/component/input_management_screen.dart';
-import 'package:tire_management/ui/screens/tire_management/component/tier_save_item.dart';
-import 'package:tire_management/ui/screens/tire_management/component/tire.dart';
-import 'package:tire_management/ui/screens/tire_management/cubit/cubit.dart';
-import 'package:tire_management/ui/screens/tire_management/cubit/states.dart';
-import 'package:tire_management/ui/screens/tire_management/fake_data.dart';
-import 'package:tire_management/ui/screens/tire_management/models/tire_model.dart';
+import '../../../shared/components/note_text.dart';
+import 'package:tire_management/ui/modules/tire_management/component/input_management_screen.dart';
+import 'package:tire_management/ui/modules/tire_management/component/tier_save_item.dart';
+import 'package:tire_management/ui/modules/tire_management/component/tire.dart';
+import 'package:tire_management/ui/modules/tire_management/cubit/cubit.dart';
+import 'package:tire_management/ui/modules/tire_management/cubit/states.dart';
+import 'package:tire_management/ui/modules/tire_management/models/fake_data.dart';
+import 'package:tire_management/ui/modules/tire_management/models/tire_model.dart';
 import 'package:tire_management/ui/shared/components/defualt_button.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
-import '../../shared/components/default_drop_down.dart';
-import '../../shared/utils/loading_dialog.dart';
-import '../../shared/utils/message_dialog.dart';
+import '../../../shared/components/default_drop_down.dart';
+import '../../../shared/utils/loading_dialog.dart';
+import '../../../shared/utils/message_dialog.dart';
 
 class TiersManagementScreen extends StatefulWidget {
+  static const routeName = 'TiersManagementScreen';
+
   const TiersManagementScreen({Key? key}) : super(key: key);
 
   @override
@@ -42,7 +44,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
 
     cubit = TiersManageCubit.get(context);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-    cubit.getTires();
+      cubit.getTires();
     });
     // print(tireModel);
   }
@@ -75,14 +77,13 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
         if (state is TireMovementErrorState) {
           Navigator.pop(context);
           showMessageDialog(
-            context: context,
-            message: state.error,
-            isSucceeded: false,
-            onPressedRetry: (){
-              print('retry');
-              cubit.startMovement();
-            }
-          );
+              context: context,
+              message: state.error,
+              isSucceeded: false,
+              onPressedRetry: () {
+                print('retry');
+                cubit.startMovement();
+              });
         }
       },
       builder: (context, state) {
@@ -97,7 +98,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
           },
           child: Scaffold(
             key: scaffoldKey,
-            backgroundColor: Colors.black,
+            backgroundColor: const Color(0xFFf5f5f5),
             resizeToAvoidBottomInset: false,
             body: SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),
@@ -106,7 +107,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     bottom: cubit.isBottomSheetOpened ? 205.h : 0.h),
                 child: Center(
                   child: Container(
-                    height: 695.h,
+                    height: 653.h,
                     // color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -199,8 +200,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                 padding: EdgeInsets.zero,
                                 margin: EdgeInsets.zero,
                                 height: 560.h,
-                                child: SvgPicture.asset(
-                                  "assets/icons/trailer2.svg",
+                                child: Image.asset(
+                                  "assets/images/truck.png",
                                 ),
                               ),
                             ),
@@ -281,18 +282,26 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
             ),
             bottomSheet: cubit.isBottomSheetOpened && cubit.firstTire != null
                 ? BottomSheet(
-                    backgroundColor: Colors.black,
+                    backgroundColor: const Color(0xFFf5f5f5),
                     builder: (BuildContext context) {
-                      Tire? tire = cubit.secondTire ?? cubit.firstTire;
+                      Tire? tire = cubit.firstTire;
+                      Tire? tire2 = cubit.secondTire;
                       return Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black38,
+                              blurRadius: 16.r,
+                              offset: Offset(0, -4.h),
+                            )
+                          ],
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
+                            topLeft: Radius.circular(20.r),
+                            topRight: Radius.circular(20.r),
                           ),
                         ),
-                        height: 205.h,
+                        height: 167.h,
                         width: 1.sw,
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -301,122 +310,185 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             right: 16.h,
                             bottom: 4.h,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TierDetailItem(
-                                  title: 'Serial : ', value: tire!.tireSerial!),
-                              TierDetailItem(
-                                  title: 'Position : ', value: tire.position),
-                              cubit.selectedAction == null
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: DefualtButton(
-                                            title: 'Rotate',
-                                            onPress: () {
-                                              cubit.changeAction('Rotation');
-                                              cubit.closeBottomSheet();
-                                            },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      width: 0.45.sw,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                              height: 80.h,
+                                              // width: 90.w,
+                                              child: TierWidget(
+                                                data: tire,
+                                              )),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              TierDetailItem(
+                                                  title: 'Serial : ',
+                                                  value: tire!.tireSerial!),
+                                              TierDetailItem(
+                                                  title: 'Position : ',
+                                                  value: tire.position!),
+                                              TierDetailItem(
+                                                  title: 'Brand : ',
+                                                  value: tire.tirebrand!),
+                                            ],
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        Expanded(
-                                          child: DefualtButton(
-                                            title: 'Replace',
-                                            onPress: () {
-                                              cubit.changeAction('Replacement');
-                                              cubit.closeBottomSheet();
-                                              showDialog(
-                                                barrierDismissible: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return BlocConsumer<
-                                                      TiersManageCubit,
-                                                      TiresManageStates>(
-                                                    listener:
-                                                        (context, state) {},
-                                                    builder: (context, state) {
-                                                      return buildReplacementAlertDialog();
-                                                    },
-                                                    buildWhen: (prev, current) {
-                                                      print(current);
-                                                      print(current
-                                                          is CancelProcessState);
-                                                      if (current
-                                                          is CancelProcessState)
-                                                        return false;
-                                                      return true;
-                                                    },
-                                                  );
-                                                },
-                                              ).then((value) {
-                                                cubit.cancelProcess();
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : Row(
-                                      children: [
-                                        Expanded(
-                                          child: DefualtButton(
-                                            title: 'Cancel',
-                                            onPress: () {
-                                              cubit.cancelProcess();
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        Expanded(
-                                          child: DefualtButton(
-                                            title: 'Save',
-                                            color: Colors.green,
-                                            onPress: () {
-                                              cubit.saveProcess();
-                                              showDialog(
-                                                barrierDismissible: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return BlocConsumer<
-                                                      TiersManageCubit,
-                                                      TiresManageStates>(
-                                                    listener:
-                                                        (context, state) {},
-                                                    builder: (context, state) {
-                                                      return buildRotationAlertDialog(
-                                                          context);
-                                                      return Container();
-                                                    },
-                                                    buildWhen: (prev, current) {
-                                                      print(current);
-                                                      print(current
-                                                          is CancelProcessState);
-                                                      if (current
-                                                          is CancelProcessState) {
-                                                        return false;
-                                                      }
-                                                      return false;
-                                                    },
-                                                  );
-                                                },
-                                              ).then((value) {
-                                                cubit.cancelProcess();
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                            ],
+                                    if(tire2!=null)
+                                    SizedBox(
+                                      width: 0.4.sw,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                              height: 80.h,
+                                              // width: 90.w,
+                                              child: TierWidget(
+                                                data: tire2,
+                                              )),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              TierDetailItem(
+                                                  title: 'Serial : ',
+                                                  value: tire2!.tireSerial!),
+                                              TierDetailItem(
+                                                  title: 'Position : ',
+                                                  value: tire2.position!),
+                                              TierDetailItem(
+                                                  title: 'Brand : ',
+                                                  value: tire2.tirebrand!),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                cubit.selectedAction == null
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Expanded(
+                                            child: DefaultButton(
+                                              title: 'Rotate',
+                                              onPressed: () {
+                                                cubit.changeAction('Rotation');
+                                                cubit.closeBottomSheet();
+                                              },
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20.w,
+                                          ),
+                                          Expanded(
+                                            child: DefaultButton(
+                                              title: 'Replace',
+                                              isFill: false,
+                                              onPressed: () {
+                                                cubit.changeAction(
+                                                    'Replacement');
+                                                cubit.closeBottomSheet();
+                                                showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return BlocConsumer<
+                                                        TiersManageCubit,
+                                                        TiresManageStates>(
+                                                      listener:
+                                                          (context, state) {},
+                                                      builder:
+                                                          (context, state) {
+                                                        return buildReplacementAlertDialog();
+                                                      },
+                                                      buildWhen:
+                                                          (prev, current) {
+                                                        print(current);
+                                                        print(current
+                                                            is CancelProcessState);
+                                                        if (current
+                                                            is CancelProcessState)
+                                                          return false;
+                                                        return true;
+                                                      },
+                                                    );
+                                                  },
+                                                ).then((value) {
+                                                  cubit.cancelProcess();
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Row(
+                                        children: [
+                                          Expanded(
+                                            child: DefaultButton(
+                                              title: 'Cancel',
+                                              onPressed: () {
+                                                cubit.cancelProcess();
+                                              },
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20.w,
+                                          ),
+                                          Expanded(
+                                            child: DefaultButton(
+                                              title: 'Save',
+                                              onPressed: () {
+                                                cubit.saveProcess();
+                                                showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return BlocConsumer<
+                                                        TiersManageCubit,
+                                                        TiresManageStates>(
+                                                      listener:
+                                                          (context, state) {},
+                                                      builder:
+                                                          (context, state) {
+                                                        return buildRotationAlertDialog(
+                                                            context);
+                                                        return Container();
+                                                      },
+                                                      buildWhen:
+                                                          (prev, current) {
+                                                        print(current);
+                                                        print(current
+                                                            is CancelProcessState);
+                                                        if (current
+                                                            is CancelProcessState) {
+                                                          return false;
+                                                        }
+                                                        return false;
+                                                      },
+                                                    );
+                                                  },
+                                                ).then((value) {
+                                                  cubit.cancelProcess();
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -461,8 +533,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                   c3: t1Distance,
                   title: 'Tire1',
                   serial: cubit.firstTire!.tireSerial ?? '',
-                  oldPosition: cubit.firstTire!.position,
-                  newPosition: cubit.secondTire!.position,
+                  oldPosition: cubit.firstTire!.position ?? '',
+                  newPosition: cubit.secondTire!.position ?? '',
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -484,8 +556,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     c3: t2Distance,
                     title: 'Tire2',
                     serial: cubit.secondTire!.tireSerial ?? '',
-                    newPosition: cubit.firstTire!.position,
-                    oldPosition: cubit.secondTire!.position,
+                    newPosition: cubit.firstTire!.position ?? '',
+                    oldPosition: cubit.secondTire!.position ?? '',
                   ),
                 SizedBox(
                   height: 20.h,
@@ -496,9 +568,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
         ),
         actions: [
           if (cubit.secondTire != null)
-            DefualtButton(
+            DefaultButton(
               title: 'Process',
-              onPress: () async {
+              onPressed: () async {
                 if (changeFormK.currentState!.validate()) {
                   // Navigator.pop(context);
 
@@ -546,7 +618,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                   c3: t1Distance,
                   title: 'Tire1',
                   serial: cubit.firstTire!.tireSerial ?? '',
-                  oldPosition: cubit.firstTire!.position,
+                  oldPosition: cubit.firstTire!.position ?? '',
                   newPosition: cubit.oldTierStatus ?? '',
                   isOld: cubit.selectedAction == 'Replacement' ? true : false,
                 ),
@@ -565,8 +637,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     cubit.replaceTierWithNew(value);
                   },
                   hint: 'Select Tier',
-                  items: const ['1', '2', '3', '4'],
-                  // items: cubit.newTires.map((e) => e.tireSerial).toList().cast(),
+                  // items: const ['1', '2', '3', '4'],
+                  items:
+                      cubit.newTires.map((e) => e.tireSerial).toList().cast(),
                 ),
                 SizedBox(
                   height: 8.h,
@@ -578,8 +651,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     c3: t2Distance,
                     title: 'Tire2',
                     serial: cubit.secondTire!.tireSerial ?? '',
-                    newPosition: cubit.firstTire!.position,
-                    oldPosition: cubit.secondTire!.position,
+                    newPosition: cubit.firstTire!.position ?? '',
+                    oldPosition: cubit.secondTire!.position ?? '',
                   ),
                 SizedBox(
                   height: 20.h,
@@ -590,9 +663,9 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
         ),
         actions: [
           if (cubit.secondTire != null)
-            DefualtButton(
+            DefaultButton(
               title: 'Process',
-              onPress: () {
+              onPressed: () {
                 print('test');
                 if (changeFormK.currentState!.validate()) {
                   // Navigator.pop(

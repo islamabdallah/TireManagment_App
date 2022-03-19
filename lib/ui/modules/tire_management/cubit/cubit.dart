@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 
-import 'package:tire_management/ui/screens/tire_management/cubit/states.dart';
-import 'package:tire_management/ui/screens/tire_management/models/tire_model.dart';
-import 'package:tire_management/ui/screens/tire_management/models/tire_position_model.dart';
-import 'package:tire_management/ui/screens/tire_management/models/truck_movement_model.dart';
+import 'package:tire_management/ui/modules/tire_management/cubit/states.dart';
+import 'package:tire_management/ui/modules/tire_management/models/tire_model.dart';
+import 'package:tire_management/ui/modules/tire_management/models/tire_position_model.dart';
+import 'package:tire_management/ui/modules/tire_management/models/truck_movement_model.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 import 'package:tire_management/ui/shared/models/shared.dart';
 
@@ -33,12 +33,12 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     try {
       var result = await repo.getTires();
       if (result.data['flag']) {
-        for (var tire in result.data['truckTires']) {
+        for (var tire in result.data['data']) {
           tires.add(Tire.fromJson(tire));
         }
-        // for (var tire in result.data['newTires']) {
-        //   newTires.add(Tire.fromJson(tire));
-        // }
+        for (var tire in result.data['newTires']) {
+          newTires.add(Tire.fromNewTireJson(tire));
+        }
         emit(GetTiresSuccessState());
       }
     } on DioError catch (error) {
@@ -51,10 +51,11 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
         emit(GetTiresErrorState(
             'server error, check your internet connection and try again.'));
       }
-    } catch (error) {
-      print(error);
-      emit(GetTiresErrorState('Something wrong!'));
-    }
+      }
+    // } catch (error) {
+    //   print(error);
+    //   emit(GetTiresErrorState('Something wrong!'));
+    // }
   }
 
   Tire? getTire(name) {
@@ -120,8 +121,8 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   }
 
   void replaceTierWithNew(value) {
-    secondTire = Tire(id: 20, position: 'new', tireSerial: '567');
-    // secondTire = newTires.firstWhere((element) => element.tireSerial==value);
+    // secondTire = Tire(id: 20, position: 'new', tireSerial: '567');
+    secondTire = newTires.firstWhere((element) => element.tireSerial==value);
     emit(SelectNewTierState());
 
   }
@@ -155,6 +156,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   }
 
   Future<void> startMovement() async {
+
     String truckNO = truckNumber!;
     String userId = userData!.id!;
     String movementType = selectedAction!;
@@ -163,18 +165,18 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
       tireId: firstTire!.id,
       position: selectedAction == 'Replacement'
           ? oldTierStatus!
-          : secondTire!.position,
+          : secondTire!.position!,
       currentTireDepth: int.parse(t1Depth1.text),
       sTDThreadDepth: int.parse(t1Depth2.text),
-      kMWhileChange: '$t1Distance Km',
+      kMWhileChange: t1Distance.text,
     );
 
     TirePosition tier2 = TirePosition(
       tireId: secondTire!.id,
-      position: firstTire!.position,
+      position: firstTire!.position!,
       currentTireDepth: int.parse(t2Depth1.text),
       sTDThreadDepth: int.parse(t2Depth2.text),
-      kMWhileChange: '$t2Distance Km',
+      kMWhileChange: t2Distance.text,
     );
 
     TruckMovementModel lastData = TruckMovementModel(

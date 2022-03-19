@@ -10,10 +10,11 @@ class NoteText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
+        fontSize: 16.sp,
         color: color,
-        fontSize: 22.sp,
-        fontWeight: FontWeight.w500,
-        fontFamily: 'NotoSerif',
+        fontWeight: FontWeight.w700,
+        fontFamily: "Roboto",
+        fontStyle:  FontStyle.normal,
       ),
     );
   }

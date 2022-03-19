@@ -1,15 +1,17 @@
 class Tire {
   late int id;
-  late String position;
+  String? position;
   String? tireSerial;
+  String? tirebrand;
   String? type;
   String? make;
   String? manufactor;
 
   Tire({
     required this.id,
-    required this.position,
+    this.position,
     this.tireSerial,
+    this.tirebrand,
     this.type,
     this.make,
     this.manufactor,
@@ -19,6 +21,12 @@ class Tire {
     id = json['id'];
     position = json['position'];
     tireSerial = json['tireSerial'];
+    tirebrand = json['tirebrand'];
+  }
+  Tire.fromNewTireJson(Map<String, dynamic> json) {
+    id = json['tierid'];
+    tireSerial = json['serial'];
+    tirebrand = json['tirebrand'];
   }
 
   Map<String, dynamic> toJson() {
@@ -26,6 +34,7 @@ class Tire {
     data['id'] = id;
     data['name'] = position;
     data['tireSerial'] = tireSerial;
+    data['tirebrand'] = tirebrand;
     data['type'] = type;
     data['Make'] = make;
     data['Manufactor'] = manufactor;

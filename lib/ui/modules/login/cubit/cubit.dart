@@ -3,9 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
-import 'package:tire_management/ui/screens/login/cubit/states.dart';
-import 'package:tire_management/ui/screens/login/models/user_model.dart';
-import 'package:tire_management/ui/screens/login/repositories/login_repository.dart';
+import 'package:tire_management/ui/modules/login/cubit/states.dart';
+import 'package:tire_management/ui/modules/login/models/user_model.dart';
+import 'package:tire_management/ui/modules/login/repositories/login_repository.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -60,6 +60,7 @@ class LoginCubit extends Cubit<LoginStates> {
         print(error.response!.data['message']);
         emit(LoginErrorState(error.response!.data['message']));
       } else {
+        print(error);
         print(error.type);
         // print(error);
         emit(LoginErrorState(

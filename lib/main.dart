@@ -5,10 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tire_management/core/utils/services/bloc_observer.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
-import 'package:tire_management/ui/screens/login/login_screen.dart';
+import 'package:tire_management/ui/modules/login/screens/login_screen.dart';
+import 'package:tire_management/ui/modules/tire_management/cubit/cubit.dart';
+import 'package:tire_management/ui/modules/truck_selection/cubit/cubit.dart';
 
-import 'package:tire_management/ui/screens/tire_management/cubit/cubit.dart';
-import 'package:tire_management/ui/screens/truck_selection/cubit/cubit.dart';
+import 'core/config/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,8 +63,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(412, 870),
+        designSize: const Size(412, 800),
         minTextAdapt: true,
+        // designSize: const Size(412, 800),
+        // minTextAdapt: true,
+
         builder: () {
           return MultiBlocProvider(
             providers: [
@@ -75,6 +79,8 @@ class MyApp extends StatelessWidget {
               ),
             ],
             child: MaterialApp(
+              onGenerateRoute: AppRoutes.onGenerateRoutes,
+              initialRoute: LoginScreen.routeName,
               // useInheritedMediaQuery: true,
               // locale: DevicePreview.locale(context),
               // builder: DevicePreview.appBuilder,
@@ -89,7 +95,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
 
               // home: const Car(),
-              home: LoginScreen(),
+              // home: LoginScreen(),
 
               // home: TiersManagementScreen(),
               // home: CacheHelper.getData(key: 'userName') == null
