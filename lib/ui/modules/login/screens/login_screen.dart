@@ -59,10 +59,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pop(context);
             print(state.trucks);
             TruckCubit.get(context).setTrucks(state.trucks);
-            navigateAndFinish(
-              context: context,
-              nextScreen: TruckSelectionScreen.routeName,
-            );
+            Navigator.pushReplacementNamed(context, TruckSelectionScreen.routeName);
+            // navigateAndFinish(
+            //   context: context,
+            //   nextScreen: TruckSelectionScreen.routeName,
+            // );
           }
         },
         builder: (context, state) {

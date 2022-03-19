@@ -72,6 +72,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
             context: context,
             message: state.message,
             isSucceeded: true,
+            onPressedOk: ()=>Navigator.popUntil(context,ModalRoute.withName(TruckSelectionScreen.routeName))
           );
         }
         if (state is TireMovementErrorState) {
@@ -101,175 +102,238 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
             backgroundColor: const Color(0xFFf5f5f5),
             resizeToAvoidBottomInset: false,
             body: SingleChildScrollView(
+              reverse: true,
               physics: NeverScrollableScrollPhysics(),
               child: Padding(
                 padding: EdgeInsets.only(
-                    bottom: cubit.isBottomSheetOpened ? 205.h : 0.h),
+                    bottom: cubit.isBottomSheetOpened ? 80.h : 0.h),
                 child: Center(
                   child: Container(
-                    height: 653.h,
-                    // color: Colors.white,
-                    child: Row(
+                    height: 1.sh,
+                    // height: 653.h,
+                    // color: Colors.blue,
+                    child: Column(
+                      // mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.zero,
-                          margin: EdgeInsets.zero,
-                          // color: Colors.blue,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                        if (cubit.selectedAction == 'Rotation'&&cubit.secondTire==null)
+                           Padding(
+                             padding: EdgeInsets.all(20.h),
+                             child: Text(
+                               "Select 2 Wheel to Rotate",
+                               style: TextStyle(
+                                   color: mainColor,
+                                   fontWeight: FontWeight.w700,
+                                   fontFamily: "Roboto",
+                                   fontStyle: FontStyle.normal,
+                                   fontSize: 18.0.sp),
+                             ),
+                           ),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(
-                                        data: cubit.getTire('F5'),
-                                      ),
-                                      TierWidget(data: cubit.getTire('F1')),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('F7')),
-                                      TierWidget(data: cubit.getTire('F3')),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('F11')),
-                                      TierWidget(data: cubit.getTire('F9')),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('R5')),
-                                      TierWidget(data: cubit.getTire('R1')),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('R7')),
-                                      TierWidget(data: cubit.getTire('R3')),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('R11')),
-                                      TierWidget(data: cubit.getTire('R9')),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SimpleShadow(
-                              opacity: 0.2,
-                              // Default: 0.5
-                              color: Colors.white,
-                              // Default: Black
-                              offset: const Offset(5, 5),
-                              // Default: Offset(2, 2)
-                              sigma: 7,
-                              child: Container(
-                                // color: Colors.red,
+                              Container(
                                 padding: EdgeInsets.zero,
                                 margin: EdgeInsets.zero,
+                                // color: Colors.blue,
                                 height: 560.h,
-                                child: Image.asset(
-                                  "assets/images/truck.png",
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                              data: cubit.getTire('F5'),
+                                            ),
+                                            TierWidget(
+                                                data: cubit.getTire('F1')),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('F7')),
+                                            TierWidget(
+                                                data: cubit.getTire('F3')),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('F11')),
+                                            TierWidget(
+                                                data: cubit.getTire('F9')),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('R5')),
+                                            TierWidget(
+                                                data: cubit.getTire('R1')),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('R7')),
+                                            TierWidget(
+                                                data: cubit.getTire('R3')),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('R11')),
+                                            TierWidget(
+                                                data: cubit.getTire('R9')),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                            RotatedBox(
-                              quarterTurns: 1,
-                              child: TierWidget(
-                                data: cubit.getTire('S'),
-                                isSpare: true,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          padding: EdgeInsets.zero,
-                          margin: EdgeInsets.zero,
-                          // color: Colors.blue,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Row(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('F2')),
-                                      TierWidget(data: cubit.getTire('F6')),
-                                    ],
+                                  SimpleShadow(
+                                    opacity: 0.2,
+                                    // Default: 0.5
+                                    color: Colors.white,
+                                    // Default: Black
+                                    offset: const Offset(5, 5),
+                                    // Default: Offset(2, 2)
+                                    sigma: 7,
+                                    child: Container(
+                                      // color: Colors.red,
+                                      padding: EdgeInsets.zero,
+                                      margin: EdgeInsets.zero,
+                                      // height: 100.h,
+                                      // width: 0.w,
+                                      child: SvgPicture.asset(
+                                        "assets/images/truck.svg",
+                                        fit: BoxFit.fitHeight,
+                                        height: 560.h,
+                                      ),
+                                    ),
                                   ),
-                                  Row(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('F4')),
-                                      TierWidget(data: cubit.getTire('F8')),
-                                    ],
-                                  ),
-                                  Row(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      TierWidget(data: cubit.getTire('F10')),
-                                      TierWidget(data: cubit.getTire('F12')),
-                                    ],
+                                  RotatedBox(
+                                    quarterTurns: 1,
+                                    child: TierWidget(
+                                      data: cubit.getTire('S'),
+                                      isSpare: true,
+                                    ),
                                   ),
                                 ],
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      TierWidget(data: cubit.getTire('R2')),
-                                      TierWidget(data: cubit.getTire('R6')),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      TierWidget(data: cubit.getTire('R4')),
-                                      TierWidget(data: cubit.getTire('R8')),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      TierWidget(data: cubit.getTire('R10')),
-                                      TierWidget(data: cubit.getTire('R12')),
-                                    ],
-                                  ),
-                                ],
+                              Container(
+                                padding: EdgeInsets.zero,
+                                margin: EdgeInsets.zero,
+                                // color: Colors.blue,
+                                height: 560.h,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('F2')),
+                                            TierWidget(
+                                                data: cubit.getTire('F6')),
+                                          ],
+                                        ),
+                                        Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('F4')),
+                                            TierWidget(
+                                                data: cubit.getTire('F8')),
+                                          ],
+                                        ),
+                                        Row(
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('F10')),
+                                            TierWidget(
+                                                data: cubit.getTire('F12')),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('R2')),
+                                            TierWidget(
+                                                data: cubit.getTire('R6')),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('R4')),
+                                            TierWidget(
+                                                data: cubit.getTire('R8')),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            TierWidget(
+                                                data: cubit.getTire('R10')),
+                                            TierWidget(
+                                                data: cubit.getTire('R12')),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -316,7 +380,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(
                                       width: 0.45.sw,
@@ -329,7 +394,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                 data: tire,
                                               )),
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               TierDetailItem(
                                                   title: 'Serial : ',
@@ -345,34 +411,35 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                         ],
                                       ),
                                     ),
-                                    if(tire2!=null)
-                                    SizedBox(
-                                      width: 0.4.sw,
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                              height: 80.h,
-                                              // width: 90.w,
-                                              child: TierWidget(
-                                                data: tire2,
-                                              )),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              TierDetailItem(
-                                                  title: 'Serial : ',
-                                                  value: tire2!.tireSerial!),
-                                              TierDetailItem(
-                                                  title: 'Position : ',
-                                                  value: tire2.position!),
-                                              TierDetailItem(
-                                                  title: 'Brand : ',
-                                                  value: tire2.tirebrand!),
-                                            ],
-                                          ),
-                                        ],
+                                    if (tire2 != null)
+                                      SizedBox(
+                                        width: 0.4.sw,
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                                height: 80.h,
+                                                // width: 90.w,
+                                                child: TierWidget(
+                                                  data: tire2,
+                                                )),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                TierDetailItem(
+                                                    title: 'Serial : ',
+                                                    value: tire2.tireSerial!),
+                                                TierDetailItem(
+                                                    title: 'Position : ',
+                                                    value: tire2.position!),
+                                                TierDetailItem(
+                                                    title: 'Brand : ',
+                                                    value: tire2.tirebrand!),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                                 cubit.selectedAction == null
@@ -438,6 +505,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                           Expanded(
                                             child: DefaultButton(
                                               title: 'Cancel',
+                                              isFill: false,
                                               onPressed: () {
                                                 cubit.cancelProcess();
                                               },
@@ -448,7 +516,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                           ),
                                           Expanded(
                                             child: DefaultButton(
-                                              title: 'Save',
+                                              title: 'Start',
+                                              color: const Color(0xFF3e8939),
                                               onPressed: () {
                                                 cubit.saveProcess();
                                                 showDialog(
@@ -511,77 +580,101 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
     TextEditingController t2Depth2 = cubit.t2Depth2;
     TextEditingController t2Distance = cubit.t2Distance;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
-      body: AlertDialog(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        contentPadding: EdgeInsets.all(12.h),
-        scrollable: true,
-        content: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 16.h,
-          ),
-          child: Form(
-            key: changeFormK,
-            child: Column(
-              children: [
-                TierDetails(
-                  c1: t1Depth1,
-                  c2: t1Depth2,
-                  c3: t1Distance,
-                  title: 'Tire1',
-                  serial: cubit.firstTire!.tireSerial ?? '',
-                  oldPosition: cubit.firstTire!.position ?? '',
-                  newPosition: cubit.secondTire!.position ?? '',
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 20.h,
+      body: Center(
+        child: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.bottomRight,
+          children: [
+            Container(
+              width: 412.w,
+              height: 693.h,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [BoxShadow(blurRadius: 15.r, color: mainColor)],
+                  borderRadius: BorderRadius.circular(12.r)),
+              margin: EdgeInsets.symmetric(horizontal: 30.w),
+              child: Form(
+                key: changeFormK,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      TierDetails(
+                        c1: t1Depth1,
+                        c2: t1Depth2,
+                        c3: t1Distance,
+                        title: 'Tire1',
+                        serial: cubit.firstTire!.tireSerial ?? '',
+                        oldPosition: cubit.firstTire!.position ?? '',
+                        newPosition: cubit.secondTire!.position ?? '',
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        child: Icon(
+                          Icons.swap_vert,
+                          size: 40.h,
+                          color: Colors.red,
+                        ),
+                      ),
+                      if (cubit.secondTire != null)
+                        TierDetails(
+                          c1: t2Depth1,
+                          c2: t2Depth2,
+                          c3: t2Distance,
+                          title: 'Tire2',
+                          serial: cubit.secondTire!.tireSerial ?? '',
+                          newPosition: cubit.firstTire!.position ?? '',
+                          oldPosition: cubit.secondTire!.position ?? '',
+                        ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      if (cubit.secondTire != null)
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 165.w,
+                                child: DefaultButton(
+                                  title: 'Process',
+                                  onPressed: () async {
+                                    if (changeFormK.currentState!.validate()) {
+                                      // Navigator.pop(context);
+
+                                      await cubit.startMovement();
+
+                                      // cubit.cancelProcess();
+
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
                   ),
-                  child: const Icon(
-                    Icons.swap_vert,
-                    size: 50,
-                    color: Colors.red,
-                  ),
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                if (cubit.secondTire != null)
-                  TierDetails(
-                    c1: t2Depth1,
-                    c2: t2Depth2,
-                    c3: t2Distance,
-                    title: 'Tire2',
-                    serial: cubit.secondTire!.tireSerial ?? '',
-                    newPosition: cubit.firstTire!.position ?? '',
-                    oldPosition: cubit.secondTire!.position ?? '',
-                  ),
-                SizedBox(
-                  height: 20.h,
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-        actions: [
-          if (cubit.secondTire != null)
-            DefaultButton(
-              title: 'Process',
-              onPressed: () async {
-                if (changeFormK.currentState!.validate()) {
-                  // Navigator.pop(context);
-
-                  await cubit.startMovement();
-
-                  // cubit.cancelProcess();
-
-                }
-              },
+            Positioned(
+              bottom: -40.h,
+              right: -0.w,
+              height: 200.h,
+              child: Container(
+                padding: EdgeInsets.zero,
+                margin: EdgeInsets.zero,
+                child: Image.asset('assets/images/concrete_truck.png'),
+              ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }

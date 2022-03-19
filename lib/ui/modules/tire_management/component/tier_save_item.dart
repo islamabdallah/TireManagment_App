@@ -7,6 +7,7 @@ import 'package:tire_management/ui/modules/tire_management/cubit/states.dart';
 import 'package:tire_management/ui/modules/tire_management/models/tire_model.dart';
 import 'package:tire_management/ui/modules/tire_management/models/tire_position_model.dart';
 import 'package:tire_management/ui/shared/components/default_drop_down.dart';
+import '../../../shared/components/defualt_text_field.dart';
 import '../../../shared/components/note_text.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
@@ -79,53 +80,73 @@ class TierDetails extends StatelessWidget {
       //mainAxisAlignment: MainAxisAlignment.center,
       children: [
         NoteText(text: title),
-        SizedBox(
-          height: 20.h,
+        // SizedBox(
+        //   height: 20.h,
+        // ),
+        Row(
+          children: [
+            TierWidget(data:TiersManageCubit.get(context).getTire(oldPosition)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TierDetailItem(
+                  title: 'Serial  : ',
+                  value: serial,
+                ),
+                TierDetailItem(
+                  title: 'Old Position : ',
+                  value: oldPosition,
+                  isOLd: true,
+                ),
+                TierDetailItem(
+                  title: 'New Position : ',
+                  value: newPosition,
+                ),
+              ],
+            ),
+
+          ],
         ),
-        TierWidget(data:TiersManageCubit.get(context).getTire(oldPosition)),
-        TierDetailItem(
-          title: 'Serial  : ',
-          value: serial,
-        ),
-        TierDetailItem(
-          title: 'Old Position : ',
-          value: oldPosition,
-          isOLd: true,
-        ),
-        TierDetailItem(
-          title: 'New Position : ',
-          value: newPosition,
-        ),
+
         SizedBox(
           height: 20.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InputTierInfo(
-              controller: c1,
-              title: 'Depth1    ',
-              color: Colors.red,
+            Expanded(
+              child: SizedBox(
+                width: 143.w,
+                child: DefualtTextField(
+                  controller: c1,
+                  label: 'Depth1',
+                ),
+              ),
             ),
             SizedBox(
-              width: 10.w,
+              width: 23.w,
             ),
-            InputTierInfo(
-              controller: c2,
-              title: 'Depth2  ',
-              color: Colors.red,
+            Expanded(
+              child: SizedBox(
+                width: 143.w,
+                child: DefualtTextField(
+                  controller: c2,
+                  label: 'Depth2  ',
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(
-          height: 8.h,
+          height: 20.h,
         ),
         Row(
           children: [
-            InputTierInfo(
-              controller: c3,
-              title: 'Distance ',
-              color: Colors.red,
+            Expanded(
+              child: DefualtTextField(
+                controller: c3,
+                label: 'Distance ',
+              ),
             ),
             SizedBox(
               width: 10.h,

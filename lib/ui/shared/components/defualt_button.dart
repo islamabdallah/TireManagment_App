@@ -5,12 +5,14 @@ import 'package:tire_management/ui/shared/constants.dart';
 class DefaultButton extends StatelessWidget {
   final String title;
   final Function() onPressed;
+  final Color color;
   final bool isFill;
 
   const DefaultButton({
     Key? key,
     required this.title,
     required this.onPressed,
+    this.color = mainColor,
     this.isFill = true,
   }) : super(key: key);
 
@@ -31,12 +33,12 @@ class DefaultButton extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6.r),
                 ),
-                  side: const BorderSide(
+                  side: BorderSide(
                     width: 2.0,
-                    color: mainColor,
+                    color: color,
                   ),
-                primary: isFill?mainColor:Colors.white,
-                onPrimary: isFill?Colors.white:mainColor,
+                primary: isFill?color:Colors.white,
+                onPrimary: isFill?Colors.white:color,
                 // elevation: 5.h,
                 // shadowColor: Colors.black
               ),

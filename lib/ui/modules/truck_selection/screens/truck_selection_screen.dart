@@ -382,12 +382,14 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                                     value: cubit
                                                                         .selectedTruck
                                                                         .truckNumber);
-                                                                navigateTo(
-                                                                  context:
-                                                                      context,
-                                                                  nextScreen:
-                                                                      const TiersManagementScreen(),
-                                                                );
+
+                                                                Navigator.pushNamed(context, TiersManagementScreen.routeName);
+                                                                // navigateTo(
+                                                                //   context:
+                                                                //       context,
+                                                                //   nextScreen:
+                                                                //       const TiersManagementScreen(),
+                                                                // );
                                                               }),
                                                         ),
                                                       ],

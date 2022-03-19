@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constants.dart';
+
 class DefaultDropdownField extends StatelessWidget {
   String? value;
   var onChange;
@@ -20,36 +22,76 @@ class DefaultDropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //var cubit = ManageTiresCubit.get(context);
-    return DropdownButtonFormField<String>(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.w),
-          borderSide: BorderSide(color: Colors.grey),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          height: 50.h,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(color: Color(0x70000000),
+                blurRadius: 8,
+                offset: Offset(0, 4.h),
+              ),
+            ],
+          ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.w),
-          borderSide: BorderSide(color: Colors.grey),
+        SizedBox(
+          height: 50.h,
+          child: DropdownButtonFormField<String>(
+            iconSize: 5.r,
+            style: TextStyle(
+                color: const Color(0xff767676),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto",
+                fontStyle: FontStyle.normal,
+                fontSize: 18.0.sp),
+            decoration: InputDecoration(
+              isDense: true,
+              fillColor: Colors.white,
+              filled: true,
+              labelText: hint,
+              floatingLabelStyle: TextStyle(
+                  color: const Color(0xff767676),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto",
+                  fontStyle: FontStyle.normal,
+                  fontSize: 16.0.sp),
+              labelStyle: TextStyle(
+                  color: const Color(0xff767676),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto",
+                  fontStyle: FontStyle.normal,
+                  fontSize: 18.0.sp),
+              contentPadding:
+              EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: mainColor,
+                ),
+              ),
+
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0xFFB6B4B4),
+                ),
+              ),
+            ),
+            value: value,
+            onChanged: onChange,
+            isExpanded: isExpand,
+            isDense: true,
+            items: items.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            validator: (value) => value == null ? 'field required' : null,
+          ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.w),
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-      ),
-      value: value,
-      hint: Text(
-        hint,
-      ),
-      onChanged: onChange,
-      isExpanded: isExpand,
-      isDense: true,
-      items: items.map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      validator: (value) => value == null ? 'field required' : null,
+      ],
     );
   }
 }
