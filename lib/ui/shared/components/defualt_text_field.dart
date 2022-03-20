@@ -31,7 +31,7 @@ class DefualtTextField extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(color: Color(0x70000000),
-                blurRadius: 8,
+                blurRadius: 10.r,
                 offset: Offset(0, 4.h),
               ),
             ],
@@ -47,7 +47,7 @@ class DefualtTextField extends StatelessWidget {
               fontSize: 18.0.sp),
           obscureText: obscureText,
           validator: (String? value) {
-            if (value!.isEmpty) return '$hint is required';
+            if (value!.isEmpty) return 'required';
             return null;
           },
 

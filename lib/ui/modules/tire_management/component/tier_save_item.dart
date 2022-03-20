@@ -119,7 +119,7 @@ class TierDetails extends StatelessWidget {
                 width: 143.w,
                 child: DefualtTextField(
                   controller: c1,
-                  label: 'Depth1',
+                  label: 'STD Depth',
                 ),
               ),
             ),
@@ -131,7 +131,7 @@ class TierDetails extends StatelessWidget {
                 width: 143.w,
                 child: DefualtTextField(
                   controller: c2,
-                  label: 'Depth2  ',
+                  label: 'CURT Depth  ',
                 ),
               ),
             ),

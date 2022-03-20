@@ -580,100 +580,106 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
     TextEditingController t2Depth2 = cubit.t2Depth2;
     TextEditingController t2Distance = cubit.t2Distance;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body: Center(
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.bottomRight,
-          children: [
-            Container(
-              width: 412.w,
-              height: 693.h,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [BoxShadow(blurRadius: 15.r, color: mainColor)],
-                  borderRadius: BorderRadius.circular(12.r)),
-              margin: EdgeInsets.symmetric(horizontal: 30.w),
-              child: Form(
-                key: changeFormK,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.w),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      TierDetails(
-                        c1: t1Depth1,
-                        c2: t1Depth2,
-                        c3: t1Distance,
-                        title: 'Tire1',
-                        serial: cubit.firstTire!.tireSerial ?? '',
-                        oldPosition: cubit.firstTire!.position ?? '',
-                        newPosition: cubit.secondTire!.position ?? '',
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.h),
-                        child: Icon(
-                          Icons.swap_vert,
-                          size: 40.h,
-                          color: Colors.red,
-                        ),
-                      ),
-                      if (cubit.secondTire != null)
-                        TierDetails(
-                          c1: t2Depth1,
-                          c2: t2Depth2,
-                          c3: t2Distance,
-                          title: 'Tire2',
-                          serial: cubit.secondTire!.tireSerial ?? '',
-                          newPosition: cubit.firstTire!.position ?? '',
-                          oldPosition: cubit.secondTire!.position ?? '',
-                        ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      if (cubit.secondTire != null)
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5.w),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 165.w,
-                                child: DefaultButton(
-                                  title: 'Process',
-                                  onPressed: () async {
-                                    if (changeFormK.currentState!.validate()) {
-                                      // Navigator.pop(context);
-
-                                      await cubit.startMovement();
-
-                                      // cubit.cancelProcess();
-
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
+        child: SizedBox(
+          height: 693.h,
+        child: SingleChildScrollView(
+          reverse: true,
+          child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.bottomRight,
+              children: [
+                Container(
+                  width: 412.w,
+                  // height: 693.h,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [BoxShadow(blurRadius: 15.r, color: mainColor)],
+                      borderRadius: BorderRadius.circular(12.r)),
+                  margin: EdgeInsets.symmetric(horizontal: 30.w),
+                  child: Form(
+                    key: changeFormK,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30.w,vertical: 16.h),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 10.h,
                           ),
-                        ),
-                    ],
+                          TierDetails(
+                            c1: t1Depth1,
+                            c2: t1Depth2,
+                            c3: t1Distance,
+                            title: 'Tire1',
+                            serial: cubit.firstTire!.tireSerial ?? '',
+                            oldPosition: cubit.firstTire!.position ?? '',
+                            newPosition: cubit.secondTire!.position ?? '',
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.h),
+                            child: Icon(
+                              Icons.swap_vert,
+                              size: 40.h,
+                              color: Colors.red,
+                            ),
+                          ),
+                          if (cubit.secondTire != null)
+                            TierDetails(
+                              c1: t2Depth1,
+                              c2: t2Depth2,
+                              c3: t2Distance,
+                              title: 'Tire2',
+                              serial: cubit.secondTire!.tireSerial ?? '',
+                              newPosition: cubit.firstTire!.position ?? '',
+                              oldPosition: cubit.secondTire!.position ?? '',
+                            ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          if (cubit.secondTire != null)
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5.w),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 165.w,
+                                    child: DefaultButton(
+                                      title: 'Process',
+                                      onPressed: () async {
+                                        if (changeFormK.currentState!.validate()) {
+                                          // Navigator.pop(context);
+
+                                          await cubit.startMovement();
+
+                                          // cubit.cancelProcess();
+
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  bottom: -45.h,
+                  right: -0.w,
+                  height: 190.h,
+                  child: Container(
+                    padding: EdgeInsets.zero,
+                    margin: EdgeInsets.zero,
+                    child: Image.asset('assets/images/concrete_truck.png'),
+                  ),
+                ),
+              ],
             ),
-            Positioned(
-              bottom: -40.h,
-              right: -0.w,
-              height: 200.h,
-              child: Container(
-                padding: EdgeInsets.zero,
-                margin: EdgeInsets.zero,
-                child: Image.asset('assets/images/concrete_truck.png'),
-              ),
-            ),
-          ],
+        ),
         ),
       ),
     );

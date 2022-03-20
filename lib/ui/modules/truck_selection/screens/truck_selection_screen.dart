@@ -213,7 +213,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                               alignment: Alignment.topCenter,
                               children: [
                                 SizedBox(
-                                  height: 578.h,
+                                  height: 550.h,
                                   width: 372.w,
                                   // child: Padding(
                                   //   padding: EdgeInsets.fromLTRB(10, 60, 10, 10),
@@ -446,17 +446,15 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  bottom: -30.h,
-                                  right: -20.w,
-                                  height: 220.h,
-                                  child: Container(
-                                    // height: 220.h,
-                                    padding: EdgeInsets.zero,
-                                    margin: EdgeInsets.zero,
-                                    child: Image.asset(
-                                        'assets/images/concrete_truck.png'),
-                                  ),
+                            Positioned(
+                              bottom: -40.h,
+                              right: -0.w,
+                              height: 200.h,
+                              child: Container(
+                                padding: EdgeInsets.zero,
+                                margin: EdgeInsets.zero,
+                                child: Image.asset('assets/images/concrete_truck.png'),
+                              ),
                                 ),
                                 // Positioned(
                                 //   bottom: - 60.h,
