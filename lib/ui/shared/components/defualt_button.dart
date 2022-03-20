@@ -24,7 +24,7 @@ class DefaultButton extends StatelessWidget {
         BoxShadow(
           color: Color(0x26000000),
           blurRadius: 6.r,
-          offset: const Offset(0, 4),
+          offset: Offset(0, 4.h),
         ),
       ]),
       child: ElevatedButton(
@@ -34,7 +34,7 @@ class DefaultButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                   side: BorderSide(
-                    width: 2.0,
+                    width: 2.0.w,
                     color: color,
                   ),
                 primary: isFill?color:Colors.white,

@@ -74,6 +74,8 @@ class TruckCubit extends Cubit<TrucksStates> {
   }
 
   void setTrucks(trucks) {
+    trucksList.clear();
+    trucksDropdownList.clear();
     emit(GetTrucksLoadingState());
     print(trucks);
     for (var truck in trucks['result']) {

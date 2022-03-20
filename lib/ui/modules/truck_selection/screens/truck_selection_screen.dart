@@ -9,6 +9,7 @@ import 'package:tire_management/ui/shared/components/defualt_button.dart';
 
 import 'package:tire_management/ui/shared/constants.dart';
 
+import '../../../shared/components/drawer_widget.dart';
 import '../../../shared/utils/navigations.dart';
 import '../../tire_management/screens/tire_management_screen.dart';
 import '../cubit/cubit.dart';
@@ -61,6 +62,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
         var cubit = TruckCubit.get(context);
         return Scaffold(
           resizeToAvoidBottomInset: false,
+          drawer: const DrawerWidget(),
           body: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -149,9 +151,15 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                         SizedBox(
                           height: 44.h,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w),
-                          child: Image.asset('assets/images/menu.png'),
+                        Builder(
+                          builder: (context) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.w),
+                              child: IconButton(onPressed: () {
+                                Scaffold.of(context).openDrawer();
+                              }, icon: Image.asset('assets/images/menu.png'),)
+                            );
+                          }
                         ),
                         SizedBox(
                           height: 24.h,
