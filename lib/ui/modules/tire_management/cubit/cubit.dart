@@ -59,7 +59,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   }
 
   Tire? getTire(name) {
-    var x = tires.indexWhere((tire) => tire.position == name);
+    var x = tires.indexWhere((tire) => tire.tirePosition == name);
     if (x != -1) {
       return tires[x];
     } else {
@@ -81,24 +81,24 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     if (firstTire == null) {
       firstTire = tire;
       isBottomSheetOpened = true;
-      print('firstTire id ${firstTire!.position}');
-      print('Tire id ${tire.position}');
+      print('firstTire id ${firstTire!.tirePosition}');
+      print('Tire id ${tire.tirePosition}');
     } else {
-      if (firstTire!.position == tire.position && selectedAction == null) {
+      if (firstTire!.tirePosition == tire.tirePosition && selectedAction == null) {
         firstTire = null;
         isBottomSheetOpened = false;
-      } else if (firstTire!.position != tire.position &&
+      } else if (firstTire!.tirePosition != tire.tirePosition &&
           selectedAction == null) {
         firstTire = tire;
         isBottomSheetOpened = true;
-        print('firstTire id ${firstTire!.position}');
-        print('Tire id ${tire.position}');
+        print('firstTire id ${firstTire!.tirePosition}');
+        print('Tire id ${tire.tirePosition}');
       } else if (selectedAction != null &&
-          tire.position != firstTire!.position) {
+          tire.tirePosition != firstTire!.tirePosition) {
         secondTire = tire;
         isBottomSheetOpened = true;
-        print('firstTire id ${secondTire!.position}');
-        print('Tire id ${tire.position}');
+        print('firstTire id ${secondTire!.tirePosition}');
+        print('Tire id ${tire.tirePosition}');
       }
     }
 
@@ -162,18 +162,18 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     String movementType = selectedAction!;
 
     TirePosition tier1 = TirePosition(
-      tireId: firstTire!.id,
+      tireId: firstTire!.tireId,
       position: selectedAction == 'Replacement'
           ? oldTierStatus!
-          : secondTire!.position!,
+          : secondTire!.tirePosition!,
       currentTireDepth: int.parse(t1Depth1.text),
       sTDThreadDepth: int.parse(t1Depth2.text),
       kMWhileChange: t1Distance.text,
     );
 
     TirePosition tier2 = TirePosition(
-      tireId: secondTire!.id,
-      position: firstTire!.position!,
+      tireId: secondTire!.tireId,
+      position: firstTire!.tirePosition!,
       currentTireDepth: int.parse(t2Depth1.text),
       sTDThreadDepth: int.parse(t2Depth2.text),
       kMWhileChange: t2Distance.text,

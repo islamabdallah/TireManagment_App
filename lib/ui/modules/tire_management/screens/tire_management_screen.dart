@@ -419,7 +419,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                   value: tire!.tireSerial!),
                                               TierDetailItem(
                                                   title: 'Position : ',
-                                                  value: tire.position!),
+                                                  value: tire.tirePosition!),
                                               TierDetailItem(
                                                   title: 'Brand : ',
                                                   value: tire.tirebrand!),
@@ -448,7 +448,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                     value: tire2.tireSerial!),
                                                 TierDetailItem(
                                                     title: 'Position : ',
-                                                    value: tire2.position!),
+                                                    value: tire2.tirePosition!),
                                                 TierDetailItem(
                                                     title: 'Brand : ',
                                                     value: tire2.tirebrand!),
@@ -665,11 +665,11 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             c2: t1Depth2,
                             c3: t1Distance,
                             serial: cubit.firstTire!.tireSerial ?? '',
-                            oldPosition: cubit.firstTire!.position ?? '',
+                            oldPosition: cubit.firstTire!.tirePosition ?? '',
                             // newPosition: cubit.secondTire!.position ?? '',
                             newPosition: cubit.selectedAction == 'Replacement'
                                 ? cubit.oldTierStatus ?? ''
-                                : cubit.secondTire!.position ?? '',
+                                : cubit.secondTire!.tirePosition ?? '',
                             isOld: cubit.selectedAction == 'Replacement',
                             data: cubit.firstTire,
                           ),
@@ -702,8 +702,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                               c2: t2Depth2,
                               c3: t2Distance,
                               serial: cubit.secondTire!.tireSerial ?? '',
-                              newPosition: cubit.firstTire!.position ?? '',
-                              oldPosition: cubit.secondTire!.position ?? '',
+                              newPosition: cubit.firstTire!.tirePosition ?? '',
+                              oldPosition: cubit.secondTire!.tirePosition ?? '',
                               data: cubit.secondTire,
                             ),
                           SizedBox(

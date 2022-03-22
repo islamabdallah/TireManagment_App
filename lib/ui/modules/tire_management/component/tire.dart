@@ -36,7 +36,7 @@ class _TierWidgetState extends State<TierWidget> {
       // maintainSize: true,
       child: GestureDetector(
         onTap: () {
-          if(widget.data?.position !=null)
+          if(widget.data?.tirePosition !=null)
           cubit.selectTire(widget.data!);
         },
         child: Container(
@@ -52,14 +52,14 @@ class _TierWidgetState extends State<TierWidget> {
                 child: cubit.firstTire != null &&
                         widget.data != null &&
                         widget.isNew != true &&
-                        cubit.firstTire!.position == widget.data!.position
+                        cubit.firstTire!.tirePosition == widget.data!.tirePosition
                     ? Image.asset(
                         "assets/images/red_tire.png",
                       )
                     : cubit.secondTire != null &&
                             widget.data != null &&
                             widget.isNew != true &&
-                            cubit.secondTire!.position == widget.data!.position
+                            cubit.secondTire!.tirePosition == widget.data!.tirePosition
                         ? Image.asset(
                             "assets/images/green_tire.png",
                           )
@@ -81,7 +81,7 @@ class _TierWidgetState extends State<TierWidget> {
                       child: FittedBox(
                         child: Text(
                           widget.isNew? 'new':
-                          '${widget.data?.position} ',
+                          '${widget.data?.tirePosition} ',
                           // '${widget.data}\n${widget.serial}',
                           style: TextStyle(
                               fontSize: 20.sp,
