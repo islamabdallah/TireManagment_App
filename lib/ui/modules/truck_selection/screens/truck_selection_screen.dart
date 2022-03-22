@@ -9,7 +9,9 @@ import 'package:tire_management/ui/shared/components/defualt_button.dart';
 
 import 'package:tire_management/ui/shared/constants.dart';
 
+import '../../../shared/components/default_drop_down.dart';
 import '../../../shared/components/drawer_widget.dart';
+import '../../../shared/components/search_drop_down.dart';
 import '../../../shared/utils/navigations.dart';
 import '../../tire_management/screens/tire_management_screen.dart';
 import '../cubit/cubit.dart';
@@ -79,7 +81,55 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                 //   'assets/e1.svg',
                 // ),
               ),
-              5 > 10
+              if (state is! SelectTruckState) ...[
+                Builder(builder: (context) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 14.w, vertical: 44.h),
+                    child: IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: Image.asset('assets/images/menu.png'),
+                    ),
+                  );
+                }),
+                Positioned(
+                  top: 173.h,
+                  left: 20.w,
+                  child: Text(
+                    "Welcome ${userData?.name} !",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22.sp,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom:70.h,
+                  width: 1.sw,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Powered by",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 18.sp,
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 10.h,),
+                        Image.asset('assets/images/cemex.jpg',width: 90.w,fit: BoxFit.fitWidth,)
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+              state is! SelectTruckState
                   ? SizedBox(
                       width: 412.w,
                       child: Center(
@@ -87,58 +137,39 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Image.asset(
-                                  'assets/images/manpng.png',
-                                  width: 192.w,
-                                  // fit: BoxFit.cover,
-                                ),
-                                SizedBox(
-                                  width: 200.w,
-                                  child: Text(
-                                      "Now you can search about any car you are want it",
-                                      style: TextStyle(
-                                          color: const Color(0xff293064),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Roboto",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 24.0.sp),
-                                      textAlign: TextAlign.left),
-                                )
-                              ],
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/manpng.png',
+                                    width: 192.w,
+                                    // fit: BoxFit.cover,
+                                  ),
+                                  SizedBox(width: 10.w),
+                                  SizedBox(
+                                    width: 180.w,
+                                    child: Text(
+                                        "Search for any truck you want it",
+                                        style: TextStyle(
+                                            color: const Color(0xff293064),
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Roboto",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 24.0.sp),
+                                        textAlign: TextAlign.left),
+                                  )
+                                ],
+                              ),
                             ),
-                            Container(
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 16.0.w),
-                                child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 6,
-                                    child: TextFormField(
-                                      decoration: InputDecoration(
-                                          hintText: 'Search by Car',
-                                          hintStyle: TextStyle(
-                                              height: 0,
-                                              color: const Color(0xff878787),
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Roboto",
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 20.0.sp),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 0.h),
-                                          isDense: true,
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.red, width: 2)),
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.red, width: 2)),
-                                          fillColor: Colors.white,
-                                          filled: true),
-                                    )),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: SearchDropDown(
+                                items: cubit.trucksDropdownList,
+                                onChange: (value) => cubit.selectTruck(value),
+                                hint: 'Select Truck',
                               ),
                             ),
                           ],
@@ -151,16 +182,17 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                         SizedBox(
                           height: 44.h,
                         ),
-                        Builder(
-                          builder: (context) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 14.w),
-                              child: IconButton(onPressed: () {
+                        Builder(builder: (context) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 14.w),
+                            child: IconButton(
+                              onPressed: () {
                                 Scaffold.of(context).openDrawer();
-                              }, icon: Image.asset('assets/images/menu.png'),)
-                            );
-                          }
-                        ),
+                              },
+                              icon: Image.asset('assets/images/menu.png'),
+                            ),
+                          );
+                        }),
                         SizedBox(
                           height: 24.h,
                         ),
@@ -169,37 +201,43 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                           child: Center(
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: DropdownSearch<String>(
-                                mode: Mode.DIALOG,
-                                showSelectedItems: true,
-                                showSearchBox: true,
-                                onChanged: (value) => cubit.selectTruck(value),
+                              child: SearchDropDown(
                                 items: cubit.trucksDropdownList,
-                                searchFieldProps: TextFieldProps(
-                                    decoration: const InputDecoration(
-                                        prefixIcon: Icon(Icons.search),
-                                        hintText: 'Search',
-                                        border: UnderlineInputBorder())),
-                                dropdownSearchDecoration: const InputDecoration(
-                                  // isDense: true,
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 16),
-                                  hintText: 'Chose truck',
-                                  filled: true,
-                                  prefixIcon: Icon(Icons.search),
-                                  fillColor: Colors.white,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFB6B4B4),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: mainColor,
-                                    ),
-                                  ),
-                                ),
+                                onChange: (value) => cubit.selectTruck(value),
+                                value: cubit.selectedTruck.truckNumber,
+                                hint: 'Select Truck',
                               ),
+                              // child: DropdownSearch<String>(
+                              //   mode: Mode.DIALOG,
+                              //   showSelectedItems: true,
+                              //   showSearchBox: true,
+                              //   onChanged: (value) => cubit.selectTruck(value),
+                              //   items: cubit.trucksDropdownList,
+                              //   searchFieldProps: TextFieldProps(
+                              //       decoration: const InputDecoration(
+                              //           prefixIcon: Icon(Icons.search),
+                              //           hintText: 'Search',
+                              //           border: UnderlineInputBorder())),
+                              //   dropdownSearchDecoration: const InputDecoration(
+                              //     // isDense: true,
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 16),
+                              //     hintText: 'Chose truck',
+                              //     filled: true,
+                              //     prefixIcon: Icon(Icons.search),
+                              //     fillColor: Colors.white,
+                              //     enabledBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: Color(0xFFB6B4B4),
+                              //       ),
+                              //     ),
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: mainColor,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ),
                           ),
                         ),
@@ -375,7 +413,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                         'Chassis',
                                                         cubit.selectedTruck
                                                             .chassis!),
-                                                    SizedBox(height: 64.h),
+                                                    SizedBox(height: 52.h),
                                                     Row(
                                                       children: [
                                                         SizedBox(
@@ -391,7 +429,10 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                                         .selectedTruck
                                                                         .truckNumber);
 
-                                                                Navigator.pushNamed(context, TiersManagementScreen.routeName);
+                                                                Navigator.pushNamed(
+                                                                    context,
+                                                                    TiersManagementScreen
+                                                                        .routeName);
                                                                 // navigateTo(
                                                                 //   context:
                                                                 //       context,
@@ -446,15 +487,16 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                     ),
                                   ),
                                 ),
-                            Positioned(
-                              bottom: -40.h,
-                              right: -0.w,
-                              height: 200.h,
-                              child: Container(
-                                padding: EdgeInsets.zero,
-                                margin: EdgeInsets.zero,
-                                child: Image.asset('assets/images/concrete_truck.png'),
-                              ),
+                                Positioned(
+                                  bottom: -40.h,
+                                  right: -20.w,
+                                  height: 200.h,
+                                  child: Container(
+                                    padding: EdgeInsets.zero,
+                                    margin: EdgeInsets.zero,
+                                    child: Image.asset(
+                                        'assets/images/concrete_truck.png'),
+                                  ),
                                 ),
                                 // Positioned(
                                 //   bottom: - 60.h,

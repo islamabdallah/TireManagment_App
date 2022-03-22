@@ -38,8 +38,8 @@ class DrawerWidget extends StatelessWidget {
                         },
                         icon: SvgPicture.asset(
                           'assets/images/close.svg',
-                          height: 35.h,
-                          width: 35.h,
+                          height: 30.h,
+                          width: 30.h,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -69,7 +69,7 @@ class DrawerWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 28.w),
               child: const Divider(
                 thickness: 2,
-                color: Color(0xff878787),
+                color: mainColor,
               ),
             ),
             ListTile(

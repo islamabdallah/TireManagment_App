@@ -50,7 +50,6 @@ class TierDetailItem extends StatelessWidget {
 }
 
 class TierDetails extends StatelessWidget {
-  String title;
   String serial;
   String oldPosition;
   String newPosition;
@@ -59,11 +58,10 @@ class TierDetails extends StatelessWidget {
   TextEditingController c1;
   TextEditingController c2;
   TextEditingController c3;
-
+  Tire? data;
 
   var dropdownOnChange;
   TierDetails({
-    required this.title,
     required this.serial,
     required this.newPosition,
     required this.oldPosition,
@@ -73,19 +71,16 @@ class TierDetails extends StatelessWidget {
     this.isOld = false,
     this.dropdownValue,
     this.dropdownOnChange,
+    required this.data,
   });
   @override
   Widget build(BuildContext context) {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        NoteText(text: title),
-        // SizedBox(
-        //   height: 20.h,
-        // ),
         Row(
           children: [
-            TierWidget(data:TiersManageCubit.get(context).getTire(oldPosition)),
+            TierWidget(data:data,isNew: oldPosition.isEmpty?true:false),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -95,7 +90,7 @@ class TierDetails extends StatelessWidget {
                 ),
                 TierDetailItem(
                   title: 'Old Position : ',
-                  value: oldPosition,
+                  value: oldPosition.isEmpty? 'new':oldPosition,
                   isOLd: true,
                 ),
                 TierDetailItem(
@@ -131,7 +126,7 @@ class TierDetails extends StatelessWidget {
                 width: 143.w,
                 child: DefualtTextField(
                   controller: c2,
-                  label: 'CURT Depth  ',
+                  label: 'Current Depth  ',
                 ),
               ),
             ),

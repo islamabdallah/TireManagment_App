@@ -11,11 +11,13 @@ import '../models/tire_model.dart';
 class TierWidget extends StatefulWidget {
   final Tire? data;
   final bool isSpare;
+  final bool isNew;
 
   const TierWidget({
     Key? key,
     this.data,
     this.isSpare = false,
+    this.isNew = false,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ class _TierWidgetState extends State<TierWidget> {
       // maintainSize: true,
       child: GestureDetector(
         onTap: () {
+          if(widget.data?.position !=null)
           cubit.selectTire(widget.data!);
         },
         child: Container(
@@ -48,12 +51,14 @@ class _TierWidgetState extends State<TierWidget> {
                 width: 32.w,
                 child: cubit.firstTire != null &&
                         widget.data != null &&
+                        widget.isNew != true &&
                         cubit.firstTire!.position == widget.data!.position
                     ? Image.asset(
                         "assets/images/red_tire.png",
                       )
                     : cubit.secondTire != null &&
                             widget.data != null &&
+                            widget.isNew != true &&
                             cubit.secondTire!.position == widget.data!.position
                         ? Image.asset(
                             "assets/images/green_tire.png",
@@ -66,7 +71,7 @@ class _TierWidgetState extends State<TierWidget> {
               RotatedBox(
                 quarterTurns: widget.isSpare ? 3 : 0,
                 child: FittedBox(
-                child: Container(
+                  child: Container(
                     height: 22.h,
                     width: 23.h,
                     decoration: BoxDecoration(
@@ -75,6 +80,7 @@ class _TierWidgetState extends State<TierWidget> {
                     child: Center(
                       child: FittedBox(
                         child: Text(
+                          widget.isNew? 'new':
                           '${widget.data?.position} ',
                           // '${widget.data}\n${widget.serial}',
                           style: TextStyle(

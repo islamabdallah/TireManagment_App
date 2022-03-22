@@ -22,7 +22,7 @@ class DefaultButton extends StatelessWidget {
       height: 50.h,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: Color(0x26000000),
+          color: Color(0x56000000),
           blurRadius: 6.r,
           offset: Offset(0, 4.h),
         ),
@@ -34,7 +34,7 @@ class DefaultButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                   side: BorderSide(
-                    width: 2.0.w,
+                    width: 1.0.w,
                     color: color,
                   ),
                 primary: isFill?color:Colors.white,
