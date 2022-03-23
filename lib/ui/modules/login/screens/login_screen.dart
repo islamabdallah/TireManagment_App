@@ -94,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             DefualtTextField(
                               label: 'Email',
+                              inputType: TextInputType.emailAddress,
                               controller: cubit.userNameController,
                               hint: 'Email',
                             ),
@@ -103,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             DefualtTextField(
                               label: 'Password',
                               controller: cubit.passwordController,
+                              inputType: TextInputType.text,
                               hint: 'Password',
                               isPassword: true,
                               obscureText: !cubit.isTextVisible,

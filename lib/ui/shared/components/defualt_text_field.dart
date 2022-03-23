@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_management/ui/modules/login/cubit/cubit.dart';
 import 'package:tire_management/ui/shared/constants.dart';
 
 class DefualtTextField extends StatelessWidget {
   TextEditingController controller;
-  TextInputType keyboardType;
   String? hint;
   String? label;
+  TextInputType inputType;
   bool isPassword;
   bool obscureText;
 
@@ -15,9 +16,9 @@ class DefualtTextField extends StatelessWidget {
     this.hint,
     this.label,
     required this.controller,
+    this.inputType = TextInputType.number,
     this.isPassword = false,
     this.obscureText = false,
-    this.keyboardType = TextInputType.text,
   });
 
   @override
@@ -25,12 +26,12 @@ class DefualtTextField extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-
         Container(
           height: 50.h,
           decoration: BoxDecoration(
             boxShadow: [
-              BoxShadow(color: Color(0x70000000),
+              BoxShadow(
+                color: Color(0x70000000),
                 blurRadius: 10.r,
                 offset: Offset(0, 4.h),
               ),
@@ -39,6 +40,12 @@ class DefualtTextField extends StatelessWidget {
         ),
         TextFormField(
           controller: controller,
+          keyboardType: inputType,
+          inputFormatters: inputType == TextInputType.number
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                ]
+              : null,
           style: TextStyle(
               color: const Color(0xff767676),
               fontWeight: FontWeight.w400,
@@ -50,7 +57,6 @@ class DefualtTextField extends StatelessWidget {
             if (value!.isEmpty) return 'required';
             return null;
           },
-
           decoration: InputDecoration(
             isDense: true,
             fillColor: Colors.white,
@@ -69,34 +75,34 @@ class DefualtTextField extends StatelessWidget {
                 fontStyle: FontStyle.normal,
                 fontSize: 18.0.sp),
             contentPadding:
-            EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-
-            suffixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 30.w),
+                EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+            suffixIconConstraints:
+                BoxConstraints(maxHeight: 30.h, minWidth: 30.w),
             suffixIcon: isPassword
                 ? Material(
-              color: Colors.transparent,
-              child: IconButton(
-                highlightColor: Colors.transparent,
-                splashRadius: 40.r,
-                splashColor: Colors.green,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  LoginCubit.get(context).changeTextVisibility(
-                      !LoginCubit.get(context).isTextVisible);
-                },
-                icon: isPassword && !LoginCubit.get(context).isTextVisible
-                    ? Icon(
-                  Icons.visibility_off_outlined,
-                  color: Colors.grey,
-                  size: 30.r,
-                )
-                    : Icon(
-                  Icons.remove_red_eye_outlined,
-                  color: Colors.grey,
-                  size: 30.r,
-                ),
-              ),
-            )
+                    color: Colors.transparent,
+                    child: IconButton(
+                      highlightColor: Colors.transparent,
+                      splashRadius: 40.r,
+                      splashColor: Colors.green,
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        LoginCubit.get(context).changeTextVisibility(
+                            !LoginCubit.get(context).isTextVisible);
+                      },
+                      icon: isPassword && !LoginCubit.get(context).isTextVisible
+                          ? Icon(
+                              Icons.visibility_off_outlined,
+                              color: Colors.grey,
+                              size: 30.r,
+                            )
+                          : Icon(
+                              Icons.remove_red_eye_outlined,
+                              color: Colors.grey,
+                              size: 30.r,
+                            ),
+                    ),
+                  )
                 : null,
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
