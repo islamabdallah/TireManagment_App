@@ -162,7 +162,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     String movementType = selectedAction!;
 
     TirePosition tier1 = TirePosition(
-      tireId: firstTire!.tireId,
+      tireId: firstTire!.tireId!,
       position: selectedAction == 'Replacement'
           ? oldTierStatus!
           : secondTire!.tirePosition!,
@@ -172,7 +172,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     );
 
     TirePosition tier2 = TirePosition(
-      tireId: secondTire!.tireId,
+      tireId: secondTire!.tireId!,
       position: firstTire!.tirePosition!,
       currentTireDepth: int.parse(t2Depth1.text),
       sTDThreadDepth: int.parse(t2Depth2.text),

@@ -1,11 +1,11 @@
 class Tire {
-  late int tireId;
+  int? tireId;
   String? tirePosition;
   String? tireSerial;
   String? tirebrand;
 
   Tire({
-    required this.tireId,
+    this.tireId,
     this.tirePosition,
     this.tireSerial,
     this.tirebrand,

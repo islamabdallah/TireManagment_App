@@ -36,8 +36,8 @@ class _TierWidgetState extends State<TierWidget> {
       // maintainSize: true,
       child: GestureDetector(
         onTap: () {
-          if(widget.data?.tirePosition !=null)
-          cubit.selectTire(widget.data!);
+          if (widget.data?.tirePosition != null && widget.data?.tireId != null)
+            cubit.selectTire(widget.data!);
         },
         child: Container(
           margin: EdgeInsets.all(6.r),
@@ -49,17 +49,22 @@ class _TierWidgetState extends State<TierWidget> {
                 // color: Colors.red,
                 height: 82.h,
                 width: 32.w,
-                child: cubit.firstTire != null &&
+                child:
+                widget.data?.tireId==null?
+                    SvgPicture.asset('assets/images/no_tire.svg'):
+                cubit.firstTire != null &&
                         widget.data != null &&
                         widget.isNew != true &&
-                        cubit.firstTire!.tirePosition == widget.data!.tirePosition
+                        cubit.firstTire!.tirePosition ==
+                            widget.data!.tirePosition
                     ? Image.asset(
                         "assets/images/red_tire.png",
                       )
                     : cubit.secondTire != null &&
                             widget.data != null &&
                             widget.isNew != true &&
-                            cubit.secondTire!.tirePosition == widget.data!.tirePosition
+                            cubit.secondTire!.tirePosition ==
+                                widget.data!.tirePosition
                         ? Image.asset(
                             "assets/images/green_tire.png",
                           )
@@ -80,8 +85,9 @@ class _TierWidgetState extends State<TierWidget> {
                     child: Center(
                       child: FittedBox(
                         child: Text(
-                          widget.isNew? 'new':
-                          '${widget.data?.tirePosition} ',
+                          widget.isNew
+                              ? 'new'
+                              : '${widget.data?.tirePosition} ',
                           // '${widget.data}\n${widget.serial}',
                           style: TextStyle(
                               fontSize: 20.sp,
