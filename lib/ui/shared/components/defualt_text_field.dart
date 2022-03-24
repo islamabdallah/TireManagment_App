@@ -77,7 +77,7 @@ class DefualtTextField extends StatelessWidget {
             contentPadding:
                 EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
             suffixIconConstraints:
-                BoxConstraints(maxHeight: 30.h, minWidth: 30.w),
+                BoxConstraints(maxHeight: 30.h, minWidth: 50.w),
             suffixIcon: isPassword
                 ? Material(
                     color: Colors.transparent,

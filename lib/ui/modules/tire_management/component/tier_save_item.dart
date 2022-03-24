@@ -143,8 +143,9 @@ class TierDetails extends StatelessWidget {
                 label: 'Distance ',
               ),
             ),
+            if (isOld)
             SizedBox(
-              width: 10.h,
+              width: 23.w,
             ),
             if (isOld)
               Expanded(

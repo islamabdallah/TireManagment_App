@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,42 +20,42 @@ class DrawerWidget extends StatelessWidget {
     return SizedBox(
       width: 273.w,
       child: Drawer(
-        child: ListView(
-          children: <Widget>[
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 15.w, top: 20.h),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      height: 35.h,
-                      width: 35.h,
-                      padding: EdgeInsets.zero,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: SvgPicture.asset(
-                          'assets/images/close.svg',
-                          height: 30.h,
-                          width: 30.h,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal:16.0.w,vertical: 25.h),
+          child: ListView(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  height: 35.h,
+                  width: 35.h,
+                  padding: EdgeInsets.zero,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: SvgPicture.asset(
+                      'assets/images/close.svg',
+                      height: 30.h,
+                      width: 30.h,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                SvgPicture.asset(
-                  'assets/images/profile.svg',
-                  height: 150.h,
-                  width: 150.h,
-                ),
-                SizedBox(
-                  height: 13.h,
-                ),
-                Text(
+              ),
+              SvgPicture.asset(
+                'assets/images/profile.svg',
+                height: 150.h,
+                width: 150.h,
+              ),
+              SizedBox(
+                height: 13.h,
+              ),
+              Align(
+                alignment: Alignment.center,
+
+                child: Text(
                   userData!.email!,
                   style: TextStyle(
                       color: const Color(0xff293064),
@@ -63,43 +64,48 @@ class DrawerWidget extends StatelessWidget {
                       fontStyle: FontStyle.normal,
                       fontSize: 22.0.sp),
                 ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w),
-              child: const Divider(
-                thickness: 2,
-                color: mainColor,
               ),
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                'assets/images/fontisto_truck.svg',
-                color: mainColor,
-                height: 35.h,
-              ),
-              title: Text("Select Truck",
-                  style: style,),
-              onTap: (){
-                Navigator.popUntil(context, ModalRoute.withName(TruckSelectionScreen.routeName));
-              },
-            ),
-
-            ListTile(
-              leading: Container(
-                child: SvgPicture.asset(
-                  'assets/images/logout.svg',
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: const Divider(
+                  thickness: 1,
                   color: mainColor,
-                  height: 30.h,
                 ),
               ),
-              title: Text('Logout',style: style,),
-              onTap: (){
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(LoginScreen.routeName, (Route<dynamic> route) => false);
-              },
-            ),
-          ],
+              ListTile(
+                contentPadding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 12.w),
+                leading: SvgPicture.asset(
+                  'assets/images/fontisto_truck.svg',
+                  color: mainColor,
+                  height: 25.h,
+                ),
+                title: Text(
+                  "Select Truck",
+                  style: style,
+                ),
+                onTap: () {
+                  Navigator.popUntil(context,
+                      ModalRoute.withName(TruckSelectionScreen.routeName));
+                },
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 12.w),
+                leading: SvgPicture.asset(
+                  'assets/images/logout.svg',
+                  color: mainColor,
+                  height: 22.h,
+                ),
+                title: Text(
+                  'Logout',
+                  style: style,
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      LoginScreen.routeName, (Route<dynamic> route) => false);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

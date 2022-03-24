@@ -73,8 +73,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
               context: context,
               message: state.error,
               isSucceeded: false,
-              onPressedOk: () => Navigator.popUntil(context,
-                  ModalRoute.withName(TruckSelectionScreen.routeName)),
+              onPressedOk: () => Navigator.popUntil(
+                  context, ModalRoute.withName(TruckSelectionScreen.routeName)),
               onPressedRetry: () {
                 print('retry');
                 cubit.getTires();
@@ -95,8 +95,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
               context: context,
               message: state.error,
               isSucceeded: false,
-              onPressedOk: () => Navigator.popUntil(context,
-                  ModalRoute.withName(TruckSelectionScreen.routeName)),
+              onPressedOk: () => Navigator.popUntil(
+                  context, ModalRoute.withName(TruckSelectionScreen.routeName)),
               onPressedRetry: () {
                 print('retry');
                 cubit.startMovement();
@@ -106,7 +106,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
       builder: (context, state) {
         return WillPopScope(
           onWillPop: () async {
-            if (cubit.firstTire!=null) {
+            if (cubit.firstTire != null) {
               cubit.cancelProcess();
               return false;
             } else {
@@ -162,7 +162,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Column(
                                           crossAxisAlignment:
@@ -287,7 +288,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Column(
                                           crossAxisAlignment:
@@ -364,16 +366,24 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     ),
                   ),
                 ),
-                Builder(
-                    builder: (context) {
-                      return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 14.w,vertical: 40.h),
-                          child: IconButton(onPressed: () {
-                            Scaffold.of(context).openDrawer();
-                          }, icon: Image.asset('assets/images/menu.png'),)
+                Builder(builder: (context) {
+                  return Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 14.w, vertical: 40.h),
+                      child: IconButton(
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                        iconSize: 35.h,
+                        icon: SvgPicture.asset(
+                            'assets/images/menu.svg',
+                            // fit: BoxFit.cover,
+                            width: 35.h,
+                            height: 35.h,
+                          ),
+                        ),
                       );
-                    }
-                ),
+                }),
               ],
             ),
             bottomSheet: cubit.isBottomSheetOpened && cubit.firstTire != null
@@ -646,7 +656,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                cubit.selectedAction??'',
+                                cubit.selectedAction ?? '',
                                 style: TextStyle(
                                   color: Color(0xff293064),
                                   fontSize: 18.sp,
@@ -654,7 +664,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                              IconButton(constraints: BoxConstraints(maxHeight: 25.h),
+                              IconButton(
+                                constraints: BoxConstraints(maxHeight: 25.h),
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -707,9 +718,10 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                 items: cubit.newTires
                                     .map((e) => e.tireSerial)
                                     .toList()
-                                    .cast(), miniDetails: (String? value) {
+                                    .cast(),
+                                miniDetails: (String? value) {
                                   //todo add details
-                              },
+                                },
                               ),
                             ),
                           if (cubit.secondTire != null)
@@ -757,15 +769,15 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                 ),
                 if (cubit.secondTire != null)
                   Positioned(
-                  bottom: -45.h,
-                  right: -0.w,
-                  height: 190.h,
-                  child: Container(
-                    padding: EdgeInsets.zero,
-                    margin: EdgeInsets.zero,
-                    child: Image.asset('assets/images/concrete_truck.png'),
+                    bottom: -45.h,
+                    right: -0.w,
+                    height: 190.h,
+                    child: Container(
+                      padding: EdgeInsets.zero,
+                      margin: EdgeInsets.zero,
+                      child: Image.asset('assets/images/concrete_truck.png'),
+                    ),
                   ),
-                ),
               ],
             ),
           ),
@@ -773,223 +785,223 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
       ),
     );
   }
-  //
-  // Widget buildRotationAlertDialog(BuildContext context) {
-  //   TextEditingController t1Depth1 = cubit.t1Depth1;
-  //   TextEditingController t1Depth2 = cubit.t1Depth2;
-  //   TextEditingController t1Distance = cubit.t1Distance;
-  //
-  //   TextEditingController t2Depth1 = cubit.t2Depth1;
-  //   TextEditingController t2Depth2 = cubit.t2Depth2;
-  //   TextEditingController t2Distance = cubit.t2Distance;
-  //   return Scaffold(
-  //     // resizeToAvoidBottomInset: false,
-  //     backgroundColor: Colors.transparent,
-  //     body: Center(
-  //       child: SizedBox(
-  //         height: 693.h,
-  //         child: SingleChildScrollView(
-  //           reverse: true,
-  //           child: Stack(
-  //             clipBehavior: Clip.none,
-  //             alignment: Alignment.bottomRight,
-  //             children: [
-  //               Container(
-  //                 width: 412.w,
-  //                 // height: 693.h,
-  //                 decoration: BoxDecoration(
-  //                     color: Colors.white,
-  //                     boxShadow: [
-  //                       BoxShadow(blurRadius: 15.r, color: mainColor)
-  //                     ],
-  //                     borderRadius: BorderRadius.circular(12.r)),
-  //                 margin: EdgeInsets.symmetric(horizontal: 30.w),
-  //                 child: Form(
-  //                   key: changeFormK,
-  //                   child: Padding(
-  //                     padding: EdgeInsets.symmetric(
-  //                         horizontal: 30.w, vertical: 16.h),
-  //                     child: Column(
-  //                       children: [
-  //                         SizedBox(
-  //                           height: 10.h,
-  //                         ),
-  //                         TierDetails(
-  //                           c1: t1Depth1,
-  //                           c2: t1Depth2,
-  //                           c3: t1Distance,
-  //                           serial: cubit.firstTire!.tireSerial ?? '',
-  //                           oldPosition: cubit.firstTire!.position ?? '',
-  //                           newPosition: cubit.secondTire!.position ?? '',
-  //                         ),
-  //                         Padding(
-  //                           padding: EdgeInsets.symmetric(vertical: 8.h),
-  //                           child: Icon(
-  //                             Icons.swap_vert,
-  //                             size: 40.h,
-  //                             color: Colors.red,
-  //                           ),
-  //                         ),
-  //                         if (cubit.secondTire != null)
-  //                           TierDetails(
-  //                             c1: t2Depth1,
-  //                             c2: t2Depth2,
-  //                             c3: t2Distance,
-  //                             serial: cubit.secondTire!.tireSerial ?? '',
-  //                             newPosition: cubit.firstTire!.position ?? '',
-  //                             oldPosition: cubit.secondTire!.position ?? '',
-  //                           ),
-  //                         SizedBox(
-  //                           height: 30.h,
-  //                         ),
-  //                         if (cubit.secondTire != null)
-  //                           Padding(
-  //                             padding: EdgeInsets.symmetric(horizontal: 5.w),
-  //                             child: Row(
-  //                               children: [
-  //                                 SizedBox(
-  //                                   width: 165.w,
-  //                                   child: DefaultButton(
-  //                                     title: 'Process',
-  //                                     onPressed: () async {
-  //                                       if (changeFormK.currentState!
-  //                                           .validate()) {
-  //                                         // Navigator.pop(context);
-  //
-  //                                         await cubit.startMovement();
-  //
-  //                                         // cubit.cancelProcess();
-  //
-  //                                       }
-  //                                     },
-  //                                   ),
-  //                                 ),
-  //                               ],
-  //                             ),
-  //                           ),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //               Positioned(
-  //                 bottom: -45.h,
-  //                 right: -0.w,
-  //                 height: 190.h,
-  //                 child: Container(
-  //                   padding: EdgeInsets.zero,
-  //                   margin: EdgeInsets.zero,
-  //                   child: Image.asset('assets/images/concrete_truck.png'),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+//
+// Widget buildRotationAlertDialog(BuildContext context) {
+//   TextEditingController t1Depth1 = cubit.t1Depth1;
+//   TextEditingController t1Depth2 = cubit.t1Depth2;
+//   TextEditingController t1Distance = cubit.t1Distance;
+//
+//   TextEditingController t2Depth1 = cubit.t2Depth1;
+//   TextEditingController t2Depth2 = cubit.t2Depth2;
+//   TextEditingController t2Distance = cubit.t2Distance;
+//   return Scaffold(
+//     // resizeToAvoidBottomInset: false,
+//     backgroundColor: Colors.transparent,
+//     body: Center(
+//       child: SizedBox(
+//         height: 693.h,
+//         child: SingleChildScrollView(
+//           reverse: true,
+//           child: Stack(
+//             clipBehavior: Clip.none,
+//             alignment: Alignment.bottomRight,
+//             children: [
+//               Container(
+//                 width: 412.w,
+//                 // height: 693.h,
+//                 decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     boxShadow: [
+//                       BoxShadow(blurRadius: 15.r, color: mainColor)
+//                     ],
+//                     borderRadius: BorderRadius.circular(12.r)),
+//                 margin: EdgeInsets.symmetric(horizontal: 30.w),
+//                 child: Form(
+//                   key: changeFormK,
+//                   child: Padding(
+//                     padding: EdgeInsets.symmetric(
+//                         horizontal: 30.w, vertical: 16.h),
+//                     child: Column(
+//                       children: [
+//                         SizedBox(
+//                           height: 10.h,
+//                         ),
+//                         TierDetails(
+//                           c1: t1Depth1,
+//                           c2: t1Depth2,
+//                           c3: t1Distance,
+//                           serial: cubit.firstTire!.tireSerial ?? '',
+//                           oldPosition: cubit.firstTire!.position ?? '',
+//                           newPosition: cubit.secondTire!.position ?? '',
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 8.h),
+//                           child: Icon(
+//                             Icons.swap_vert,
+//                             size: 40.h,
+//                             color: Colors.red,
+//                           ),
+//                         ),
+//                         if (cubit.secondTire != null)
+//                           TierDetails(
+//                             c1: t2Depth1,
+//                             c2: t2Depth2,
+//                             c3: t2Distance,
+//                             serial: cubit.secondTire!.tireSerial ?? '',
+//                             newPosition: cubit.firstTire!.position ?? '',
+//                             oldPosition: cubit.secondTire!.position ?? '',
+//                           ),
+//                         SizedBox(
+//                           height: 30.h,
+//                         ),
+//                         if (cubit.secondTire != null)
+//                           Padding(
+//                             padding: EdgeInsets.symmetric(horizontal: 5.w),
+//                             child: Row(
+//                               children: [
+//                                 SizedBox(
+//                                   width: 165.w,
+//                                   child: DefaultButton(
+//                                     title: 'Process',
+//                                     onPressed: () async {
+//                                       if (changeFormK.currentState!
+//                                           .validate()) {
+//                                         // Navigator.pop(context);
+//
+//                                         await cubit.startMovement();
+//
+//                                         // cubit.cancelProcess();
+//
+//                                       }
+//                                     },
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               Positioned(
+//                 bottom: -45.h,
+//                 right: -0.w,
+//                 height: 190.h,
+//                 child: Container(
+//                   padding: EdgeInsets.zero,
+//                   margin: EdgeInsets.zero,
+//                   child: Image.asset('assets/images/concrete_truck.png'),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     ),
+//   );
+// }
 
-  // Widget buildReplacementAlertDialog() {
-  //   TextEditingController t1Depth1 = cubit.t1Depth1;
-  //   TextEditingController t1Depth2 = cubit.t1Depth2;
-  //   TextEditingController t1Distance = cubit.t1Distance;
-  //
-  //   TextEditingController t2Depth1 = cubit.t2Depth1;
-  //   TextEditingController t2Depth2 = cubit.t2Depth2;
-  //   TextEditingController t2Distance = cubit.t2Distance;
-  //
-  //   return Scaffold(
-  //     backgroundColor: Colors.transparent,
-  //     body: AlertDialog(
-  //       elevation: 2,
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       contentPadding: EdgeInsets.all(12.h),
-  //       scrollable: true,
-  //       content: Padding(
-  //         padding: EdgeInsets.symmetric(
-  //           vertical: 16.h,
-  //         ),
-  //         child: Form(
-  //           key: changeFormK,
-  //           child: Column(
-  //             children: [
-  //               TierDetails(
-  //                 c1: t1Depth1,
-  //                 c2: t1Depth2,
-  //                 c3: t1Distance,
-  //                 serial: cubit.firstTire!.tireSerial ?? '',
-  //                 oldPosition: cubit.firstTire!.position ?? '',
-  //                 newPosition: cubit.oldTierStatus ?? '',
-  //                 isOld: cubit.selectedAction == 'Replacement' ? true : false,
-  //               ),
-  //               Padding(
-  //                 padding: EdgeInsets.symmetric(
-  //                   vertical: 20.h,
-  //                 ),
-  //                 child: const Icon(
-  //                   Icons.swap_vert,
-  //                   size: 50,
-  //                   color: Colors.red,
-  //                 ),
-  //               ),
-  //               SearchDropDown(
-  //                 onChange: (value) {
-  //                   cubit.replaceTierWithNew(value);
-  //                 },
-  //                 hint: 'Select Tier',
-  //                 // items: const ['1', '2', '3', '4'],
-  //                 items:
-  //                     cubit.newTires.map((e) => e.tireSerial).toList().cast(),
-  //               ),
-  //               SizedBox(
-  //                 height: 8.h,
-  //               ),
-  //               if (cubit.secondTire != null)
-  //                 TierDetails(
-  //                   c1: t2Depth1,
-  //                   c2: t2Depth2,
-  //                   c3: t2Distance,
-  //                   serial: cubit.secondTire!.tireSerial ?? '',
-  //                   newPosition: cubit.firstTire!.position ?? '',
-  //                   oldPosition: cubit.secondTire!.position ?? '',
-  //                 ),
-  //               SizedBox(
-  //                 height: 20.h,
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //       actions: [
-  //         if (cubit.secondTire != null)
-  //           DefaultButton(
-  //             title: 'Process',
-  //             onPressed: () {
-  //               print('test');
-  //               if (changeFormK.currentState!.validate()) {
-  //                 // Navigator.pop(
-  //                 //     context);
-  //
-  //                 cubit.startMovement();
-  //
-  //                 //
-  //                 // cubit
-  //                 //     .cancelProcess();
-  //
-  //                 // navigateWithTransitionAndFinish(
-  //                 //   context:
-  //                 //       context,
-  //                 //   nextScreen:
-  //                 //       CarSelectionScreen(),
-  //                 // );
-  //               }
-  //             },
-  //           ),
-  //       ],
-  //     ),
-  //   );
-  // }
+// Widget buildReplacementAlertDialog() {
+//   TextEditingController t1Depth1 = cubit.t1Depth1;
+//   TextEditingController t1Depth2 = cubit.t1Depth2;
+//   TextEditingController t1Distance = cubit.t1Distance;
+//
+//   TextEditingController t2Depth1 = cubit.t2Depth1;
+//   TextEditingController t2Depth2 = cubit.t2Depth2;
+//   TextEditingController t2Distance = cubit.t2Distance;
+//
+//   return Scaffold(
+//     backgroundColor: Colors.transparent,
+//     body: AlertDialog(
+//       elevation: 2,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(20),
+//       ),
+//       contentPadding: EdgeInsets.all(12.h),
+//       scrollable: true,
+//       content: Padding(
+//         padding: EdgeInsets.symmetric(
+//           vertical: 16.h,
+//         ),
+//         child: Form(
+//           key: changeFormK,
+//           child: Column(
+//             children: [
+//               TierDetails(
+//                 c1: t1Depth1,
+//                 c2: t1Depth2,
+//                 c3: t1Distance,
+//                 serial: cubit.firstTire!.tireSerial ?? '',
+//                 oldPosition: cubit.firstTire!.position ?? '',
+//                 newPosition: cubit.oldTierStatus ?? '',
+//                 isOld: cubit.selectedAction == 'Replacement' ? true : false,
+//               ),
+//               Padding(
+//                 padding: EdgeInsets.symmetric(
+//                   vertical: 20.h,
+//                 ),
+//                 child: const Icon(
+//                   Icons.swap_vert,
+//                   size: 50,
+//                   color: Colors.red,
+//                 ),
+//               ),
+//               SearchDropDown(
+//                 onChange: (value) {
+//                   cubit.replaceTierWithNew(value);
+//                 },
+//                 hint: 'Select Tier',
+//                 // items: const ['1', '2', '3', '4'],
+//                 items:
+//                     cubit.newTires.map((e) => e.tireSerial).toList().cast(),
+//               ),
+//               SizedBox(
+//                 height: 8.h,
+//               ),
+//               if (cubit.secondTire != null)
+//                 TierDetails(
+//                   c1: t2Depth1,
+//                   c2: t2Depth2,
+//                   c3: t2Distance,
+//                   serial: cubit.secondTire!.tireSerial ?? '',
+//                   newPosition: cubit.firstTire!.position ?? '',
+//                   oldPosition: cubit.secondTire!.position ?? '',
+//                 ),
+//               SizedBox(
+//                 height: 20.h,
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//       actions: [
+//         if (cubit.secondTire != null)
+//           DefaultButton(
+//             title: 'Process',
+//             onPressed: () {
+//               print('test');
+//               if (changeFormK.currentState!.validate()) {
+//                 // Navigator.pop(
+//                 //     context);
+//
+//                 cubit.startMovement();
+//
+//                 //
+//                 // cubit
+//                 //     .cancelProcess();
+//
+//                 // navigateWithTransitionAndFinish(
+//                 //   context:
+//                 //       context,
+//                 //   nextScreen:
+//                 //       CarSelectionScreen(),
+//                 // );
+//               }
+//             },
+//           ),
+//       ],
+//     ),
+//   );
+// }
 }

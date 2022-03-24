@@ -86,11 +86,17 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                   return Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 14.w, vertical: 44.h),
-                    child: IconButton(
+                    child:IconButton(
                       onPressed: () {
                         Scaffold.of(context).openDrawer();
                       },
-                      icon: Image.asset('assets/images/menu.png'),
+                      iconSize: 35.h,
+                      icon: SvgPicture.asset(
+                        'assets/images/menu.svg',
+                        // fit: BoxFit.cover,
+                        width: 35.h,
+                        height: 35.h,
+                      ),
                     ),
                   );
                 }),
@@ -196,7 +202,13 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                               onPressed: () {
                                 Scaffold.of(context).openDrawer();
                               },
-                              icon: Image.asset('assets/images/menu.png'),
+                              iconSize: 35.h,
+                              icon: SvgPicture.asset(
+                                'assets/images/menu.svg',
+                                // fit: BoxFit.cover,
+                                width: 35.h,
+                                height: 35.h,
+                              ),
                             ),
                           );
                         }),

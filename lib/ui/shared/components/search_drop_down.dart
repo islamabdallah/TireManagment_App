@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tire_management/ui/shared/constants.dart';
@@ -68,7 +69,7 @@ class SearchDropDown extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         fontFamily: "Roboto",
                         fontStyle: FontStyle.normal,
-                        fontSize: 18.0.sp),
+                        fontSize: 20.0.sp),
                   ),
                 ],
               )
@@ -79,7 +80,7 @@ class SearchDropDown extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     fontFamily: "Roboto",
                     fontStyle: FontStyle.normal,
-                    fontSize: 18.0.sp),
+                    fontSize: 20.0.sp),
               );
             },
 
@@ -138,26 +139,24 @@ class SearchDropDown extends StatelessWidget {
             //suffix button
             dropDownButton: Icon(Icons.arrow_drop_down,
                 color: Color(0xff767676), size: 30.r),
+            showAsSuffixIcons: true,
 
             //decoration of the input widget
             dropdownSearchDecoration: InputDecoration(
-              // isDense: true,
               hintText: hint,
-
               hintStyle: TextStyle(
                   color: const Color(0xff767676),
                   fontWeight: FontWeight.w400,
                   fontFamily: "Roboto",
                   fontStyle: FontStyle.normal,
-                  fontSize: 18.0.sp),
+                  fontSize: 20.0.sp),
               isDense: true,
               fillColor: Colors.white,
               filled: true,
               contentPadding:
-              EdgeInsets.symmetric(vertical: 0.h, horizontal: 0.w),
-
+              EdgeInsets.symmetric(vertical: 15.h, horizontal: 0.w),
               // suffixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 30.w),
-              // prefixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 30.w),
+              prefixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 50.w),
               prefixIcon: Icon(
                 Icons.search,
                 size: 30.h,
