@@ -689,11 +689,12 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                   cubit.replaceTierWithNew(value);
                                 },
                                 hint: 'Select Tier',
-                                // items: const ['1', '2', '3', '4'],
                                 items: cubit.newTires
                                     .map((e) => e.tireSerial)
                                     .toList()
-                                    .cast(),
+                                    .cast(), miniDetails: (String? value) {
+                                  //todo add details
+                              },
                               ),
                             ),
                           if (cubit.secondTire != null)

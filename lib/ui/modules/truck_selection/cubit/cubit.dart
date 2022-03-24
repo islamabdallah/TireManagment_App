@@ -64,6 +64,14 @@ class TruckCubit extends Cubit<TrucksStates> {
     emit(SelectTruckState());
   }
 
+  String? getTruckMiniDetails(String? value) {
+    selectedTruck =
+        trucksList.firstWhere((truck) => truck.truckNumber == value);
+
+    return selectedTruck.truckName;
+
+  }
+
   void getHomeData() async {
     emit(GetTrucksLoadingState());
     trucksList = await fakeRepo.getTrucks();

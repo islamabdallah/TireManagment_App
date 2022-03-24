@@ -8,6 +8,7 @@ import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 import 'package:tire_management/ui/modules/login/screens/login_screen.dart';
 import 'package:tire_management/ui/modules/tire_management/cubit/cubit.dart';
 import 'package:tire_management/ui/modules/truck_selection/cubit/cubit.dart';
+import 'package:tire_management/ui/shared/constants.dart';
 
 import 'core/config/routes/routes.dart';
 
@@ -17,14 +18,14 @@ void main() async {
   await Future.wait([
     precachePicture(
       ExactAssetPicture(
-        SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
+        SvgPicture.svgStringDecoderOutsideViewBoxBuilder, // See UPDATE below!
         'assets/images/truck3.svg',
       ),
       null,
     ),
     precachePicture(
       ExactAssetPicture(
-        SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
+        SvgPicture.svgStringDecoderOutsideViewBoxBuilder, // See UPDATE below!
         'assets/icons/trailer2.svg',
       ),
       null,
@@ -53,7 +54,6 @@ void main() async {
     //   ),
     // MyApp(),
   );
-
 }
 
 class MyApp extends StatelessWidget {
@@ -79,6 +79,11 @@ class MyApp extends StatelessWidget {
               ),
             ],
             child: MaterialApp(
+              color: mainColor,
+              theme: ThemeData(
+                  scaffoldBackgroundColor: backgroundColor,
+                  colorScheme:
+                      ColorScheme.fromSwatch().copyWith(primary: mainColor,)),
               onGenerateRoute: AppRoutes.onGenerateRoutes,
               initialRoute: LoginScreen.routeName,
               // useInheritedMediaQuery: true,

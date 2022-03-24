@@ -108,7 +108,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                   ),
                 ),
                 Positioned(
-                  bottom:70.h,
+                  bottom: 70.h,
                   width: 1.sw,
                   child: Center(
                     child: Column(
@@ -122,8 +122,14 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 10.h,),
-                        Image.asset('assets/images/cemex.jpg',width: 90.w,fit: BoxFit.fitWidth,)
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Image.asset(
+                          'assets/images/cemex.jpg',
+                          width: 90.w,
+                          fit: BoxFit.fitWidth,
+                        )
                       ],
                     ),
                   ),
@@ -152,7 +158,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                   SizedBox(
                                     width: 180.w,
                                     child: Text(
-                                        "Search for any truck you want it",
+                                        "Search for any truck you want",
                                         style: TextStyle(
                                             color: const Color(0xff293064),
                                             fontWeight: FontWeight.w400,
@@ -167,10 +173,11 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: SearchDropDown(
-                                items: cubit.trucksDropdownList,
-                                onChange: (value) => cubit.selectTruck(value),
-                                hint: 'Select Truck',
-                              ),
+                                  items: cubit.trucksDropdownList,
+                                  onChange: (value) => cubit.selectTruck(value),
+                                  hint: 'Select Truck',
+                                  miniDetails: (value) =>
+                                      cubit.getTruckMiniDetails(value)),
                             ),
                           ],
                         ),
@@ -205,6 +212,8 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                 items: cubit.trucksDropdownList,
                                 onChange: (value) => cubit.selectTruck(value),
                                 value: cubit.selectedTruck.truckNumber,
+                                miniDetails: (value) =>
+                                    cubit.getTruckMiniDetails(value),
                                 hint: 'Select Truck',
                               ),
                               // child: DropdownSearch<String>(

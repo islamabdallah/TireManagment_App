@@ -8,13 +8,16 @@ class SearchDropDown extends StatelessWidget {
   String hint;
   var onChange;
   String? value;
+  // Widget Function<T>(BuildContext, String, bool)? popupItemBuilder;
+  String? Function(String? value) miniDetails;
 
-  SearchDropDown({
+  SearchDropDown({Key? key,
     required this.onChange,
     required this.items,
     required this.hint,
     this.value,
-  });
+    required this.miniDetails,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,40 +45,99 @@ class SearchDropDown extends StatelessWidget {
             onChanged: onChange,
             items: items,
             selectedItem: value,
+            emptyBuilder: (context, _) =>
+                Center(
+                  child: Text(
+                    'No data found',
+                    style: TextStyle(
+                        color: const Color(0xff767676),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.0.sp),
+                  ),
+                ),
             dropdownBuilder: (context, text) {
               return text != null
                   ? Row(
-                    children: [
-                      Text(
-                          text,
-                          style: TextStyle(
-                              color: const Color(0xff767676),
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Roboto",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 18.0.sp),
-                        ),
-                    ],
-                  )
+                children: [
+                  Text(
+                    text,
+                    style: TextStyle(
+                        color: const Color(0xff767676),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18.0.sp),
+                  ),
+                ],
+              )
                   : Text(
-                      hint,
-                      style: TextStyle(
-                          color: const Color(0xff767676),
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Roboto",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18.0.sp),
-                    );
+                hint,
+                style: TextStyle(
+                    color: const Color(0xff767676),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18.0.sp),
+              );
             },
-            //decoration of the dropdown menu,dialog widget
+
+            //decoration of the dropdown menu,dialog search widget
             searchFieldProps: TextFieldProps(
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: 'Search',
-                    border: UnderlineInputBorder())),
+              style: TextStyle(
+                  color: const Color(0xff767676),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Roboto",
+                  fontStyle: FontStyle.normal,
+                  fontSize: 22.0.sp),
+              decoration: InputDecoration(
+                isDense: true,
+                contentPadding:
+                EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                prefixIcon: Icon(Icons.search, size: 30.r,),
+                prefixIconConstraints:
+                BoxConstraints(maxHeight: 50.h, minWidth: 50.w),
+
+                hintText: 'Search',
+                hintStyle: TextStyle(
+                    color: const Color(0xff767676),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 22.0.sp),
+                border: const UnderlineInputBorder(),
+                // border: InputBorder.none,
+              ),
+            ),
+
+            // popupItemBuilder: popupItemBuilder,
+            popupItemBuilder: (_,text,isSelected){
+              return Padding(
+                padding: EdgeInsets.all(21.0.w),
+                child: Row(
+                  children: [
+                    Text(text,style: TextStyle(
+                        color: isSelected? mainColor: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20.0.sp),),
+                    Spacer(),
+                    Text(miniDetails(text)??'',style: TextStyle(
+                        color: isSelected? mainColor: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20.0.sp),),
+                  ],
+                ),
+              );
+            },
 
             //suffix button
-            dropDownButton: Icon(Icons.arrow_drop_down,color: Color(0xff767676),size: 30.r),
+            dropDownButton: Icon(Icons.arrow_drop_down,
+                color: Color(0xff767676), size: 30.r),
 
             //decoration of the input widget
             dropdownSearchDecoration: InputDecoration(
@@ -92,11 +154,14 @@ class SearchDropDown extends StatelessWidget {
               fillColor: Colors.white,
               filled: true,
               contentPadding:
-                  EdgeInsets.symmetric(vertical: 0.h, horizontal: 0.w),
+              EdgeInsets.symmetric(vertical: 0.h, horizontal: 0.w),
 
               // suffixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 30.w),
               // prefixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 30.w),
-              prefixIcon: Icon(Icons.search,size: 30.h,),
+              prefixIcon: Icon(
+                Icons.search,
+                size: 30.h,
+              ),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   color: mainColor,
