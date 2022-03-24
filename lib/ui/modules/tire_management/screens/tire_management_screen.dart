@@ -158,7 +158,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                     padding: EdgeInsets.zero,
                                     margin: EdgeInsets.zero,
                                     // color: Colors.blue,
-                                    height: 560.h,
+                                    height: 633.h,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -283,8 +283,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                   Container(
                                     padding: EdgeInsets.zero,
                                     margin: EdgeInsets.zero,
-                                    // color: Colors.blue,
-                                    height: 560.h,
+                                    // color: Colors.red,
+                                    height: 633.h,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
