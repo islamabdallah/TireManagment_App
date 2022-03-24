@@ -67,6 +67,19 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
         if (state is GetTiresSuccessState) {
           Navigator.pop(context);
         }
+        if (state is GetTiresErrorState) {
+          Navigator.pop(context);
+          showMessageDialog(
+              context: context,
+              message: state.error,
+              isSucceeded: false,
+              onPressedOk: () => Navigator.popUntil(context,
+                  ModalRoute.withName(TruckSelectionScreen.routeName)),
+              onPressedRetry: () {
+                print('retry');
+                cubit.getTires();
+              });
+        }
         if (state is TireMovementSuccessState) {
           Navigator.pop(context);
           showMessageDialog(
@@ -82,6 +95,8 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
               context: context,
               message: state.error,
               isSucceeded: false,
+              onPressedOk: () => Navigator.popUntil(context,
+                  ModalRoute.withName(TruckSelectionScreen.routeName)),
               onPressedRetry: () {
                 print('retry');
                 cubit.startMovement();
@@ -91,7 +106,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
       builder: (context, state) {
         return WillPopScope(
           onWillPop: () async {
-            if (cubit.isBottomSheetOpened) {
+            if (cubit.firstTire!=null) {
               cubit.cancelProcess();
               return false;
             } else {
@@ -674,7 +689,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             data: cubit.firstTire,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.h),
+                            padding: EdgeInsets.only(top: 14.h),
                             child: Icon(
                               Icons.swap_vert,
                               size: 40.h,
@@ -683,7 +698,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                           ),
                           if (cubit.selectedAction == 'Replacement')
                             Padding(
-                              padding: EdgeInsets.only(bottom: 8.0.h),
+                              padding: EdgeInsets.symmetric(vertical: 8.0.h),
                               child: SearchDropDown(
                                 onChange: (value) {
                                   cubit.replaceTierWithNew(value);

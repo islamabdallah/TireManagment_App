@@ -34,7 +34,7 @@ class DefaultButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                   side: BorderSide(
-                    width: 1.0.w,
+                    width: 2.0.w,
                     color: color,
                   ),
                 primary: isFill?color:Colors.white,

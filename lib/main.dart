@@ -81,6 +81,8 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               color: mainColor,
               theme: ThemeData(
+
+
                   scaffoldBackgroundColor: backgroundColor,
                   colorScheme:
                       ColorScheme.fromSwatch().copyWith(primary: mainColor,)),
