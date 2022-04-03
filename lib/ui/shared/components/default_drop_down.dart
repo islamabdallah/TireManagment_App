@@ -10,6 +10,7 @@ class DefaultDropdownField extends StatelessWidget {
   bool inSheet;
   bool isExpand;
   String hint;
+
   DefaultDropdownField({
     required this.value,
     required this.items,
@@ -29,67 +30,66 @@ class DefaultDropdownField extends StatelessWidget {
           height: 50.h,
           decoration: BoxDecoration(
             boxShadow: [
-              BoxShadow(color: Color(0x70000000),
+              BoxShadow(
+                color: Color(0x70000000),
                 blurRadius: 8,
                 offset: Offset(0, 4.h),
               ),
             ],
           ),
         ),
-        SizedBox(
-          height: 50.h,
-          child: DropdownButtonFormField<String>(
-            iconSize: 5.r,
-            style: TextStyle(
+        DropdownButtonFormField<String>(
+          iconSize: 0.r,
+          // iconSize: 25.r,
+          style: TextStyle(
+              color: const Color(0xff767676),
+              fontWeight: FontWeight.w400,
+              fontFamily: "Roboto",
+              fontStyle: FontStyle.normal,
+              fontSize: 18.0.sp),
+          decoration: InputDecoration(
+            isDense: true,
+            fillColor: Colors.white,
+            filled: true,
+            labelText: hint,
+            floatingLabelStyle: TextStyle(
+                color: const Color(0xff767676),
+                fontWeight: FontWeight.w400,
+                fontFamily: "Roboto",
+                fontStyle: FontStyle.normal,
+                fontSize: 16.0.sp),
+            labelStyle: TextStyle(
                 color: const Color(0xff767676),
                 fontWeight: FontWeight.w400,
                 fontFamily: "Roboto",
                 fontStyle: FontStyle.normal,
                 fontSize: 18.0.sp),
-            decoration: InputDecoration(
-              isDense: true,
-              fillColor: Colors.white,
-              filled: true,
-              labelText: hint,
-              floatingLabelStyle: TextStyle(
-                  color: const Color(0xff767676),
-                  fontWeight: FontWeight.w400,
-                  fontFamily: "Roboto",
-                  fontStyle: FontStyle.normal,
-                  fontSize: 16.0.sp),
-              labelStyle: TextStyle(
-                  color: const Color(0xff767676),
-                  fontWeight: FontWeight.w400,
-                  fontFamily: "Roboto",
-                  fontStyle: FontStyle.normal,
-                  fontSize: 18.0.sp),
-              contentPadding:
-              EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: mainColor,
-                ),
-              ),
-
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Color(0xFFB6B4B4),
-                ),
+            contentPadding: EdgeInsets.symmetric(
+                vertical: 50.h < kMinInteractiveDimension ? 11.h : 15.h,
+                horizontal: 20.w),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: mainColor,
               ),
             ),
-            value: value,
-            onChanged: onChange,
-            isExpanded: isExpand,
-            isDense: true,
-            items: items.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            validator: (value) => value == null ? 'field required' : null,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0xFFB6B4B4),
+              ),
+            ),
           ),
+          value: value,
+          onChanged: onChange,
+          isExpanded: isExpand,
+          itemHeight: kMinInteractiveDimension,
+          isDense: true,
+          items: items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          validator: (value) => value == null ? 'required' : null,
         ),
       ],
     );
