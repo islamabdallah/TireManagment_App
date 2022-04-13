@@ -9,10 +9,12 @@ class SearchDropDown extends StatelessWidget {
   String hint;
   var onChange;
   String? value;
+
   // Widget Function<T>(BuildContext, String, bool)? popupItemBuilder;
   String? Function(String? value) miniDetails;
 
-  SearchDropDown({Key? key,
+  SearchDropDown({
+    Key? key,
     required this.onChange,
     required this.items,
     required this.hint,
@@ -46,42 +48,41 @@ class SearchDropDown extends StatelessWidget {
             onChanged: onChange,
             items: items,
             selectedItem: value,
-            emptyBuilder: (context, _) =>
-                Center(
-                  child: Text(
-                    'No data found',
-                    style: TextStyle(
-                        color: const Color(0xff767676),
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18.0.sp),
-                  ),
-                ),
-            dropdownBuilder: (context, text) {
-              return text != null
-                  ? Row(
-                children: [
-                  Text(
-                    text,
-                    style: TextStyle(
-                        color: const Color(0xff767676),
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 20.0.sp),
-                  ),
-                ],
-              )
-                  : Text(
-                hint,
+            emptyBuilder: (context, _) => Center(
+              child: Text(
+                'No data found',
                 style: TextStyle(
                     color: const Color(0xff767676),
                     fontWeight: FontWeight.w400,
                     fontFamily: "Roboto",
                     fontStyle: FontStyle.normal,
-                    fontSize: 20.0.sp),
-              );
+                    fontSize: 18.0.sp),
+              ),
+            ),
+            dropdownBuilder: (context, text) {
+              return text != null
+                  ? Row(
+                      children: [
+                        Text(
+                          text,
+                          style: TextStyle(
+                              color: const Color(0xff767676),
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Roboto",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0.sp),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      hint,
+                      style: TextStyle(
+                          color: const Color(0xff767676),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Roboto",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20.0.sp),
+                    );
             },
 
             //decoration of the dropdown menu,dialog search widget
@@ -95,10 +96,13 @@ class SearchDropDown extends StatelessWidget {
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding:
-                EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                prefixIcon: Icon(Icons.search, size: 30.r,),
+                    EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                prefixIcon: Icon(
+                  Icons.search,
+                  size: 30.r,
+                ),
                 prefixIconConstraints:
-                BoxConstraints(maxHeight: 50.h, minWidth: 50.w),
+                    BoxConstraints(maxHeight: 50.h, minWidth: 50.w),
 
                 hintText: 'Search',
                 hintStyle: TextStyle(
@@ -113,24 +117,42 @@ class SearchDropDown extends StatelessWidget {
             ),
 
             // popupItemBuilder: popupItemBuilder,
-            popupItemBuilder: (_,text,isSelected){
+            popupItemBuilder: (_, text, isSelected) {
               return Padding(
                 padding: EdgeInsets.all(21.0.w),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(text,style: TextStyle(
-                        color: isSelected? mainColor: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 20.0.sp),),
-                    Spacer(),
-                    Text(miniDetails(text)??'',style: TextStyle(
-                        color: isSelected? mainColor: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 20.0.sp),),
+                    Text(
+                      text,
+                      style: TextStyle(
+                          color: isSelected ? mainColor : Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Roboto",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20.0.sp),
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    miniDetails(text) != null
+                        ? Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                miniDetails(text) ?? '',
+                                style: TextStyle(
+                                    color:
+                                        isSelected ? mainColor : Colors.black,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Roboto",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 18.0.sp),
+                               textAlign: TextAlign.left,
+                              ),
+                            ),
+                          )
+                        : Text('na'),
                   ],
                 ),
               );
@@ -154,9 +176,10 @@ class SearchDropDown extends StatelessWidget {
               fillColor: Colors.white,
               filled: true,
               contentPadding:
-              EdgeInsets.symmetric(vertical: 15.h, horizontal: 0.w),
+                  EdgeInsets.symmetric(vertical: 15.h, horizontal: 0.w),
               // suffixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 30.w),
-              prefixIconConstraints: BoxConstraints(maxHeight: 30.h,minWidth: 50.w),
+              prefixIconConstraints:
+                  BoxConstraints(maxHeight: 30.h, minWidth: 50.w),
               prefixIcon: Icon(
                 Icons.search,
                 size: 30.h,

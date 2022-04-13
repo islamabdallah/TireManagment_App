@@ -442,12 +442,13 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                               TierDetailItem(
                                                   title: 'Serial : ',
                                                   value: tire!.tireSerial!),
+                                              //todo change position to bran and size
                                               TierDetailItem(
-                                                  title: 'Position : ',
-                                                  value: tire.tirePosition!),
+                                                  title: 'Size : ',
+                                                  value: tire.tireSize??'-'),
                                               TierDetailItem(
                                                   title: 'Brand : ',
-                                                  value: tire.tirebrand??'NA'),
+                                                  value: tire.tireBrand??'-'),
                                             ],
                                           ),
                                         ],
@@ -472,11 +473,11 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                     title: 'Serial : ',
                                                     value: tire2.tireSerial!),
                                                 TierDetailItem(
-                                                    title: 'Position : ',
-                                                    value: tire2.tirePosition!),
+                                                    title: 'Size : ',
+                                                    value: tire2.tireSize??'-'),
                                                 TierDetailItem(
                                                     title: 'Brand : ',
-                                                    value: tire2.tirebrand??'NA'),
+                                                    value: tire2.tireBrand??'-'),
                                               ],
                                             ),
                                           ],
@@ -714,13 +715,14 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                 onChange: (value) {
                                   cubit.replaceTierWithNew(value);
                                 },
-                                hint: 'Select Tier',
+                                hint: 'Select Tire',
                                 items: cubit.newTires
                                     .map((e) => e.tireSerial)
                                     .toList()
                                     .cast(),
                                 miniDetails: (String? value) {
                                   //todo add details
+                                  return cubit.getTireMiniDetails(value);
                                 },
                               ),
                             ),

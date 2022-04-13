@@ -26,6 +26,15 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   bool isBottomSheetOpened = false;
   TiresRepository repo = TiresRepositoryImplementation();
 
+  String? getTireMiniDetails(String? value) {
+    var tire =
+        newTires.firstWhere((tire) => tire.tireSerial == value);
+
+    //todo return brand and size
+    return '${tire.tireBrand}, Size: ${tire.tireSize}';
+
+  }
+
   void getTires() async {
     tires.clear();
     newTires.clear();

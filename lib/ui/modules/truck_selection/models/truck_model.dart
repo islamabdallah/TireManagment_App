@@ -12,10 +12,11 @@ class Truck {
   bool? active;
   String? chassis;
   String? engine;
-  String? registration;
+  String? registeration;
   int? axleCount;
   String? vehichleModelNo;
   String? category;
+  String? image;
 
   // String? image;
   // String? submitDate;
@@ -37,11 +38,12 @@ class Truck {
     this.unit,
     this.vehichleModelNo,
     this.axleCount,
-    this.registration,
+    this.registeration,
     this.engine,
     this.chassis,
     this.active,
     this.category,
+    this.image,
     // this.image,
     // this.submitDate,
     // this.tiresCount,
@@ -63,11 +65,12 @@ class Truck {
     unit = json['unit'];
     vehichleModelNo = json['vehichleModelNo'];
     axleCount = json['axleCount'];
-    registration = json['registration'];
+    registeration = json['registeration'];
     engine = json['engine'];
     chassis = json['chassis'];
     active = json['active'];
     category = json['category'];
+    image = json['image'];
     // submitDate = json['SubmitDate'] ?? '';
     // tiresCount = json['TiresCount'] ?? 0;
     // frontTires = json['FrontTires'] ?? 0;

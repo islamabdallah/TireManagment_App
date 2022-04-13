@@ -2,25 +2,29 @@ class Tire {
   int? tireId;
   String? tirePosition;
   String? tireSerial;
-  String? tirebrand;
+  String? tireBrand;
+  String? tireSize;
 
   Tire({
     this.tireId,
     this.tirePosition,
     this.tireSerial,
-    this.tirebrand,
+    this.tireBrand,
   });
 
   Tire.fromJson(Map<String, dynamic> json) {
     tireId = json['tireId'];
     tirePosition = json['tirePosition'];
     tireSerial = json['tireSerial'];
-    tirebrand = json['tirebrand'];
+    tireBrand = json['tirebrand'];
+    tireSize = json['tireSize'];
+
   }
   Tire.fromNewTireJson(Map<String, dynamic> json) {
     tireId = json['tierid'];
     tireSerial = json['serial'];
-    tirebrand = json['tirebrand'];
+    tireBrand = json['brand'];
+    tireSize = json['size'];
   }
 
   Map<String, dynamic> toJson() {
@@ -28,7 +32,7 @@ class Tire {
     data['tireId'] = tireId;
     data['tirePosition'] = tirePosition;
     data['tireSerial'] = tireSerial;
-    data['tirebrand'] = tirebrand;
+    data['tirebrand'] = tireBrand;
     return data;
   }
 }

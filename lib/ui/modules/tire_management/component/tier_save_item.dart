@@ -85,7 +85,7 @@ class TierDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TierDetailItem(
-                  title: 'Serial  : ',
+                  title: 'Serial : ',
                   value: serial,
                 ),
                 TierDetailItem(
@@ -126,7 +126,7 @@ class TierDetails extends StatelessWidget {
                 width: 143.w,
                 child: DefualtTextField(
                   controller: c2,
-                  label: 'Current Depth  ',
+                  label: 'Current Depth',
                 ),
               ),
             ),
@@ -140,7 +140,7 @@ class TierDetails extends StatelessWidget {
             Expanded(
               child: DefualtTextField(
                 controller: c3,
-                label: 'Distance ',
+                label: 'Distance',
               ),
             ),
             if (isOld)

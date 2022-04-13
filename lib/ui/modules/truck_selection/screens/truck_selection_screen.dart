@@ -16,6 +16,7 @@ import '../../../shared/utils/navigations.dart';
 import '../../tire_management/screens/tire_management_screen.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
+import 'gallery_screen.dart';
 
 class TruckSelectionScreen extends StatefulWidget {
   static const routeName = 'TruckSelectionScreen';
@@ -49,7 +50,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
           style: keyTextStyle,
         ),
         Text(
-          value??'NA',
+          value ?? '-',
           style: valueTextStyle,
         ),
       ],
@@ -86,7 +87,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                   return Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 14.w, vertical: 44.h),
-                    child:IconButton(
+                    child: IconButton(
                       onPressed: () {
                         Scaffold.of(context).openDrawer();
                       },
@@ -163,8 +164,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                   SizedBox(width: 10.w),
                                   SizedBox(
                                     width: 180.w,
-                                    child: Text(
-                                        "Search for any truck you want",
+                                    child: Text("Search for any truck you want",
                                         style: TextStyle(
                                             color: const Color(0xff293064),
                                             fontWeight: FontWeight.w400,
@@ -292,21 +292,28 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(top: 33.h),
+                                            padding: EdgeInsets.only(top: 40.h),
                                             child: Center(
-                                              child: Text(
-                                                "${cubit.selectedTruck.truckName!} ${cubit.selectedTruck.truckNumber!}",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color:
-                                                        const Color(0xff293064),
-                                                    fontWeight: FontWeight.w700,
-                                                    fontFamily: "Roboto",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 22.0.sp),
+                                              child: FittedBox(
+                                                child: Text(
+                                                  "${cubit.selectedTruck.truckName!} / ${cubit.selectedTruck.truckNumber!}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: const Color(
+                                                          0xff293064),
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontFamily: "Roboto",
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 22.0.sp),
+                                                ),
                                               ),
                                             ),
                                           ),
+                                          SizedBox(
+                                            height: 14,
+                                          ),
                                           Row(
                                             children: [
                                               SvgPicture.asset(
@@ -315,7 +322,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                 width: 8.w,
                                               ),
                                               Text(
-                                                "Sub Title",
+                                                "Truck Details",
                                                 style: TextStyle(
                                                     decoration: TextDecoration
                                                         .underline,
@@ -335,9 +342,10 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                 width: 12,
                                               ),
                                               Container(
-                                                height: 121.h,
+                                                height: 290.h,
                                                 width: 1.w,
-                                                color: Color(0xFF878787),
+                                                // color: Color(0xFF878787),
+                                                color: mainColor,
                                               ),
                                               SizedBox(
                                                 width: 22.w,
@@ -346,70 +354,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                 child: Column(
                                                   children: [
                                                     SizedBox(
-                                                      height: 7.h,
-                                                    ),
-                                                    buildRow('Year',
-                                                        '${cubit.selectedTruck.truckYear}'),
-                                                    SizedBox(height: 14.h),
-                                                    buildRow(
-                                                        'Type',
-                                                        cubit.selectedTruck
-                                                            .type!),
-                                                    SizedBox(height: 14.h),
-                                                    buildRow('No. of Axle',
-                                                        '${cubit.selectedTruck.axleCount}'),
-                                                    SizedBox(height: 14.h),
-                                                    buildRow(
-                                                        'Reg NO.',
-                                                        cubit.selectedTruck
-                                                                .registration ??
-                                                            'non'),
-                                                    SizedBox(height: 14.h),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                  'assets/images/tirecon.svg'),
-                                              SizedBox(
-                                                width: 8.w,
-                                              ),
-                                              Text(
-                                                "Sub Title",
-                                                style: TextStyle(
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    color: Color(0xff293064),
-                                                    fontWeight: FontWeight.w700,
-                                                    fontFamily: "Roboto",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 18.0.sp),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 12,
-                                              ),
-                                              Container(
-                                                height: 156.h,
-                                                width: 1.w,
-                                                color: Color(0xFF878787),
-                                              ),
-                                              SizedBox(
-                                                width: 22.w,
-                                              ),
-                                              Expanded(
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 7.h,
+                                                      height: 12.h,
                                                     ),
                                                     buildRow(
                                                       'Company',
@@ -434,7 +379,25 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                         'Chassis',
                                                         cubit.selectedTruck
                                                             .chassis),
-                                                    SizedBox(height: 52.h),
+                                                    SizedBox(height: 14.h),
+                                                    buildRow('Year',
+                                                        '${cubit.selectedTruck.truckYear}'),
+                                                    SizedBox(height: 14.h),
+                                                    buildRow(
+                                                        'Type',
+                                                        cubit.selectedTruck
+                                                            .type!),
+                                                    SizedBox(height: 14.h),
+                                                    buildRow('No. of Axle',
+                                                        '${cubit.selectedTruck.axleCount}'),
+                                                    SizedBox(height: 14.h),
+                                                    buildRow(
+                                                        'Reg NO.',
+                                                        cubit.selectedTruck
+                                                                .registeration ??
+                                                            'non'),
+                                                    // SizedBox(height: 14.h),
+                                                    SizedBox(height: 60.h),
                                                     Row(
                                                       children: [
                                                         SizedBox(
@@ -469,6 +432,105 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                               ),
                                             ],
                                           ),
+                                          // Row(
+                                          //   children: [
+                                          //     SvgPicture.asset(
+                                          //         'assets/images/tirecon.svg'),
+                                          //     SizedBox(
+                                          //       width: 8.w,
+                                          //     ),
+                                          //     Text(
+                                          //       "Sub Title",
+                                          //       style: TextStyle(
+                                          //           decoration: TextDecoration
+                                          //               .underline,
+                                          //           color: Color(0xff293064),
+                                          //           fontWeight: FontWeight.w700,
+                                          //           fontFamily: "Roboto",
+                                          //           fontStyle: FontStyle.normal,
+                                          //           fontSize: 18.0.sp),
+                                          //     ),
+                                          //   ],
+                                          // ),
+                                          // Row(
+                                          //   crossAxisAlignment:
+                                          //       CrossAxisAlignment.start,
+                                          //   children: [
+                                          //     SizedBox(
+                                          //       width: 12,
+                                          //     ),
+                                          //     Container(
+                                          //       height: 156.h,
+                                          //       width: 1.w,
+                                          //       color: Color(0xFF878787),
+                                          //     ),
+                                          //     SizedBox(
+                                          //       width: 22.w,
+                                          //     ),
+                                          //     Expanded(
+                                          //       child: Column(
+                                          //         children: [
+                                          //           SizedBox(
+                                          //             height: 7.h,
+                                          //           ),
+                                          //           buildRow(
+                                          //             'Company',
+                                          //             cubit.selectedTruck
+                                          //                 .truckCompany,
+                                          //           ),
+                                          //           SizedBox(height: 14.h),
+                                          //           buildRow(
+                                          //               'Status',
+                                          //               cubit.selectedTruck
+                                          //                   .status),
+                                          //           SizedBox(height: 14.h),
+                                          //           buildRow('Size',
+                                          //               '${cubit.selectedTruck.size} ${cubit.selectedTruck.unit}'),
+                                          //           SizedBox(height: 14.h),
+                                          //           buildRow(
+                                          //               'Engine',
+                                          //               cubit.selectedTruck
+                                          //                   .engine),
+                                          //           SizedBox(height: 14.h),
+                                          //           buildRow(
+                                          //               'Chassis',
+                                          //               cubit.selectedTruck
+                                          //                   .chassis),
+                                          //           SizedBox(height: 52.h),
+                                          //           Row(
+                                          //             children: [
+                                          //               SizedBox(
+                                          //                 width: 138.w,
+                                          //                 child: DefaultButton(
+                                          //                     title:
+                                          //                         'Manage Tires',
+                                          //                     onPressed: () {
+                                          //                       CacheHelper.saveData(
+                                          //                           key:
+                                          //                               'truckNumber',
+                                          //                           value: cubit
+                                          //                               .selectedTruck
+                                          //                               .truckNumber);
+                                          //
+                                          //                       Navigator.pushNamed(
+                                          //                           context,
+                                          //                           TiersManagementScreen
+                                          //                               .routeName);
+                                          //                       // navigateTo(
+                                          //                       //   context:
+                                          //                       //       context,
+                                          //                       //   nextScreen:
+                                          //                       //       const TiersManagementScreen(),
+                                          //                       // );
+                                          //                     }),
+                                          //               ),
+                                          //             ],
+                                          //           )
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
                                         ],
                                       ),
                                     ),
@@ -477,32 +539,45 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                 Positioned(
                                   height: 58.h,
                                   top: -29.h,
-                                  child: Container(
-                                    height: 58.h,
-                                    width: 58.h,
-                                    decoration: const BoxDecoration(
-                                        color: mainColor,
-                                        shape: BoxShape.circle),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => GalleryScreen(
+                                                    imageUrl: cubit
+                                                        .selectedTruck.image,
+                                                  )));
+                                    },
                                     child: Container(
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            SvgPicture.asset(
-                                              'assets/images/fontisto_truck.svg',
-                                              width: 25.h,
-                                              height: 25.h,
-                                            ),
-                                            Text("View",
-                                                style: TextStyle(
-                                                    color:
-                                                        const Color(0xffffffff),
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily: "Roboto",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 14.0.sp),
-                                                textAlign: TextAlign.left),
-                                          ],
+                                      height: 58.h,
+                                      width: 58.h,
+                                      decoration: const BoxDecoration(
+                                          color: mainColor,
+                                          shape: BoxShape.circle),
+                                      child: Container(
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              SvgPicture.asset(
+                                                'assets/images/fontisto_truck.svg',
+                                                width: 25.h,
+                                                height: 25.h,
+                                              ),
+                                              Text("View",
+                                                  style: TextStyle(
+                                                      color: const Color(
+                                                          0xffffffff),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: "Roboto",
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 14.0.sp),
+                                                  textAlign: TextAlign.left),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
