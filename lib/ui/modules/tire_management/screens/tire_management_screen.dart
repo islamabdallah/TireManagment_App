@@ -447,7 +447,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                   value: tire.tirePosition!),
                                               TierDetailItem(
                                                   title: 'Brand : ',
-                                                  value: tire.tirebrand!),
+                                                  value: tire.tirebrand??'NA'),
                                             ],
                                           ),
                                         ],
@@ -476,7 +476,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                     value: tire2.tirePosition!),
                                                 TierDetailItem(
                                                     title: 'Brand : ',
-                                                    value: tire2.tirebrand!),
+                                                    value: tire2.tirebrand??'NA'),
                                               ],
                                             ),
                                           ],

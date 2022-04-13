@@ -57,8 +57,8 @@ class LoginCubit extends Cubit<LoginStates> {
       }
     } on DioError catch (error) {
       if (error.response != null) {
-        print(error.response!.data['message']);
-        emit(LoginErrorState(error.response!.data['message']));
+        print(error.response?.data['message']);
+        emit(LoginErrorState(error.response?.data['message']));
       } else {
         print(error);
         print(error.type);

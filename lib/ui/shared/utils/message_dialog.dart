@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 showMessageDialog({
   required BuildContext context,
-  required String message,
+  String? message,
   required bool isSucceeded,
   VoidCallback? onPressedOk,
   VoidCallback? onPressedRetry,
@@ -40,7 +40,7 @@ showMessageDialog({
                           ),
                           SizedBox(height: 10.h),
                           Text(
-                            message,
+                            message??'Something went wrong!',
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 20.sp),
                             maxLines: 3,

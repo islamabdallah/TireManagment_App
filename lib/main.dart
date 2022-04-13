@@ -30,13 +30,6 @@ void main() async {
       ),
       null,
     ),
-    // precachePicture(
-    //   ExactAssetPicture(
-    //     SvgPicture.svgStringDecoderOutsideViewBoxBuilder , // See UPDATE below!
-    //     'assets/icons/FL_Tyre.svg',
-    //   ),
-    //   null,
-    // ),
   ]);
 
   await CacheHelper.init();

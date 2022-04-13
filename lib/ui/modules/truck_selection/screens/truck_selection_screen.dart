@@ -40,7 +40,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
       fontStyle: FontStyle.normal,
       fontSize: 16.0.sp);
 
-  Row buildRow(String key, String value) {
+  Row buildRow(String key, String? value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -49,7 +49,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
           style: keyTextStyle,
         ),
         Text(
-          value,
+          value??'NA',
           style: valueTextStyle,
         ),
       ],
@@ -414,13 +414,13 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                     buildRow(
                                                       'Company',
                                                       cubit.selectedTruck
-                                                          .truckCompany!,
+                                                          .truckCompany,
                                                     ),
                                                     SizedBox(height: 14.h),
                                                     buildRow(
                                                         'Status',
                                                         cubit.selectedTruck
-                                                            .status!),
+                                                            .status),
                                                     SizedBox(height: 14.h),
                                                     buildRow('Size',
                                                         '${cubit.selectedTruck.size} ${cubit.selectedTruck.unit}'),
@@ -428,12 +428,12 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                                     buildRow(
                                                         'Engine',
                                                         cubit.selectedTruck
-                                                            .engine!),
+                                                            .engine),
                                                     SizedBox(height: 14.h),
                                                     buildRow(
                                                         'Chassis',
                                                         cubit.selectedTruck
-                                                            .chassis!),
+                                                            .chassis),
                                                     SizedBox(height: 52.h),
                                                     Row(
                                                       children: [
