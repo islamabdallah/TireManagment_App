@@ -810,10 +810,12 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                     bottom: -45.h,
                     right: -0.w,
                     height: 190.h,
-                    child: Container(
-                      padding: EdgeInsets.zero,
-                      margin: EdgeInsets.zero,
-                      child: Image.asset('assets/images/concrete_truck.png'),
+                    child: IgnorePointer(
+                      child: Container(
+                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.zero,
+                        child: Image.asset('assets/images/concrete_truck.png'),
+                      ),
                     ),
                   ),
               ],
