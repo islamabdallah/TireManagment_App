@@ -30,8 +30,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     var tire =
         newTires.firstWhere((tire) => tire.tireSerial == value);
 
-    //todo return brand and size
-    return '${tire.tireBrand}, Size: ${tire.tireSize}';
+    return 'Status: ${int.parse(tire.distance??'0')>0 ?'Retread':'New'}${int.parse(tire.distance??'0')>0 ? '\nDistance: ${tire.distance} km':''} \nBrand: ${tire.tireBrand}\nSize: ${tire.tireSize}\n';
 
   }
 
@@ -147,6 +146,8 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     emit(SaveProcessState(shared!));
   }
 
+  TextEditingController distance = TextEditingController();
+
   TextEditingController t1Depth1 = TextEditingController();
   TextEditingController t1Depth2 = TextEditingController();
   TextEditingController t1Distance = TextEditingController();
@@ -156,6 +157,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   TextEditingController t2Distance = TextEditingController();
 
   void clearControllers() {
+    distance.clear();
     t1Depth1.clear();
     t1Depth2.clear();
     t1Distance.clear();
@@ -177,7 +179,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
           : secondTire!.tirePosition!,
       currentTireDepth: int.parse(t1Depth1.text),
       sTDThreadDepth: int.parse(t1Depth2.text),
-      kMWhileChange: t1Distance.text,
+      kMWhileChange: '0',
     );
 
     TirePosition tier2 = TirePosition(
@@ -185,13 +187,14 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
       position: firstTire!.tirePosition!,
       currentTireDepth: int.parse(t2Depth1.text),
       sTDThreadDepth: int.parse(t2Depth2.text),
-      kMWhileChange: t2Distance.text,
+      kMWhileChange: '0',
     );
 
     TruckMovementModel lastData = TruckMovementModel(
         truckNumber: truckNO,
         userId: userId,
         movementType: movementType,
+        truckOdometer: distance.text,
         tiresPosition: [tier2, tier1]);
     print(lastData.toJson());
 

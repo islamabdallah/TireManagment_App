@@ -9,6 +9,7 @@ class SearchDropDown extends StatelessWidget {
   String hint;
   var onChange;
   String? value;
+  bool? isTruck =false;
 
   // Widget Function<T>(BuildContext, String, bool)? popupItemBuilder;
   String? Function(String? value) miniDetails;
@@ -18,6 +19,7 @@ class SearchDropDown extends StatelessWidget {
     required this.onChange,
     required this.items,
     required this.hint,
+    this.isTruck,
     this.value,
     required this.miniDetails,
   }) : super(key: key);
@@ -119,40 +121,57 @@ class SearchDropDown extends StatelessWidget {
             // popupItemBuilder: popupItemBuilder,
             popupItemBuilder: (_, text, isSelected) {
               return Padding(
-                padding: EdgeInsets.all(21.0.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: EdgeInsets.symmetric(horizontal: 21.0.w,vertical: 21.h),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      text,
-                      style: TextStyle(
-                          color: isSelected ? mainColor : Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Roboto",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 20.0.sp),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            text,
+                            style: TextStyle(
+                                color: isSelected ? mainColor : Colors.black,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Roboto",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 20.0.sp),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        miniDetails(text) != null
+                            ? Expanded(
+                                child: FittedBox(
+                                  alignment: Alignment.centerLeft,
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    miniDetails(text) ?? '',
+                                    style: TextStyle(
+                                        color:
+                                            isSelected ? mainColor : Colors.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Roboto",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 18.0.sp),
+                                   textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              )
+                            : Text('na'),
+                      ],
                     ),
-                    SizedBox(
-                      width: 20.w,
+                    if(text!=items.last && isTruck==false)
+                    ...[
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical:8.0.h),
+                      child: Divider(
+                        color: Colors.black45,
+                      ),
                     ),
-                    miniDetails(text) != null
-                        ? Flexible(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                miniDetails(text) ?? '',
-                                style: TextStyle(
-                                    color:
-                                        isSelected ? mainColor : Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Roboto",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 18.0.sp),
-                               textAlign: TextAlign.left,
-                              ),
-                            ),
-                          )
-                        : Text('na'),
+                    ]
                   ],
                 ),
               );

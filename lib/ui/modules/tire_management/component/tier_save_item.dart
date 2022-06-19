@@ -89,8 +89,13 @@ class TierDetails extends StatelessWidget {
                   value: serial,
                 ),
                 TierDetailItem(
+                  title: 'Distance : ',
+                  value: '${(data?.distance?.isEmpty ==null || data?.distance?.isEmpty==true)?'0':data?.distance} km', //todo change this to distance
+                  // value: '${data!.distance} km', //todo change this to distance
+                ),
+                TierDetailItem(
                   title: 'Old Position : ',
-                  value: oldPosition.isEmpty? 'new':oldPosition,
+                  value: oldPosition.isEmpty? int.parse(data?.distance??'0')>0? 'Retread':'New':oldPosition,
                   isOLd: true,
                 ),
                 TierDetailItem(
@@ -137,16 +142,19 @@ class TierDetails extends StatelessWidget {
         ),
         Row(
           children: [
-            Expanded(
-              child: DefualtTextField(
-                controller: c3,
-                label: 'Distance',
+            Visibility(
+              visible: false,
+              child: Expanded(
+                child: DefualtTextField(
+                  controller: c3,
+                  label: 'Distance',
+                ),
               ),
             ),
-            if (isOld)
-            SizedBox(
-              width: 23.w,
-            ),
+            // if (isOld)
+            // SizedBox(
+            //   width: 23.w,
+            // ),
             if (isOld)
               Expanded(
                 child: BlocConsumer<TiersManageCubit, TiresManageStates>(

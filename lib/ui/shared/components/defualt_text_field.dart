@@ -77,14 +77,13 @@ class DefualtTextField extends StatelessWidget {
             contentPadding:
                 EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
             suffixIconConstraints:
-                BoxConstraints(maxHeight: 30.h, minWidth: 50.w),
+                BoxConstraints(maxHeight: 50.h, minWidth: 50.w),
             suffixIcon: isPassword
                 ? Material(
                     color: Colors.transparent,
                     child: IconButton(
-                      highlightColor: Colors.transparent,
-                      splashRadius: 40.r,
-                      splashColor: Colors.green,
+                      splashRadius: 20.r,
+                      splashColor: mainColor,
                       padding: EdgeInsets.zero,
                       onPressed: () {
                         LoginCubit.get(context).changeTextVisibility(

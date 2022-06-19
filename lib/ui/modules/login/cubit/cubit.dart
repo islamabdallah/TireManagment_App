@@ -56,11 +56,15 @@ class LoginCubit extends Cubit<LoginStates> {
         emit(LoginErrorState('Something went wrong!'));
       }
     } on DioError catch (error) {
-      if (error.response != null) {
+      if (error.response != null && (error.response?.data).isNotEmpty) {
+
+
+        print(error.response);
         print(error.response?.data['message']);
         emit(LoginErrorState(error.response?.data['message']));
       } else {
-        print(error);
+        print('test');
+        print(error.response?.headers);
         print(error.type);
         // print(error);
         emit(LoginErrorState(

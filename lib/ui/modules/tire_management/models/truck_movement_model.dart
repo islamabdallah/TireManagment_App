@@ -4,12 +4,14 @@ class TruckMovementModel {
   late String truckNumber;
   late String userId;
   late String movementType;
+  late String truckOdometer; //todo change this to right name
   late List<TirePosition>? tiresPosition;
 
   TruckMovementModel({
     required this.truckNumber,
     required this.userId,
     required this.movementType,
+    required this.truckOdometer,
     this.tiresPosition,
   });
   //
@@ -29,6 +31,7 @@ class TruckMovementModel {
     data['TruckNumber'] = truckNumber;
     data['MovementType'] = movementType;
     data['UserId'] = userId;
+    data['truckOdometer'] = truckOdometer;
     data['TirePositionViewModel'] = tiresPosition?.map((v) => v.toJson()).toList();
     return data;
   }

@@ -164,7 +164,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                                   SizedBox(width: 10.w),
                                   SizedBox(
                                     width: 180.w,
-                                    child: Text("Search for any truck you want",
+                                    child: Text("",
                                         style: TextStyle(
                                             color: const Color(0xff293064),
                                             fontWeight: FontWeight.w400,
@@ -179,6 +179,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: SearchDropDown(
+                                isTruck: true,
                                   items: cubit.trucksDropdownList,
                                   onChange: (value) => cubit.selectTruck(value),
                                   hint: 'Select Truck',
@@ -221,6 +222,7 @@ class _TruckSelectionScreenState extends State<TruckSelectionScreen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: SearchDropDown(
+                                isTruck: true,
                                 items: cubit.trucksDropdownList,
                                 onChange: (value) => cubit.selectTruck(value),
                                 value: cubit.selectedTruck.truckNumber,

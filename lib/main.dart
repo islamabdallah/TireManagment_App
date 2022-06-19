@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         // designSize: const Size(412, 800),
         // minTextAdapt: true,
-
         builder: () {
           return MultiBlocProvider(
             providers: [

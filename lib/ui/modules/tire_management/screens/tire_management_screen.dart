@@ -1,14 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_shadow/simple_shadow.dart';
-import 'package:tire_management/ui/modules/login/components/defualt_text_field.dart';
 
 import 'package:tire_management/ui/modules/truck_selection/screens/truck_selection_screen.dart';
 import 'package:tire_management/ui/shared/components/search_drop_down.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
+import '../../../shared/components/defualt_text_field.dart';
 import '../../../shared/components/drawer_widget.dart';
 import '../../../shared/components/note_text.dart';
 import 'package:tire_management/ui/modules/tire_management/component/input_management_screen.dart';
@@ -368,21 +370,21 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                 ),
                 Builder(builder: (context) {
                   return Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 14.w, vertical: 40.h),
-                      child: IconButton(
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                        iconSize: 35.h,
-                        icon: SvgPicture.asset(
-                            'assets/images/menu.svg',
-                            // fit: BoxFit.cover,
-                            width: 35.h,
-                            height: 35.h,
-                          ),
-                        ),
-                      );
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 14.w, vertical: 40.h),
+                    child: IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      iconSize: 35.h,
+                      icon: SvgPicture.asset(
+                        'assets/images/menu.svg',
+                        // fit: BoxFit.cover,
+                        width: 35.h,
+                        height: 35.h,
+                      ),
+                    ),
+                  );
                 }),
               ],
             ),
@@ -420,6 +422,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             padding: EdgeInsets.symmetric(horizontal: 15.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -442,13 +445,15 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                               TierDetailItem(
                                                   title: 'Serial : ',
                                                   value: tire!.tireSerial!),
-                                              //todo change position to bran and size
                                               TierDetailItem(
                                                   title: 'Size : ',
-                                                  value: tire.tireSize??'-'),
+                                                  value: tire.tireSize ?? '-'),
                                               TierDetailItem(
                                                   title: 'Brand : ',
-                                                  value: tire.tireBrand??'-'),
+                                                  value: tire.tireBrand ?? '-'),
+                                              TierDetailItem(
+                                                  title: 'Distance : ',
+                                                  value: '${(tire.distance?.isEmpty ==null || tire.distance?.isEmpty==true)?'0':tire.distance} km'),
                                             ],
                                           ),
                                         ],
@@ -474,10 +479,16 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                     value: tire2.tireSerial!),
                                                 TierDetailItem(
                                                     title: 'Size : ',
-                                                    value: tire2.tireSize??'-'),
+                                                    value:
+                                                        tire2.tireSize ?? '-'),
                                                 TierDetailItem(
                                                     title: 'Brand : ',
-                                                    value: tire2.tireBrand??'-'),
+                                                    value:
+                                                        tire2.tireBrand ?? '-'),
+                                                TierDetailItem(
+                                                    title: 'Distance : ',
+                                                    value:
+                                                    '${(tire2.distance?.isEmpty ==null || tire2.distance?.isEmpty==true)?'0':tire2.distance} km'),
                                               ],
                                             ),
                                           ],
@@ -687,6 +698,30 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                           SizedBox(
                             height: 10.h,
                           ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                height: 60.h,
+                                width: 60.h,
+                                child: Image.asset(
+                                  'assets/images/odometer.png',
+                                  fit: BoxFit.scaleDown,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 16.w,
+                              ),
+                              Expanded(
+                                child: DefualtTextField(
+                                  controller: cubit.distance,
+                                  label: 'Truck Odometer',
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          ),
                           TierDetails(
                             c1: t1Depth1,
                             c2: t1Depth2,
@@ -712,6 +747,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 8.0.h),
                               child: SearchDropDown(
+                                isTruck: false,
                                 onChange: (value) {
                                   cubit.replaceTierWithNew(value);
                                 },
@@ -721,7 +757,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                     .toList()
                                     .cast(),
                                 miniDetails: (String? value) {
-                                  //todo add details
+
                                   return cubit.getTireMiniDetails(value);
                                 },
                               ),
