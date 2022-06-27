@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tire_management/core/utils/helpers.dart';
 import 'package:tire_management/core/utils/services/local/cache_helper.dart';
 
 import 'package:tire_management/ui/modules/tire_management/cubit/states.dart';
@@ -27,11 +28,9 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   TiresRepository repo = TiresRepositoryImplementation();
 
   String? getTireMiniDetails(String? value) {
-    var tire =
-        newTires.firstWhere((tire) => tire.tireSerial == value);
+    var tire = newTires.firstWhere((tire) => tire.tireSerial == value);
 
-    return 'Status: ${int.parse(tire.distance??'0')>0 ?'Retread':'New'}${int.parse(tire.distance??'0')>0 ? '\nDistance: ${tire.distance} km':''} \nBrand: ${tire.tireBrand}\nSize: ${tire.tireSize}\n';
-
+    return 'Status: ${int.parse(tire.distance ?? '0') > 0 ? 'Retread' : 'New'}${int.parse(tire.distance ?? '0') > 0 ? '\nDistance: ${formatNumber(tire.distance ?? '0')} km' : ''} \nBrand: ${tire.tireBrand}\nSize: ${tire.tireSize}\n';
   }
 
   void getTires() async {
@@ -59,7 +58,7 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
         emit(GetTiresErrorState(
             'server error, check your internet connection and try again.'));
       }
-      }
+    }
     // } catch (error) {
     //   print(error);
     //   emit(GetTiresErrorState('Something wrong!'));
@@ -92,7 +91,8 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
       print('firstTire id ${firstTire!.tirePosition}');
       print('Tire id ${tire.tirePosition}');
     } else {
-      if (firstTire!.tirePosition == tire.tirePosition && selectedAction == null) {
+      if (firstTire!.tirePosition == tire.tirePosition &&
+          selectedAction == null) {
         firstTire = null;
         isBottomSheetOpened = false;
       } else if (firstTire!.tirePosition != tire.tirePosition &&
@@ -130,9 +130,8 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
 
   void replaceTierWithNew(value) {
     // secondTire = Tire(id: 20, position: 'new', tireSerial: '567');
-    secondTire = newTires.firstWhere((element) => element.tireSerial==value);
+    secondTire = newTires.firstWhere((element) => element.tireSerial == value);
     emit(SelectNewTierState());
-
   }
 
   void saveProcess() {
@@ -167,7 +166,6 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
   }
 
   Future<void> startMovement() async {
-
     String truckNO = truckNumber!;
     String userId = userData!.id!;
     String movementType = selectedAction!;
@@ -203,7 +201,6 @@ class TiersManageCubit extends Cubit<TiresManageStates> {
     try {
       var result = await repo.setTires(lastData);
       if (result.data['flag']) {
-
         emit(TireMovementSuccessState(result.data['message']));
       }
     } on DioError catch (error) {

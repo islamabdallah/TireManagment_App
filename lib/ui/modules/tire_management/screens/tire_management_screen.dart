@@ -10,6 +10,7 @@ import 'package:simple_shadow/simple_shadow.dart';
 import 'package:tire_management/ui/modules/truck_selection/screens/truck_selection_screen.dart';
 import 'package:tire_management/ui/shared/components/search_drop_down.dart';
 import 'package:tire_management/ui/shared/utils/navigations.dart';
+import '../../../../core/utils/helpers.dart';
 import '../../../shared/components/defualt_text_field.dart';
 import '../../../shared/components/drawer_widget.dart';
 import '../../../shared/components/note_text.dart';
@@ -453,7 +454,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                   value: tire.tireBrand ?? '-'),
                                               TierDetailItem(
                                                   title: 'Distance : ',
-                                                  value: '${(tire.distance?.isEmpty ==null || tire.distance?.isEmpty==true)?'0':tire.distance} km'),
+                                                  value: '${(tire.distance?.isEmpty ==null || tire.distance?.isEmpty==true)?'0':formatNumber(tire.distance??'0')} km'),
                                             ],
                                           ),
                                         ],
@@ -488,7 +489,7 @@ class _TiersManagementScreenState extends State<TiersManagementScreen> {
                                                 TierDetailItem(
                                                     title: 'Distance : ',
                                                     value:
-                                                    '${(tire2.distance?.isEmpty ==null || tire2.distance?.isEmpty==true)?'0':tire2.distance} km'),
+                                                    '${(tire2.distance?.isEmpty ==null || tire2.distance?.isEmpty==true)?'0': formatNumber(tire2.distance??'0')} km'),
                                               ],
                                             ),
                                           ],

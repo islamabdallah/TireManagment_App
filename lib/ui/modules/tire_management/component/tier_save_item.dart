@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tire_management/core/utils/helpers.dart';
 import 'package:tire_management/ui/modules/tire_management/component/input_management_screen.dart';
 import 'package:tire_management/ui/modules/tire_management/cubit/cubit.dart';
 import 'package:tire_management/ui/modules/tire_management/cubit/states.dart';
@@ -17,11 +18,13 @@ class TierDetailItem extends StatelessWidget {
   String title;
   String value;
   bool isOLd;
+
   TierDetailItem({
     required this.title,
     required this.value,
     this.isOLd = false,
   });
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,7 +36,7 @@ class TierDetailItem extends StatelessWidget {
             color: mainColor,
             fontWeight: FontWeight.w700,
             fontFamily: "Roboto",
-            fontStyle:  FontStyle.normal,
+            fontStyle: FontStyle.normal,
           ),
         ),
         Text(
@@ -61,6 +64,7 @@ class TierDetails extends StatelessWidget {
   Tire? data;
 
   var dropdownOnChange;
+
   TierDetails({
     required this.serial,
     required this.newPosition,
@@ -73,6 +77,7 @@ class TierDetails extends StatelessWidget {
     this.dropdownOnChange,
     required this.data,
   });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,7 +85,7 @@ class TierDetails extends StatelessWidget {
       children: [
         Row(
           children: [
-            TierWidget(data:data,isNew: oldPosition.isEmpty?true:false),
+            TierWidget(data: data, isNew: oldPosition.isEmpty ? true : false),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,12 +95,17 @@ class TierDetails extends StatelessWidget {
                 ),
                 TierDetailItem(
                   title: 'Distance : ',
-                  value: '${(data?.distance?.isEmpty ==null || data?.distance?.isEmpty==true)?'0':data?.distance} km', //todo change this to distance
+                  value:
+                      '${(data?.distance?.isEmpty == null || data?.distance?.isEmpty == true) ? '0' : formatNumber(data?.distance ?? '0')} km', //todo change this to distance
                   // value: '${data!.distance} km', //todo change this to distance
                 ),
                 TierDetailItem(
                   title: 'Old Position : ',
-                  value: oldPosition.isEmpty? int.parse(data?.distance??'0')>0? 'Retread':'New':oldPosition,
+                  value: oldPosition.isEmpty
+                      ? int.parse(data?.distance ?? '0') > 0
+                          ? 'Retread'
+                          : 'New'
+                      : oldPosition,
                   isOLd: true,
                 ),
                 TierDetailItem(
@@ -104,10 +114,8 @@ class TierDetails extends StatelessWidget {
                 ),
               ],
             ),
-
           ],
         ),
-
         SizedBox(
           height: 20.h,
         ),
